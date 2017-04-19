@@ -17,14 +17,6 @@ public class Login extends AppCompatActivity {
         setContentView(com.b5.findfurryfriends.R.layout.activity_login);
 
 
-        FloatingActionButton bypass = (FloatingActionButton) findViewById(com.b5.findfurryfriends.R.id.bypass);
-        bypass.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent toSearch = new Intent(Login.this, MainActivity.class);
-                startActivity(toSearch);
-            }
-        });
-
         final SignInButton signIn = (SignInButton) findViewById(com.b5.findfurryfriends.R.id.sign_in_button);
         signIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
