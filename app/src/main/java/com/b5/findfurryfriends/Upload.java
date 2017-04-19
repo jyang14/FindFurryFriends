@@ -33,11 +33,17 @@ public class Upload extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FirebaseInterface instant = FirebaseInstance.getFirebase(Upload.this);
-                instant.uploadAnimal(new Animal(((TextView)findViewById(R.id.nameEntry)).getText().toString(),null,12,null,null,0,0));
-                //this will take all information entered and put it in database
-                //need a method to take all information -> how do the guys want it stored?
-                TextView tester = (TextView) findViewById(com.b5.findfurryfriends.R.id.textView);
-                tester.setText("submitted");
+                try{
+                    int age = Integer.parseInt(((TextView)(findViewById(R.id.ageEntry))).getText().toString());
+                    instant.uploadAnimal(new Animal(((TextView)findViewById(R.id.nameEntry)).getText().toString(),null,age,((TextView)findViewById(R.id.infoEntry)).getText().toString(),null,0,0));
+                    //this will take all information entered and put it in database
+                    //need a method to take all information -> how do the guys want it stored?
+                    TextView tester = (TextView) findViewById(R.id.textView);
+                    tester.setText("submitted");
+                }catch(NumberFormatException e){
+                    TextView tester = (TextView) findViewById(R.id.textView);
+                    tester.setText("Invalid Entry");
+                }
             }
         });
     }
