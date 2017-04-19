@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 
 import com.b5.findfurryfriends.firebase.FirebaseInstance;
 
@@ -19,7 +20,8 @@ public class Profile extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(com.b5.findfurryfriends.R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(com.b5.findfurryfriends.R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton)
+                findViewById(com.b5.findfurryfriends.R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent toSearch = new Intent(Profile.this, MainActivity.class);
@@ -34,6 +36,15 @@ public class Profile extends AppCompatActivity {
                 startActivity(toLogin);
             }
         });
+//        SeekBar minAge = (SeekBar) findViewById(R.id.minAgeSeek);
+//        SeekBar maxAge = (SeekBar) findViewById(R.id.maxAgeSeek);
+//
+//        maxAge.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            public void onSeekBarChange(View v) {
+//
+//            }
+//        });
+
     }
 
 }

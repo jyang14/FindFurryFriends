@@ -34,8 +34,7 @@ public class Upload extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseInterface instant = FirebaseInstance.getFirebase(Upload.this);
                 instant.uploadAnimal(new Animal(((TextView)findViewById(R.id.nameEntry)).getText().toString(),null,12,null,null,0,0));
-                //this will take all information entered and put it in database
-                //need a method to take all information -> how do the guys want it stored?
+                //this just changes the text - does not actually mean anything
                 TextView tester = (TextView) findViewById(com.b5.findfurryfriends.R.id.textView);
                 tester.setText("submitted");
             }

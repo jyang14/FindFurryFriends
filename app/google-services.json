@@ -104,7 +104,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1055526604988:android:d75ae03908063bb1",
         "android_client_info": {
-          "package_name": "com.b5.findfurryfriends"
+          "package_name": "com.b5.findfuryfriends"
         }
       },
       "oauth_client": [
@@ -112,7 +112,7 @@
           "client_id": "1055526604988-3qrjhe52134tsldvepfqk0lkrkqa0n81.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.b5.findfurryfriends",
+            "package_name": "com.b5.findfuryfriends",
             "certificate_hash": "b3ea5637cde44e11d8ed39cf41eebacef8689ce7"
           }
         },
@@ -155,6 +155,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1055526604988-fomest90b4msu4bi3d7sau54sbu04jbk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.b5.findfurryfriends",
+            "certificate_hash": "48d3f87ec0bb9aed354ed6c192f6ba1dcdd699c2"
+          }
+        },
+        {
+          "client_id": "1055526604988-01hat012t6gqnb92m606md10eimok67q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.b5.findfurryfriends",
+            "certificate_hash": "94e5c96e48ed1dae6d38a97e220fe4fffdcc92a1"
+          }
+        },
         {
           "client_id": "1055526604988-dnrm357np5iigd300aq13lgajrnkg2lf.apps.googleusercontent.com",
           "client_type": 1,
