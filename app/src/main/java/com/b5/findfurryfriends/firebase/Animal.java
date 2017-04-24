@@ -15,14 +15,12 @@ public class Animal {
     public String description;
     public List<String> tags;
 
-    public Animal(String name, String image, int age, String description, List<String> tags, long userID, long animalID) {
+    public Animal(String name, String image, int age, String description, List<String> tags) {
         this.name = name;
         this.image = image;
         this.age = age;
-        this.animalID = animalID;
         this.description = description;
         this.tags = tags;
-        this.userID = userID;
     }
 
     public Animal(){
