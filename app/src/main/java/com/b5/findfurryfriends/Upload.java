@@ -34,7 +34,7 @@ public class Upload extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseInterface instant = FirebaseInstance.getFirebase(Upload.this);
                 try{
-                    int age = Integer.parseInt(((TextView)(findViewById(R.id.ageEntry))).getText().toString());
+                    short age = Short.parseShort(((TextView)(findViewById(R.id.ageEntry))).getText().toString());
                     instant.uploadAnimal(new Animal(((TextView)findViewById(R.id.nameEntry)).getText().toString(),null,age,((TextView)findViewById(R.id.infoEntry)).getText().toString(),null));
                     //this will take all information entered and put it in database
                     //need a method to take all information -> how do the guys want it stored?
