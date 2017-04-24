@@ -12,10 +12,5 @@ public interface DataInterface {
     void uploadAnimal(Animal animal);
 
 
-    /**
-     * NOT IMPLEMENTED
-     * @param tags
-     * @return animals
-     */
-    List<Animal> search(List<String> tags);
+    void search(List<String> tags, final FetcherHandler handler);
 }

@@ -39,10 +39,11 @@ public class Upload extends AppCompatActivity {
                     //this will take all information entered and put it in database
                     //need a method to take all information -> how do the guys want it stored?
                     TextView tester = (TextView) findViewById(R.id.textView);
-                    tester.setText("submitted");
+                    tester.setText(R.string.submitted);
                 }catch(NumberFormatException e){
+                    instant.uploadAnimal(new Animal(((TextView)findViewById(R.id.nameEntry)).getText().toString(),null,(short)-1,((TextView)findViewById(R.id.infoEntry)).getText().toString(),null));
                     TextView tester = (TextView) findViewById(R.id.textView);
-                    tester.setText("Invalid Entry");
+                    tester.setText(R.string.submitted);
                 }
             }
         });
