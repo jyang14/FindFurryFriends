@@ -12,5 +12,5 @@ public interface DataInterface {
     void uploadAnimal(Animal animal);
 
 
-    void search(List<String> tags, final FetcherHandler handler);
+    void search(List<String> tags, FetcherHandler handler);
 }
