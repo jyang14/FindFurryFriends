@@ -44,10 +44,6 @@ public class Upload extends AppCompatActivity {
                     TextView tester = (TextView) findViewById(R.id.textView);
                     tester.setText("Invalid Entry");
                 }
-                instant.uploadAnimal(new Animal(((TextView)findViewById(R.id.nameEntry)).getText().toString(),null,12,null,null,0,0));
-                //this just changes the text - does not actually mean anything
-                TextView tester = (TextView) findViewById(com.b5.findfurryfriends.R.id.textView);
-                tester.setText("submitted");
             }
         });
     }
