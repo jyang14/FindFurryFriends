@@ -12,11 +12,11 @@ public class FirebaseInstance {
     public static FirebaseInterface getFirebase(AppCompatActivity activity){
         if(instance!=null){
             instance.setActivity(activity);
-            return instance;
         }else{
             instance = new FirebaseWrapper(activity);
-            return instance;
         }
+        return instance;
+
     }
 
 }
