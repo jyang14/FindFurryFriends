@@ -167,7 +167,5 @@ public class FirebaseWrapper extends FirebaseInterface {
     }
 
     @Override
-    public List<Animal> search(List<String> tags) {
-        return null;
-    }
+    public void search(List<String> tags, FetcherHandler handler) {}
 }

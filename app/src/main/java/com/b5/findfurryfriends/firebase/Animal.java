@@ -11,11 +11,11 @@ public class Animal {
     public String image;
     public long userID;
     public long animalID;
-    public int age;
+    public short age;
     public String description;
     public List<String> tags;
 
-    public Animal(String name, String image, int age, String description, List<String> tags) {
+    public Animal(String name, String image, short age, String description, List<String> tags) {
         this.name = name;
         this.image = image;
         this.age = age;
