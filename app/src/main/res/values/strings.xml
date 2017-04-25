@@ -7,6 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_favs">Favs</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="submitted">Submitted</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
