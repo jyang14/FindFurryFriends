@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search" />
+    <item
+        android:id="@+id/navigation_upload"
+        android:icon="@drawable/ic_menu_send"
+        android:title="Upload" />
+    <item
+        android:id="@+id/navigation_favs"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="Favourites" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Profile" />
+
+</menu>
