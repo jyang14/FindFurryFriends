@@ -1,12 +1,17 @@
 package com.b5.findfurryfriends.firebase;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +24,8 @@ import java.util.List;
  */
 
 public class FirebaseWrapper extends FirebaseInterface {
+
+    boolean signOut = false;
 
     FirebaseWrapper(final AppCompatActivity activity) {
         super(activity);
@@ -37,8 +44,23 @@ public class FirebaseWrapper extends FirebaseInterface {
 
     @Override
     public void signOut() {
-        // Firebase sign out
-        mAuth.signOut();
+
+        if (!mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.connect();
+            signOut = true;
+        } else {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (mAuth != null && mAuth.getCurrentUser() != null) {
+                                // Firebase sign out
+                                mAuth.signOut();
+
+                            }
+                        }
+                    });
+        }
 
     }
 
@@ -167,5 +189,29 @@ public class FirebaseWrapper extends FirebaseInterface {
     }
 
     @Override
-    public void search(List<String> tags, FetcherHandler handler) {}
+    public void search(List<String> tags, FetcherHandler handler) {
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (signOut) {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (mAuth != null && mAuth.getCurrentUser() != null) {
+                                // Firebase sign out
+                                mAuth.signOut();
+
+                            }
+                        }
+                    });
+            signOut = false;
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
 }

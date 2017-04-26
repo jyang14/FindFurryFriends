@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by jinch on 4/12/2017.
  */
 
-public abstract class FirebaseInterface implements AuthInterface, DataInterface, GoogleApiClient.OnConnectionFailedListener // Java, why don't you support multiple inheritance?
+public abstract class FirebaseInterface implements AuthInterface, DataInterface, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks // Java, why don't you support multiple inheritance?
 {
 
     protected static FirebaseInterface instance;
@@ -31,7 +31,7 @@ public abstract class FirebaseInterface implements AuthInterface, DataInterface,
     protected static final int RC_SIGN_IN = 9001;
     protected final String TAG = "GoogleActivity";
     protected AppCompatActivity activity;
-    protected GoogleApiClient mGoogleApiClient;
+    protected static GoogleApiClient mGoogleApiClient;
     protected FirebaseAuth mAuth;
     protected FirebaseDatabase database;
     protected FirebaseAuth.AuthStateListener mAuthListener;
@@ -46,6 +46,7 @@ public abstract class FirebaseInterface implements AuthInterface, DataInterface,
         this.activity = activity;
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1055526604988-3ag104h10gjtt0btuvl9nsjehqdfv3no.apps.googleusercontent.com").requestEmail().build();
         mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(activity /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+        mGoogleApiClient.connect();
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();

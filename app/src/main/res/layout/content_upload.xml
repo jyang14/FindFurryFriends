@@ -1,119 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.b5.findfurryfriends.Upload"
-    tools:showIn="@layout/activity_upload"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true">
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
-        <EditText
-            android:id="@+id/nameEntry"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter your pet's name..."
-            android:inputType="textPersonName"
-            tools:layout_conversion_absoluteHeight="42dp"
-            tools:layout_conversion_absoluteWidth="368dp"
-            tools:layout_conversion_absoluteX="16dp"
-            tools:layout_conversion_absoluteY="281dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="382dp" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.b5.findfurryfriends.Upload"
+            tools:showIn="@layout/activity_upload"
+            tools:layout_editor_absoluteY="81dp"
+            tools:layout_editor_absoluteX="0dp">
 
-        <EditText
-            android:id="@+id/ageEntry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter your pet's age..."
-            android:inputType="number"
-            tools:layout_conversion_absoluteHeight="42dp"
-            tools:layout_conversion_absoluteWidth="368dp"
-            tools:layout_conversion_absoluteX="8dp"
-            tools:layout_conversion_absoluteY="128dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="128dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
-        <EditText
-            android:id="@+id/breedEntry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter your pet's breed..."
-            android:inputType="textPersonName"
-            tools:layout_conversion_absoluteHeight="42dp"
-            tools:layout_conversion_absoluteWidth="368dp"
-            tools:layout_conversion_absoluteX="16dp"
-            tools:layout_conversion_absoluteY="199dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="340dp" />
+                <EditText
+                    android:id="@+id/nameEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter your pet's name..."
+                    android:inputType="textPersonName"
+                    tools:layout_conversion_absoluteHeight="42dp"
+                    tools:layout_conversion_absoluteWidth="368dp"
+                    tools:layout_conversion_absoluteX="16dp"
+                    tools:layout_conversion_absoluteY="281dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="382dp" />
 
-        <EditText
-            android:id="@+id/infoEntry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Describe your pet..."
-            android:inputType="textMultiLine"
-            tools:layout_conversion_absoluteHeight="42dp"
-            tools:layout_conversion_absoluteWidth="368dp"
-            tools:layout_conversion_absoluteX="8dp"
-            tools:layout_conversion_absoluteY="55dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="55dp" />
+                <EditText
+                    android:id="@+id/ageEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter your pet's age..."
+                    android:inputType="number"
+                    tools:layout_conversion_absoluteHeight="42dp"
+                    tools:layout_conversion_absoluteWidth="368dp"
+                    tools:layout_conversion_absoluteX="8dp"
+                    tools:layout_conversion_absoluteY="128dp"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="128dp" />
 
-        <EditText
-            android:id="@+id/tagEntry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter your pet's tags (separated by commas)"
-            android:inputType="textMultiLine"
-            tools:layout_conversion_absoluteHeight="42dp"
-            tools:layout_conversion_absoluteWidth="368dp"
-            tools:layout_conversion_absoluteX="16dp"
-            tools:layout_conversion_absoluteY="111dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="111dp" />
+                <EditText
+                    android:id="@+id/breedEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter your pet's breed..."
+                    android:inputType="textPersonName"
+                    tools:layout_conversion_absoluteHeight="42dp"
+                    tools:layout_conversion_absoluteWidth="368dp"
+                    tools:layout_conversion_absoluteX="16dp"
+                    tools:layout_conversion_absoluteY="199dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="340dp" />
 
-        <Button
-            android:id="@+id/upload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="submit your pet"
-            android:textSize="18sp"
-            tools:layout_conversion_absoluteHeight="48dp"
-            tools:layout_conversion_absoluteWidth="384dp"
-            tools:layout_conversion_absoluteX="0dp"
-            tools:layout_conversion_absoluteY="378dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="340dp" />
+                <EditText
+                    android:id="@+id/infoEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Describe your pet..."
+                    android:inputType="textMultiLine"
+                    tools:layout_conversion_absoluteHeight="42dp"
+                    tools:layout_conversion_absoluteWidth="368dp"
+                    tools:layout_conversion_absoluteX="8dp"
+                    tools:layout_conversion_absoluteY="55dp"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="55dp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="not submitted"
-            tools:layout_conversion_absoluteHeight="16dp"
-            tools:layout_conversion_absoluteWidth="87dp"
-            tools:layout_conversion_absoluteX="16dp"
-            tools:layout_conversion_absoluteY="422dp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="422dp" />
+                <EditText
+                    android:id="@+id/tagEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter your pet's tags (separated by commas)"
+                    android:inputType="textMultiLine"
+                    tools:layout_conversion_absoluteHeight="42dp"
+                    tools:layout_conversion_absoluteWidth="368dp"
+                    tools:layout_conversion_absoluteX="16dp"
+                    tools:layout_conversion_absoluteY="111dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="111dp" />
 
-    </LinearLayout>
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
 
-</RelativeLayout>
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <Button
+                    android:id="@+id/upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="submit your pet"
+                    android:textSize="18sp"
+                    tools:layout_conversion_absoluteHeight="48dp"
+                    tools:layout_conversion_absoluteWidth="384dp"
+                    tools:layout_conversion_absoluteX="0dp"
+                    tools:layout_conversion_absoluteY="378dp"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="340dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="not submitted"
+                    tools:layout_conversion_absoluteHeight="16dp"
+                    tools:layout_conversion_absoluteWidth="87dp"
+                    tools:layout_conversion_absoluteX="16dp"
+                    tools:layout_conversion_absoluteY="422dp"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="422dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
