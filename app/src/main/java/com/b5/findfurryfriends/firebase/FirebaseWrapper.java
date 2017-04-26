@@ -86,7 +86,7 @@ public class FirebaseWrapper extends FirebaseInterface {
 
                                 long id = authSnapshot.child(mAuth.getCurrentUser().getUid()).getValue(Long.class);
 
-                                final DatabaseReference userRef = database.getReference("/users/" + String.valueOf(id));
+                                final DatabaseReference userRef = database.getReference("/users/users/" + String.valueOf(id));
 
                                 userRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -118,7 +118,7 @@ public class FirebaseWrapper extends FirebaseInterface {
                                         Log.d(TAG, "Value is: " + value);
                                         user = new User(mAuth.getCurrentUser().getDisplayName(), value, mAuth.getCurrentUser().getEmail());
                                         myRef.setValue(value);
-                                        DatabaseReference newRef = database.getReference("users");
+                                        DatabaseReference newRef = database.getReference("users/users/");
                                         newRef.child(String.valueOf(value)).setValue(user);
                                         authRef.child(mAuth.getCurrentUser().getUid()).setValue(value);
                                     }
@@ -174,7 +174,7 @@ public class FirebaseWrapper extends FirebaseInterface {
                 value++;
                 Log.d(TAG, "Value is: " + value);
                 myRef.setValue(value);
-                DatabaseReference newRef = database.getReference("animals");
+                DatabaseReference newRef = database.getReference("animals/animals");
                 animal.animalID = value;
                 newRef.child(String.valueOf(value)).setValue(animal);
 
@@ -190,6 +190,29 @@ public class FirebaseWrapper extends FirebaseInterface {
 
     @Override
     public void search(List<String> tags, FetcherHandler handler) {
+
+
+        final DatabaseReference myRef = database.getReference("animals/animals");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                long num = dataSnapshot.getChildrenCount();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+
     }
 
     @Override
