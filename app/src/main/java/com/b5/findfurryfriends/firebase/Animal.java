@@ -27,4 +27,9 @@ public class Animal {
 
     }
 
+    @Override
+    public String toString(){
+        return String.format("Animal{ name: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}",name,userID,animalID, age, description);
+    }
+
 }

@@ -15,6 +15,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
@@ -200,7 +201,13 @@ public class FirebaseWrapper extends FirebaseInterface {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                long num = dataSnapshot.getChildrenCount();
+                GenericTypeIndicator<List<Animal>> genericTypeIndicator =new GenericTypeIndicator<List<Animal>>(){};
+                List<Animal> test = dataSnapshot.getValue(genericTypeIndicator);
+
+                for(Animal temp : test){
+                    Log.v("JINCHAO", temp.toString());
+                }
+
 
             }
 
@@ -210,8 +217,6 @@ public class FirebaseWrapper extends FirebaseInterface {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
 
     }
 
