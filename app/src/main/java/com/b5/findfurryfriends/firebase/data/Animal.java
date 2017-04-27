@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends.firebase;
+package com.b5.findfurryfriends.firebase.data;
 
 import java.util.List;
 

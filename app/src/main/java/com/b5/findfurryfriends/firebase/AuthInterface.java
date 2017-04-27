@@ -11,7 +11,7 @@ public interface AuthInterface {
     void signIn();
     void signOut();
 
-    boolean onActivityResult(int requestCode, int resultCode, Intent data);
+    boolean signInOnIntentResult(int requestCode, int resultCode, Intent data);
 
 }
 

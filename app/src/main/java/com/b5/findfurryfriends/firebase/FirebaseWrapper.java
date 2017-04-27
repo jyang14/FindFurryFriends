@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.b5.findfurryfriends.firebase.data.Animal;
+import com.b5.findfurryfriends.firebase.listeners.LoginListener;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -54,7 +56,7 @@ public class FirebaseWrapper extends FirebaseInterface {
                     new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {
-                            if (mAuth != null && mAuth.getCurrentUser() != null) {
+                            if (mAuth != null) {
                                 // Firebase sign out
                                 mAuth.signOut();
 
@@ -66,7 +68,7 @@ public class FirebaseWrapper extends FirebaseInterface {
     }
 
     @Override
-    public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+    public boolean signInOnIntentResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             Log.w(TAG, String.valueOf(result.isSuccess()));
@@ -76,74 +78,7 @@ public class FirebaseWrapper extends FirebaseInterface {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
 
-                final DatabaseReference authRef = database.getReference("/users/auth");
-
-                authRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(final DataSnapshot authSnapshot) {
-                        Log.w(TAG, "Test");
-                        if (mAuth.getCurrentUser() != null) {
-                            if (authSnapshot.hasChild(mAuth.getCurrentUser().getUid())) {
-
-                                long id = authSnapshot.child(mAuth.getCurrentUser().getUid()).getValue(Long.class);
-
-                                final DatabaseReference userRef = database.getReference("/users/users/" + String.valueOf(id));
-
-                                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                        user = dataSnapshot.getValue(User.class);
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError error) {
-                                        Log.w(TAG, "Failed to get user.", error.toException());
-                                    }
-                                });
-
-                            } else {
-
-                                final DatabaseReference myRef = database.getReference("users/last-id");
-
-                                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        // This method is called once with the initial value and again
-                                        // whenever data at this location is updated.
-                                        long value = dataSnapshot.getValue(Long.class);
-                                        value++;
-                                        Log.d(TAG, "Value is: " + value);
-                                        user = new User(mAuth.getCurrentUser().getDisplayName(), value, mAuth.getCurrentUser().getEmail());
-                                        myRef.setValue(value);
-                                        DatabaseReference newRef = database.getReference("users/users/");
-                                        newRef.child(String.valueOf(value)).setValue(user);
-                                        authRef.child(mAuth.getCurrentUser().getUid()).setValue(value);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError error) {
-                                        Log.w(TAG, "Failed to create user.", error.toException());
-                                    }
-                                });
-                            }
-                        } else {
-                            Log.w(TAG, "USER ID IS NULL");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.w(TAG, "Failed to create get auth.", error.toException());
-
-                    }
-                });
-
                 return true;
-
             }
         }
         return false;
@@ -227,7 +162,7 @@ public class FirebaseWrapper extends FirebaseInterface {
                     new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {
-                            if (mAuth != null && mAuth.getCurrentUser() != null) {
+                            if (mAuth != null) {
                                 // Firebase sign out
                                 mAuth.signOut();
 
@@ -242,4 +177,5 @@ public class FirebaseWrapper extends FirebaseInterface {
     public void onConnectionSuspended(int i) {
 
     }
+
 }

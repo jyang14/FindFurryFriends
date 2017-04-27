@@ -2,7 +2,6 @@ package com.b5.findfurryfriends;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -28,7 +27,7 @@ public class Login extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if(FirebaseInstance.getFirebase(this).onActivityResult(requestCode,resultCode,data)) {
+        if(FirebaseInstance.getFirebase(this).signInOnIntentResult(requestCode,resultCode,data)) {
             Intent toSearch = new Intent(Login.this, MainActivity.class);
             startActivity(toSearch);
         }

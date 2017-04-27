@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.listeners.LoginListener;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -17,7 +19,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by jinch on 4/12/2017.
@@ -58,13 +62,14 @@ public abstract class FirebaseInterface implements AuthInterface, DataInterface,
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+
+                    final DatabaseReference authRef = database.getReference("/users/auth");
+                    authRef.addListenerForSingleValueEvent(new LoginListener(FirebaseInterface.this, authRef, database));
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // [START_EXCLUDE]
-                //  activity.updateUI(user);
-                // [END_EXCLUDE]
             }
         };
 
@@ -98,5 +103,13 @@ public abstract class FirebaseInterface implements AuthInterface, DataInterface,
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    public User getUser(ValueEventListener listener) {
+        return user;
+    }
+
+    public void setUser(ValueEventListener listener, User user) {
+        this.user = user;
     }
 }

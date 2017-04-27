@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.b5.findfurryfriends.firebase.Animal;
+import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.FirebaseInstance;
 import com.b5.findfurryfriends.firebase.FirebaseInterface;
 
