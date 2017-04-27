@@ -2,7 +2,7 @@ package com.b5.findfurryfriends.firebase.listeners;
 
 import android.util.Log;
 
-import com.b5.findfurryfriends.firebase.FirebaseInterface;
+import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -14,14 +14,14 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * Created by jinch on 4/26/2017.
  */
-public class LoginListener implements ValueEventListener {
-    private FirebaseInterface firebaseInterface;
+public final class LoginListener implements ValueEventListener {
     private final DatabaseReference authRef;
     private final FirebaseDatabase database;
     private final String TAG = "LOGIN";
+    private FirebaseWrapper firebaseInterface;
 
 
-    public LoginListener(FirebaseInterface firebaseInterface, DatabaseReference authRef, FirebaseDatabase database) {
+    public LoginListener(FirebaseWrapper firebaseInterface, DatabaseReference authRef, FirebaseDatabase database) {
         this.firebaseInterface = firebaseInterface;
         this.authRef = authRef;
         this.database = database;

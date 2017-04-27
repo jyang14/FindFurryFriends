@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class FirebaseInstance {
-    private static FirebaseInterface instance;
 
-    public static FirebaseInterface getFirebase(AppCompatActivity activity){
+    //Lazy singleton
+    private static FirebaseWrapper instance;
+
+    public static FirebaseWrapper getFirebase(AppCompatActivity activity) {
         if(instance!=null){
             instance.setActivity(activity);
         }else{

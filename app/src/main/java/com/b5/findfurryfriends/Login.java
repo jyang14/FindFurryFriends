@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if(FirebaseInstance.getFirebase(this).signInOnIntentResult(requestCode,resultCode,data)) {
+        if (FirebaseInstance.getFirebase(this).signInOnIntentResult(requestCode, data)) {
             Intent toSearch = new Intent(Login.this, MainActivity.class);
             startActivity(toSearch);
         }

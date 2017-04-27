@@ -17,7 +17,7 @@ public class User {
         this.username = username;
         this.userID = userID;
         this.contact = contact;
-        animalIDs = new ArrayList<Long>();
+        animalIDs = new ArrayList<>();
     }
 
     public User(){

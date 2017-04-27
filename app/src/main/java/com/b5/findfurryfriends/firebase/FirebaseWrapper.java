@@ -1,87 +1,83 @@
 package com.b5.findfurryfriends.firebase;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
+import com.b5.findfurryfriends.firebase.data.User;
 import com.b5.findfurryfriends.firebase.listeners.LoginListener;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 /**
- * Created by sampendergast on 4/7/17.
+ * Created by jinch on 4/12/2017.
  */
 
-public class FirebaseWrapper extends FirebaseInterface {
+//TODO Refractor code create proper singleton move stuff to DataInterface and FirebaseAuthWrapper (make concrete)
+public class FirebaseWrapper extends FirebaseAuthWrapper implements DataInterface, GoogleApiClient.OnConnectionFailedListener // Java, hasAuthListener don't you support multiple inheritance?
+{
 
-    boolean signOut = false;
+    protected FirebaseDatabase database;
+    protected User user = null;
 
-    FirebaseWrapper(final AppCompatActivity activity) {
+    protected FirebaseWrapper(final AppCompatActivity activity) {
         super(activity);
-    }
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1055526604988-3ag104h10gjtt0btuvl9nsjehqdfv3no.apps.googleusercontent.com").requestEmail().build();
+        mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(activity /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+        mGoogleApiClient.connect();
 
-    @Override
-    public void signIn() {
-        if (why) {
-            mAuth.addAuthStateListener(mAuthListener);
-            why = false;
-        }
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        activity.startActivityForResult(signInIntent, RC_SIGN_IN);
+        database = FirebaseDatabase.getInstance();
 
-    }
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
-    @Override
-    public void signOut() {
+                    final DatabaseReference authRef = database.getReference("/users/auth");
+                    authRef.addListenerForSingleValueEvent(new LoginListener(FirebaseWrapper.this, authRef, database));
 
-        if (!mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.connect();
-            signOut = true;
-        } else {
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                    new ResultCallback<Status>() {
-                        @Override
-                        public void onResult(@NonNull Status status) {
-                            if (mAuth != null) {
-                                // Firebase sign out
-                                mAuth.signOut();
-
-                            }
-                        }
-                    });
-        }
-
-    }
-
-    @Override
-    public boolean signInOnIntentResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            Log.w(TAG, String.valueOf(result.isSuccess()));
-            Log.v(TAG, result.getStatus().toString());
-            if (result.isSuccess()) {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = result.getSignInAccount();
-                firebaseAuthWithGoogle(account);
-
-                return true;
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
             }
-        }
-        return false;
+        };
+
+    }
+
+    void setActivity(AppCompatActivity activity) {
+        this.activity = activity;
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    public User getUser(ValueEventListener listener) {
+        return user;
+    }
+
+    public void setUser(ValueEventListener listener, User user) {
+        this.user = user;
     }
 
     @Override
@@ -92,7 +88,7 @@ public class FirebaseWrapper extends FirebaseInterface {
     @Override
     public void uploadAnimal(final Animal animal) {
         if (user == null || animal == null) {
-            Log.w(TAG, "ERROR USER NOT INITIALIZED.", null);
+            Log.w(TAG, "ERROR USER NOT INITIALIZED.");
             return;
         }
 
@@ -136,11 +132,12 @@ public class FirebaseWrapper extends FirebaseInterface {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                GenericTypeIndicator<List<Animal>> genericTypeIndicator =new GenericTypeIndicator<List<Animal>>(){};
+                GenericTypeIndicator<List<Animal>> genericTypeIndicator = new GenericTypeIndicator<List<Animal>>() {
+                };
                 List<Animal> test = dataSnapshot.getValue(genericTypeIndicator);
 
-                for(Animal temp : test){
-                    Log.v("JINCHAO", temp.toString());
+                for (Animal temp : test) {
+                    Log.v("Animal", temp.toString());
                 }
 
 
@@ -152,29 +149,6 @@ public class FirebaseWrapper extends FirebaseInterface {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        if (signOut) {
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                    new ResultCallback<Status>() {
-                        @Override
-                        public void onResult(@NonNull Status status) {
-                            if (mAuth != null) {
-                                // Firebase sign out
-                                mAuth.signOut();
-
-                            }
-                        }
-                    });
-            signOut = false;
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
 
     }
 
