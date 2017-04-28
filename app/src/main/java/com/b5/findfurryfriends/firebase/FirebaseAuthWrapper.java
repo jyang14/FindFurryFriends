@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -25,9 +27,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
  * Created by sampendergast on 4/7/17.
  */
 
-public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks {
+public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, FirebaseAuthWrapperInterface {
 
-    final static String TAG = "GoogleActivity";
+    final static String TAG = "FirebaseAuth";
     private static final int RC_SIGN_IN = 9001;
     GoogleApiClient mGoogleApiClient;
     AppCompatActivity activity;
@@ -40,7 +42,17 @@ public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks 
     FirebaseAuthWrapper(final AppCompatActivity activity) {
         this.activity = activity;
         mAuth = FirebaseAuth.getInstance();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1055526604988-3ag104h10gjtt0btuvl9nsjehqdfv3no.apps.googleusercontent.com").requestEmail().build();
+        mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(activity /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+        mGoogleApiClient.connect();
+
     }
+
+    public void setActivity(AppCompatActivity activity) {
+        this.activity = activity;
+    }
+
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -64,6 +76,7 @@ public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks 
                 });
     }
 
+    @Override
     public void signIn() {
         if (hasAuthListener) {
             mAuth.addAuthStateListener(mAuthListener);
@@ -74,6 +87,7 @@ public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks 
 
     }
 
+    @Override
     public void signOut() {
         if (mGoogleApiClient.isConnected()) {
             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -94,6 +108,7 @@ public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks 
 
     }
 
+    @Override
     public boolean signInOnIntentResult(int requestCode, Intent data) {
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -130,6 +145,13 @@ public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks 
     @Override
     public void onConnectionSuspended(int i) {
         //TODO implement function
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 }
 

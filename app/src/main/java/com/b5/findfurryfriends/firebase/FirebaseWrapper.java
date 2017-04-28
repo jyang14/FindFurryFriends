@@ -1,5 +1,6 @@
 package com.b5.findfurryfriends.firebase;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,10 +8,6 @@ import android.util.Log;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
 import com.b5.findfurryfriends.firebase.listeners.LoginListener;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,21 +24,22 @@ import java.util.List;
  */
 
 //TODO Refractor code create proper singleton move stuff to DataInterface and FirebaseAuthWrapper (make concrete)
-public class FirebaseWrapper extends FirebaseAuthWrapper implements DataInterface, GoogleApiClient.OnConnectionFailedListener // Java, hasAuthListener don't you support multiple inheritance?
+public class FirebaseWrapper implements DataInterface, FirebaseAuthWrapperInterface // Java, hasAuthListener don't you support multiple inheritance?
 {
 
+    final static String TAG = "FirebaseAuth";
     protected FirebaseDatabase database;
     protected User user = null;
+    private FirebaseAuthWrapper authWrapper;
+    private AppCompatActivity activity;
 
     protected FirebaseWrapper(final AppCompatActivity activity) {
-        super(activity);
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1055526604988-3ag104h10gjtt0btuvl9nsjehqdfv3no.apps.googleusercontent.com").requestEmail().build();
-        mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(activity /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
-        mGoogleApiClient.connect();
+        authWrapper = new FirebaseAuthWrapper(activity);
+        this.activity = activity;
 
         database = FirebaseDatabase.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+        authWrapper.mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -61,15 +59,9 @@ public class FirebaseWrapper extends FirebaseAuthWrapper implements DataInterfac
 
     }
 
-    void setActivity(AppCompatActivity activity) {
+    public void setActivity(AppCompatActivity activity) {
+        authWrapper.setActivity(activity);
         this.activity = activity;
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
-        // be available.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
     public User getUser(ValueEventListener listener) {
@@ -152,4 +144,18 @@ public class FirebaseWrapper extends FirebaseAuthWrapper implements DataInterfac
 
     }
 
+    @Override
+    public void signIn() {
+        authWrapper.signIn();
+    }
+
+    @Override
+    public void signOut() {
+        authWrapper.signOut();
+    }
+
+    @Override
+    public boolean signInOnIntentResult(int requestCode, Intent data) {
+        return authWrapper.signInOnIntentResult(requestCode, data);
+    }
 }
