@@ -2,10 +2,6 @@ package com.b5.findfurryfriends.firebase.data;
 
 import java.util.List;
 
-/**
- * Created by sampendergast on 3/28/17.
- */
-
 public class Animal {
     public String name;
     public String image;

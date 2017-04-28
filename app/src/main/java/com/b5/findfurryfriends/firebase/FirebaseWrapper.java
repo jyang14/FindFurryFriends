@@ -5,24 +5,25 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.b5.findfurryfriends.firebase.data.Animal;
+import com.b5.findfurryfriends.firebase.data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
-/**
- * Created by jinch on 4/12/2017.
- */
+import java.util.List;
 
-//TODO Refractor code create proper singleton move stuff to DataInterface and AuthWrapper (make concrete)
-public class FirebaseWrapper extends DataInterface implements FirebaseAuthWrapperInterface // Java, hasAuthListener don't you support multiple inheritance?
+//TODO Refractor code create proper singleton move stuff to DataWrapper and AuthWrapper (make concrete)
+public class FirebaseWrapper implements AuthInterface, DataInterface // Java, hasAuthListener don't you support multiple inheritance?
 {
 
     final static String TAG = "FirebaseAuth";
     private AuthWrapper authWrapper;
+    private DataWrapper dataWrapper;
 
     protected FirebaseWrapper(final AppCompatActivity activity) {
-        super();
         authWrapper = new AuthWrapper(activity);
+        dataWrapper = new DataWrapper();
 
         authWrapper.mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -32,8 +33,8 @@ public class FirebaseWrapper extends DataInterface implements FirebaseAuthWrappe
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
-                    final DatabaseReference authRef = database.getReference("/users/auth");
-                    authRef.addListenerForSingleValueEvent(new LoginListener(FirebaseWrapper.this, authRef, database));
+                    final DatabaseReference authRef = dataWrapper.database.getReference("/users/auth");
+                    authRef.addListenerForSingleValueEvent(new LoginListener(FirebaseWrapper.this, authRef, dataWrapper.database));
 
                 } else {
                     // User is signed out
@@ -62,5 +63,30 @@ public class FirebaseWrapper extends DataInterface implements FirebaseAuthWrappe
     @Override
     public boolean signInOnIntentResult(int requestCode, Intent data) {
         return authWrapper.signInOnIntentResult(requestCode, data);
+    }
+
+    @Override
+    public User getUser() {
+        return dataWrapper.getUser();
+    }
+
+    @Override
+    public void setUser(User user) {
+        dataWrapper.setUser(user);
+    }
+
+    @Override
+    public List<Animal> fetch(int count) {
+        return dataWrapper.fetch(count);
+    }
+
+    @Override
+    public void uploadAnimal(Animal animal) {
+        dataWrapper.uploadAnimal(animal);
+    }
+
+    @Override
+    public void search(List<String> tags, FetcherHandler handler) {
+        dataWrapper.search(tags, handler);
     }
 }

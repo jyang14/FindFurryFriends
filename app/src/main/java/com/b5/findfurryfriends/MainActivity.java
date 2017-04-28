@@ -11,8 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.FetcherHandler;
+import com.b5.findfurryfriends.firebase.data.Animal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
     public void handle(List<Animal> results) {
 
     }
+
     private ArrayList<Animal> makeFakeData(){
         ArrayList<Animal> temp = new ArrayList<Animal>();
         temp.add(new Animal("Bob","image",5,"fluffy cat", new ArrayList<String>()));

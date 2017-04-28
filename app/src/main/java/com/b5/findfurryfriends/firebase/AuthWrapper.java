@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -23,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, FirebaseAuthWrapperInterface {
+class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, AuthInterface {
 
     private final String TAG = "FirebaseAuth";
     private final int RC_SIGN_IN = 9001;
@@ -39,7 +38,7 @@ public class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleA
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1055526604988-3ag104h10gjtt0btuvl9nsjehqdfv3no.apps.googleusercontent.com").requestEmail().build();
-        mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(activity /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+        mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(activity /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(com.google.android.gms.auth.api.Auth.GOOGLE_SIGN_IN_API, gso).build();
         mGoogleApiClient.connect();
 
     }
@@ -77,7 +76,7 @@ public class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleA
             mAuth.addAuthStateListener(mAuthListener);
             hasAuthListener = false;
         }
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Intent signInIntent = com.google.android.gms.auth.api.Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         activity.startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
@@ -85,7 +84,7 @@ public class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleA
     @Override
     public void signOut() {
         if (mGoogleApiClient.isConnected()) {
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+            com.google.android.gms.auth.api.Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                     new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {
@@ -106,7 +105,7 @@ public class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleA
     @Override
     public boolean signInOnIntentResult(int requestCode, Intent data) {
         if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            GoogleSignInResult result = com.google.android.gms.auth.api.Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             Log.w(TAG, String.valueOf(result.isSuccess()));
             Log.v(TAG, result.getStatus().toString());
             if (result.isSuccess()) {
@@ -122,7 +121,7 @@ public class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleA
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (signOut) {
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+            com.google.android.gms.auth.api.Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                     new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {

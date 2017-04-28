@@ -3,11 +3,7 @@ package com.b5.findfurryfriends.firebase;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
-/**
- * Created by jinch on 4/28/2017.
- */
-
-public interface FirebaseAuthWrapperInterface {
+interface AuthInterface {
     void signIn();
 
     void signOut();

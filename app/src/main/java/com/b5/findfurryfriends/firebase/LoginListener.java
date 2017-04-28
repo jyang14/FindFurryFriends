@@ -10,10 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by jinch on 4/26/2017.
- */
-public final class LoginListener implements ValueEventListener {
+final class LoginListener implements ValueEventListener {
     private final DatabaseReference authRef;
     private final FirebaseDatabase database;
     private final String TAG = "LOGIN";
@@ -45,7 +42,7 @@ public final class LoginListener implements ValueEventListener {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        firebaseInterface.setUser(this, dataSnapshot.getValue(User.class));
+                        firebaseInterface.setUser(dataSnapshot.getValue(User.class));
 
                     }
 
@@ -68,10 +65,10 @@ public final class LoginListener implements ValueEventListener {
                         long value = dataSnapshot.getValue(Long.class);
                         value++;
                         Log.d(TAG, "Value is: " + value);
-                        firebaseInterface.setUser(this, new User(mAuth.getCurrentUser().getDisplayName(), value, mAuth.getCurrentUser().getEmail()));
+                        firebaseInterface.setUser(new User(mAuth.getCurrentUser().getDisplayName(), value, mAuth.getCurrentUser().getEmail()));
                         myRef.setValue(value);
                         DatabaseReference newRef = database.getReference("users/users/");
-                        newRef.child(String.valueOf(value)).setValue(firebaseInterface.getUser(this));
+                        newRef.child(String.valueOf(value)).setValue(firebaseInterface.getUser());
                         authRef.child(mAuth.getCurrentUser().getUid()).setValue(value);
                     }
 
