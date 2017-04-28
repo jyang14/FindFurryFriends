@@ -23,23 +23,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-/**
- * Created by sampendergast on 4/7/17.
- */
+public class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, FirebaseAuthWrapperInterface {
 
-public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, FirebaseAuthWrapperInterface {
-
-    final static String TAG = "FirebaseAuth";
-    private static final int RC_SIGN_IN = 9001;
-    GoogleApiClient mGoogleApiClient;
-    AppCompatActivity activity;
+    private final String TAG = "FirebaseAuth";
+    private final int RC_SIGN_IN = 9001;
+    private final GoogleApiClient mGoogleApiClient;
+    private final FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
-
-    private FirebaseAuth mAuth;
+    private AppCompatActivity activity;
     private boolean hasAuthListener = true;
     private boolean signOut = false;
 
-    FirebaseAuthWrapper(final AppCompatActivity activity) {
+    AuthWrapper(final AppCompatActivity activity) {
         this.activity = activity;
         mAuth = FirebaseAuth.getInstance();
 
@@ -148,7 +143,7 @@ public class FirebaseAuthWrapper implements GoogleApiClient.ConnectionCallbacks,
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);

@@ -1,8 +1,7 @@
-package com.b5.findfurryfriends.firebase.listeners;
+package com.b5.findfurryfriends.firebase;
 
 import android.util.Log;
 
-import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
