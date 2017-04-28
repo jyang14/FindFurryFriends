@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends.firebase;
+package com.b5.findfurryfriends.firebase.data;
 
 import java.util.List;
 
@@ -25,6 +25,11 @@ public class Animal {
 
     public Animal(){
 
+    }
+
+    @Override
+    public String toString(){
+        return String.format("Animal{ name: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}",name,userID,animalID, age, description);
     }
 
 }

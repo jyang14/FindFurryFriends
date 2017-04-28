@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends.firebase;
+package com.b5.findfurryfriends.firebase.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ public class User {
     public String contact;
     public List<Long> animalIDs;
 
-    User(String username, long userID, String contact) {
+    public User(String username, long userID, String contact) {
         this.username = username;
         this.userID = userID;
         this.contact = contact;
-        animalIDs = new ArrayList<Long>();
+        animalIDs = new ArrayList<>();
     }
 
     public User(){

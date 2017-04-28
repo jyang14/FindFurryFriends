@@ -1,5 +1,7 @@
 package com.b5.findfurryfriends.firebase;
 
+import com.b5.findfurryfriends.firebase.data.Animal;
+
 import java.util.List;
 
 /**

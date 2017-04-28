@@ -9,43 +9,24 @@
     tools:context="com.b5.findfurryfriends.MainActivity"
     android:weightSum="1">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.01"
+        android:visibility="gone"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <include
+        layout="@layout/item"
+        layout_weight="1.01"
+        layout_width="match_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.01">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/person_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp" />
-
-            <TextView
-                android:id="@+id/person_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/person_photo"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/person_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/person_name"
-                android:layout_toRightOf="@+id/person_photo" />
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
+        android:layout_weight="1.01" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

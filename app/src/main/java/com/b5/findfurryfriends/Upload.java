@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.b5.findfurryfriends.firebase.Animal;
 import com.b5.findfurryfriends.firebase.FirebaseInstance;
-import com.b5.findfurryfriends.firebase.FirebaseInterface;
+import com.b5.findfurryfriends.firebase.FirebaseWrapper;
+import com.b5.findfurryfriends.firebase.data.Animal;
 
 public class Upload extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class Upload extends AppCompatActivity {
         Button submit = (Button) findViewById(com.b5.findfurryfriends.R.id.upload);
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FirebaseInterface instant = FirebaseInstance.getFirebase(Upload.this);
+                FirebaseWrapper instant = FirebaseInstance.getFirebase(Upload.this);
                 try{
                     int age = Integer.parseInt(((TextView)(findViewById(R.id.ageEntry))).getText().toString());
                     instant.uploadAnimal(new Animal(((TextView)findViewById(R.id.nameEntry)).getText().toString(),null,age,((TextView)findViewById(R.id.infoEntry)).getText().toString(),null));
