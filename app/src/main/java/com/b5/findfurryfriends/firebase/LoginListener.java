@@ -13,8 +13,8 @@ import com.google.firebase.database.ValueEventListener;
 final class LoginListener implements ValueEventListener {
     private final DatabaseReference authRef;
     private final FirebaseDatabase database;
+    private final FirebaseWrapper firebaseInterface;
     private final String TAG = "LOGIN";
-    private FirebaseWrapper firebaseInterface;
 
 
     public LoginListener(FirebaseWrapper firebaseInterface, DatabaseReference authRef, FirebaseDatabase database) {

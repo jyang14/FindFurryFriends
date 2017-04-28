@@ -18,10 +18,12 @@ public class FirebaseWrapper implements AuthInterface, DataInterface // Java, ha
 {
 
     final static String TAG = "FirebaseAuth";
-    private AuthWrapper authWrapper;
-    private DataWrapper dataWrapper;
+    //Lazy singleton
+    private static FirebaseWrapper instance;
+    private final AuthWrapper authWrapper;
+    private final DataWrapper dataWrapper;
 
-    protected FirebaseWrapper(final AppCompatActivity activity) {
+    private FirebaseWrapper(final AppCompatActivity activity) {
         authWrapper = new AuthWrapper(activity);
         dataWrapper = new DataWrapper();
 
@@ -42,6 +44,16 @@ public class FirebaseWrapper implements AuthInterface, DataInterface // Java, ha
                 }
             }
         };
+
+    }
+
+    public static FirebaseWrapper getFirebase(AppCompatActivity activity) {
+        if (instance != null) {
+            instance.setActivity(activity);
+        } else {
+            instance = new FirebaseWrapper(activity);
+        }
+        return instance;
 
     }
 

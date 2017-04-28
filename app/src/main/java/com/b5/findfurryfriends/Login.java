@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import com.b5.findfurryfriends.firebase.FirebaseInstance;
+
+import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.google.android.gms.common.SignInButton;
 
 public class Login extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class Login extends AppCompatActivity {
         final SignInButton signIn = (SignInButton) findViewById(com.b5.findfurryfriends.R.id.sign_in_button);
         signIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FirebaseInstance.getFirebase(Login.this).signIn();
+                FirebaseWrapper.getFirebase(Login.this).signIn();
             }
         });
     }
@@ -26,7 +27,7 @@ public class Login extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if (FirebaseInstance.getFirebase(this).signInOnIntentResult(requestCode, data)) {
+        if (FirebaseWrapper.getFirebase(this).signInOnIntentResult(requestCode, data)) {
             Intent toSearch = new Intent(Login.this, MainActivity.class);
             startActivity(toSearch);
         }

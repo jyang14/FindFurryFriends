@@ -7,9 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 
-import com.b5.findfurryfriends.firebase.FirebaseInstance;
+import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 
 public class Profile extends AppCompatActivity {
 
@@ -31,7 +30,7 @@ public class Profile extends AppCompatActivity {
         Button account = (Button) findViewById(com.b5.findfurryfriends.R.id.account);
         account.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FirebaseInstance.getFirebase(Profile.this).signOut();
+                FirebaseWrapper.getFirebase(Profile.this).signOut();
                 Intent toLogin = new Intent(Profile.this, Login.class);
                 startActivity(toLogin);
             }

@@ -15,8 +15,8 @@ import java.util.List;
 
 class DataWrapper implements DataInterface {
 
-    protected FirebaseDatabase database;
-    protected User user = null;
+    final FirebaseDatabase database;
+    private User user = null;
 
     public DataWrapper() {
         database = FirebaseDatabase.getInstance();
