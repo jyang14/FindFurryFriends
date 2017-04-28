@@ -18,13 +18,44 @@ import java.util.List;
  */
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder>{
-    public static class AnimalViewHolder extends RecyclerView.ViewHolder{
+    List<Animal> pets;
+    public RVAdapter(List<Animal> pets){
+        this.pets=pets;
+    }
+    public RVAdapter(){
+        this.pets = new ArrayList<>();
+    }
+
+    @Override
+    public int getItemCount() {
+        return pets.size();
+    }
+
+    @Override
+    public AnimalViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        return new AnimalViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(AnimalViewHolder animalViewHolder, int i){
+        animalViewHolder.name.setText(pets.get(i).name);
+        animalViewHolder.age.setText(pets.get(i).age);
+        // animalViewHolder.image.setImageResource(pets.get(i).photoId);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView){
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public static class AnimalViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView name;
         TextView age;
         ImageView image;
 
-        AnimalViewHolder(View itemView){
+        AnimalViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cv);
             age = (TextView) itemView.findViewById(R.id.age);
@@ -34,32 +65,5 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder>{
         }
 
 
-    }
-    List<Animal> pets;
-    public RVAdapter(List<Animal> pets){
-        this.pets=pets;
-    }
-    public RVAdapter(){
-        this.pets=new ArrayList<Animal>();
-    }
-    @Override
-    public int getItemCount() {
-        return pets.size();
-    }
-    @Override
-    public AnimalViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
-        AnimalViewHolder avh = new AnimalViewHolder(v);
-        return avh;
-    }
-    @Override
-    public void onBindViewHolder(AnimalViewHolder animalViewHolder, int i){
-        animalViewHolder.name.setText(pets.get(i).name);
-        animalViewHolder.age.setText(pets.get(i).age);
-        // animalViewHolder.image.setImageResource(pets.get(i).photoId);
-    }
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView){
-        super.onAttachedToRecyclerView(recyclerView);
     }
 }
