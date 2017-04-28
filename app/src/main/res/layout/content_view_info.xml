@@ -17,7 +17,8 @@
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_menu_search"
         tools:layout_editor_absoluteX="328dp"
-        tools:layout_editor_absoluteY="455dp" />
+        tools:layout_editor_absoluteY="455dp"
+        app:backgroundTint = "#2793e8"/>
 
     <LinearLayout
         android:layout_width="368dp"
@@ -30,7 +31,8 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Animal Name!" />
+            android:text="Animal Name!"
+            android:textColor="#000000"/>
 
         <LinearLayout
             android:layout_width="match_parent"
