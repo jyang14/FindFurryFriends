@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 

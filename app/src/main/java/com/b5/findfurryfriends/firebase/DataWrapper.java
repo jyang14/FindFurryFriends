@@ -1,7 +1,6 @@
 package com.b5.findfurryfriends.firebase;
 
 import android.util.Log;
-
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
 import com.google.firebase.database.DataSnapshot;
@@ -10,7 +9,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.List;
 
 class DataWrapper implements DataInterface {
