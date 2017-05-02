@@ -18,8 +18,8 @@ public class ViewInfo extends AppCompatActivity {
         FloatingActionButton search = (FloatingActionButton) findViewById(com.b5.findfurryfriends.R.id.search);
         search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                    Intent toSearch = new Intent(ViewInfo.this, MainActivity.class);
-                    startActivity(toSearch);
+                Intent toSearch = new Intent(ViewInfo.this, MainActivity.class);
+                startActivity(toSearch);
             }
         });
     }

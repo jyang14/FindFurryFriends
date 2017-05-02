@@ -10,10 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-
 import com.b5.findfurryfriends.firebase.FetcherHandler;
 import com.b5.findfurryfriends.firebase.data.Animal;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
         super.onCreate(savedInstanceState);
 
 
-
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -73,13 +70,13 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
-      //  pets = makeFakeData();
+        //  pets = makeFakeData();
         pets = new ArrayList<>();
-        pets.add(new Animal("Bob","image",5,"fluffy cat", new ArrayList<String>()));
-        pets.add(new Animal("Sam","image",7,"big dog", new ArrayList<String>()));
-        pets.add(new Animal("Sandy","image",12,"cool lizard", new ArrayList<String>()));
+        pets.add(new Animal("Bob", "image", 5, "fluffy cat", new ArrayList<String>()));
+        pets.add(new Animal("Sam", "image", 7, "big dog", new ArrayList<String>()));
+        pets.add(new Animal("Sandy", "image", 12, "cool lizard", new ArrayList<String>()));
         RVAdapter adapter = new RVAdapter();
-        adapter.pets=pets;
+        adapter.pets = pets;
         rv.setAdapter(adapter);
     }
 
@@ -88,11 +85,11 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
 
     }
 
-    private ArrayList<Animal> makeFakeData(){
+    private ArrayList<Animal> makeFakeData() {
         ArrayList<Animal> temp = new ArrayList<>();
-        temp.add(new Animal("Bob","image",5,"fluffy cat", new ArrayList<String>()));
-        temp.add(new Animal("Sam","image",7,"big dog", new ArrayList<String>()));
-        temp.add(new Animal("Sandy","image",12,"cool lizard", new ArrayList<String>()));
+        temp.add(new Animal("Bob", "image", 5, "fluffy cat", new ArrayList<String>()));
+        temp.add(new Animal("Sam", "image", 7, "big dog", new ArrayList<String>()));
+        temp.add(new Animal("Sandy", "image", 12, "cool lizard", new ArrayList<String>()));
         return temp;
     }
 }

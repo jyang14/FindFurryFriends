@@ -17,12 +17,14 @@ import java.util.List;
  * Created by grayb on 4/26/2017.
  */
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder>{
+public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> {
     List<Animal> pets;
-    public RVAdapter(List<Animal> pets){
-        this.pets=pets;
+
+    public RVAdapter(List<Animal> pets) {
+        this.pets = pets;
     }
-    public RVAdapter(){
+
+    public RVAdapter() {
         this.pets = new ArrayList<>();
     }
 
@@ -32,20 +34,20 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder>{
     }
 
     @Override
-    public AnimalViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
+    public AnimalViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
         return new AnimalViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(AnimalViewHolder animalViewHolder, int i){
+    public void onBindViewHolder(AnimalViewHolder animalViewHolder, int i) {
         animalViewHolder.name.setText(pets.get(i).name);
         animalViewHolder.age.setText(pets.get(i).age);
         // animalViewHolder.image.setImageResource(pets.get(i).photoId);
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView){
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
