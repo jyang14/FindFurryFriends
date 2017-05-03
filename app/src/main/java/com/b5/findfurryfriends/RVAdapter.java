@@ -1,13 +1,14 @@
 package com.b5.findfurryfriends;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.b5.findfurryfriends.firebase.data.Animal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
     @Override
     public void onBindViewHolder(AnimalViewHolder animalViewHolder, int i) {
         animalViewHolder.name.setText(pets.get(i).name);
-        animalViewHolder.age.setText(pets.get(i).age);
+        animalViewHolder.age.setText(String.valueOf(pets.get(i).age));
         // animalViewHolder.image.setImageResource(pets.get(i).photoId);
     }
 
@@ -50,14 +51,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
     }
 
     public static class AnimalViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
         TextView name;
         TextView age;
         ImageView image;
 
         AnimalViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
             age = (TextView) itemView.findViewById(R.id.age);
             name = (TextView) itemView.findViewById(R.id.name);
             image = (ImageView) itemView.findViewById(R.id.img);

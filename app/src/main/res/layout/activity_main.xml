@@ -6,27 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.b5.findfurryfriends.MainActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="com.b5.findfurryfriends.MainActivity">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1.01"
-        android:visibility="gone"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
     </android.support.v7.widget.RecyclerView>
-
-    <include
-        layout="@layout/item"
-        layout_weight="1.01"
-        layout_width="match_parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.01" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

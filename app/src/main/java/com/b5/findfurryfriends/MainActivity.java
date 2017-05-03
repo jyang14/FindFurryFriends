@@ -8,10 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
+
 import com.b5.findfurryfriends.firebase.FetcherHandler;
 import com.b5.findfurryfriends.firebase.data.Animal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,15 +55,6 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         setTitle("Search");
-
-        ImageButton more = (ImageButton) findViewById(R.id.more);
-        more.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent moreInfo = new Intent(MainActivity.this, ViewInfo.class);
-                startActivity(moreInfo);
-            }
-        });
-
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
         rv.setHasFixedSize(true);
