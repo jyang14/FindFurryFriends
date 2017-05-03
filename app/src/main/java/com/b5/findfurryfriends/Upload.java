@@ -39,7 +39,7 @@ public class Upload extends AppCompatActivity {
                     TextView tester = (TextView) findViewById(R.id.textView);
                     tester.setText(R.string.submitted);
                 } catch (NumberFormatException e) {
-                    instant.uploadAnimal(new Animal(((TextView) findViewById(R.id.nameEntry)).getText().toString(), null, -1, ((TextView) findViewById(R.id.infoEntry)).getText().toString(), null));
+                    instant.uploadAnimal(new Animal("No Name", null, -1, "Empty Submission", null));
                     TextView tester = (TextView) findViewById(R.id.textView);
                     tester.setText(R.string.submitted);
                 }
