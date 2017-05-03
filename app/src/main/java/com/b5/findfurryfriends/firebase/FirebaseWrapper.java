@@ -13,7 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
 
-//TODO Refractor code create proper singleton move stuff to DataWrapper and AuthWrapper (make concrete)
+//TODO Refactor code move stuff to DataWrapper and AuthWrapper (make concrete)
 public class FirebaseWrapper implements AuthInterface, DataInterface // Java, hasAuthListener don't you support multiple inheritance?
 {
 
