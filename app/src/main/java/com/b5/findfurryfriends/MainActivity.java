@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
 
     @Override
     public void handle(List<Animal> results) {
-        Log.v(TAG, Arrays.deepToString(results.toArray()));
+//        Log.v(TAG, Arrays.deepToString(results.toArray()));
         adapter.pets = results;
         adapter.notifyDataSetChanged();
     }

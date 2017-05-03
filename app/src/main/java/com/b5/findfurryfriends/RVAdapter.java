@@ -24,11 +24,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
 
     public RVAdapter(List<Animal> pets) {
         this.pets = pets;
+        favs = new ArrayList<Animal>();
 
     }
 
     public RVAdapter() {
         this.pets = new ArrayList<>();
+        favs = new ArrayList<Animal>();
     }
 
 

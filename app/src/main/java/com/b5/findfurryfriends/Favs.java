@@ -11,9 +11,11 @@ import android.view.View;
 import com.b5.findfurryfriends.firebase.data.Animal;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Favs extends AppCompatActivity {
 
+    List<Animal> favs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,15 +23,17 @@ public class Favs extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-//        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
-//        rv.setHasFixedSize(true);
-//
-//        LinearLayoutManager llm = new LinearLayoutManager(this);
-//        rv.setLayoutManager(llm);
-//
-//        RVAdapter adapter = new RVAdapter();
-//        adapter.pets = ;
-//        rv.setAdapter(adapter);
+        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
+        rv.setHasFixedSize(true);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+
+
+        RVAdapter adapter = new RVAdapter();
+        favs = getFavs(adapter);
+        adapter.pets = favs;
+        rv.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(com.b5.findfurryfriends.R.id.search);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +42,10 @@ public class Favs extends AppCompatActivity {
                 startActivity(toSearch);
             }
         });
+    }
+    public static List<Animal> getFavs(RVAdapter adapter){
+        List<Animal> favourites = adapter.favs;
+        return favourites;
     }
 
 }
