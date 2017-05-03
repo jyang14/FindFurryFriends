@@ -7,15 +7,20 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.b5.findfurryfriends.firebase.FetcherHandler;
+import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FetcherHandler {
+
+    static private String TAG = "SEARCH";
 
     List<Animal> pets;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
         }
 
     };
+    private RVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +67,16 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
-        //  pets = makeFakeData();
-        pets = new ArrayList<>();
-        pets.add(new Animal("Bob", "image", 5, "fluffy cat", new ArrayList<String>()));
-        pets.add(new Animal("Sam", "image", 7, "big dog", new ArrayList<String>()));
-        pets.add(new Animal("Sandy", "image", 12, "cool lizard", new ArrayList<String>()));
-        RVAdapter adapter = new RVAdapter();
-        adapter.pets = pets;
+        adapter = new RVAdapter();
         rv.setAdapter(adapter);
+        FirebaseWrapper.getFirebase(this).search(null, this);
     }
 
     @Override
     public void handle(List<Animal> results) {
-
+        Log.v(TAG, Arrays.deepToString(results.toArray()));
+        adapter.pets = results;
+        adapter.notifyDataSetChanged();
     }
 
     private ArrayList<Animal> makeFakeData() {

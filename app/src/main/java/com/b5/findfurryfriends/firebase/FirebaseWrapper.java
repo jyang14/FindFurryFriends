@@ -31,7 +31,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface // Java, ha
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != fetch(0)) {
+                if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
@@ -85,11 +85,6 @@ public class FirebaseWrapper implements AuthInterface, DataInterface // Java, ha
     @Override
     public void setUser(User user) {
         dataWrapper.setUser(user);
-    }
-
-    @Override
-    public List<Animal> fetch(int count) {
-        return dataWrapper.fetch(count);
     }
 
     @Override

@@ -36,9 +36,8 @@
                 android:id="@+id/breed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/name"
-                android:layout_alignRight="@+id/name"
                 android:layout_below="@+id/name"
+                android:layout_centerHorizontal="true"
                 android:text="BREED" />
 
             <TextView

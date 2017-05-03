@@ -1,6 +1,7 @@
 package com.b5.findfurryfriends.firebase;
 
 import android.util.Log;
+
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
 import com.google.firebase.database.DataSnapshot;
@@ -9,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.List;
 
 class DataWrapper implements DataInterface {
@@ -29,12 +31,6 @@ class DataWrapper implements DataInterface {
     public void setUser(User user) {
         this.user = user;
     }
-
-    @Override
-    public List<Animal> fetch(int count) {
-        return null;
-    }
-
 
     @Override
     public void uploadAnimal(final Animal animal) {
@@ -72,7 +68,7 @@ class DataWrapper implements DataInterface {
     }
 
     @Override
-    public void search(List<String> tags, FetcherHandler handler) {
+    public void search(List<String> tags, final FetcherHandler handler) {
 
         final DatabaseReference myRef = database.getReference("animals/animals");
 
@@ -84,11 +80,9 @@ class DataWrapper implements DataInterface {
                 // whenever data at this location is updated.
                 GenericTypeIndicator<List<Animal>> genericTypeIndicator = new GenericTypeIndicator<List<Animal>>() {
                 };
-                List<Animal> test = dataSnapshot.getValue(genericTypeIndicator);
+                List<Animal> results = dataSnapshot.getValue(genericTypeIndicator);
 
-                for (Animal temp : test) {
-                    Log.v("Animal", temp.toString());
-                }
+                handler.handle(results);
 
 
             }
