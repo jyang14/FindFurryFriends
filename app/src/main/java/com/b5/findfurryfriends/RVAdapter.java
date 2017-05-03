@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.b5.findfurryfriends.firebase.data.Animal;
-
 import java.util.ArrayList;
 import java.util.List;
 
