@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class DataWrapper implements DataInterface {
@@ -81,6 +82,8 @@ class DataWrapper implements DataInterface {
                 GenericTypeIndicator<List<Animal>> genericTypeIndicator = new GenericTypeIndicator<List<Animal>>() {
                 };
                 List<Animal> results = dataSnapshot.getValue(genericTypeIndicator);
+                if(results  == null)
+                    results = new ArrayList<>();
 
                 handler.handle(results);
 
