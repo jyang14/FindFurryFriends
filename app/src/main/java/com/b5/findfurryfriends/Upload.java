@@ -7,10 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 
 public class Upload extends AppCompatActivity {
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (FirebaseWrapper.getFirebase(this).uploadOnIntentResult(requestCode, resultCode, data)) {
+
+            TextView tester = (TextView) findViewById(R.id.textView);
+            tester.setText(R.string.submitted);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +41,22 @@ public class Upload extends AppCompatActivity {
         Button submit = (Button) findViewById(com.b5.findfurryfriends.R.id.upload);
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FirebaseWrapper instant = FirebaseWrapper.getFirebase(Upload.this);
+                String name = ((TextView) findViewById(R.id.nameEntry)).getText().toString();
+                if (name.equals(""))
+                    name = "No Name";
+
+                String description = ((TextView) findViewById(R.id.infoEntry)).getText().toString();
+                if (description.equals(""))
+                    description = "No Description Submitted";
+
+                int age;
                 try {
-                    int age = Integer.parseInt(((TextView) (findViewById(R.id.ageEntry))).getText().toString());
-                    instant.uploadAnimal(new Animal(((TextView) findViewById(R.id.nameEntry)).getText().toString(), null, age, ((TextView) findViewById(R.id.infoEntry)).getText().toString(), null));
-                    //this will take all information entered and put it in database
-                    //need a method to take all information -> how do the guys want it stored?
-                    TextView tester = (TextView) findViewById(R.id.textView);
-                    tester.setText(R.string.submitted);
+                    age = Integer.parseInt(((TextView) (findViewById(R.id.ageEntry))).getText().toString());
                 } catch (NumberFormatException e) {
-                    instant.uploadAnimal(new Animal("No Name", null, -1, "Empty Submission", null));
-                    TextView tester = (TextView) findViewById(R.id.textView);
-                    tester.setText(R.string.submitted);
+                    age = -1;
                 }
+                FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, null, age, description, null));
+
             }
         });
     }

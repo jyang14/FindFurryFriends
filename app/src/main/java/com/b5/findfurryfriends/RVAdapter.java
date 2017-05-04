@@ -1,5 +1,6 @@
 package com.b5.findfurryfriends;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 
 import java.util.ArrayList;
@@ -21,16 +23,17 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
     List<Animal> pets;
     View.OnClickListener clickListener;
     List<Animal> favs;
+    private Context context;
 
     public RVAdapter(List<Animal> pets) {
         this.pets = pets;
-        favs = new ArrayList<Animal>();
+        favs = new ArrayList<>();
 
     }
 
     public RVAdapter() {
         this.pets = new ArrayList<>();
-        favs = new ArrayList<Animal>();
+        favs = new ArrayList<>();
     }
 
 
@@ -41,16 +44,23 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
 
     @Override
     public AnimalViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        context = viewGroup.getContext();
+        View v = LayoutInflater.from(context).inflate(R.layout.item, viewGroup, false);
         return new AnimalViewHolder(v);
     }
 
     @Override
     public final void onBindViewHolder(final AnimalViewHolder animalViewHolder, int i) {
-        animalViewHolder.name.setText(pets.get(i).name);
-        animalViewHolder.age.setText(String.valueOf(pets.get(i).age));
-        animalViewHolder.desc.setText(String.valueOf(pets.get(i).description));
-        // animalViewHolder.image.setImageResource(pets.get(i).photoId);
+        Animal pet = pets.get(i);
+        animalViewHolder.name.setText(pet.name);
+        animalViewHolder.age.setText(String.valueOf(pet.age));
+        animalViewHolder.desc.setText(String.valueOf(pet.description));
+
+        if (pet.image != null && pet.image.contains(".jpg")) {
+            FirebaseWrapper.getFirebase(null).getImage(context, pet.image, animalViewHolder.image);
+            // animalViewHolder.image.setImageResource(pets.get(i).photoId);
+        }
+
         animalViewHolder.remove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 int i = animalViewHolder.getAdapterPosition();
@@ -93,5 +103,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             remove = (ImageButton) itemView.findViewById(R.id.delete);
 
         }
+
     }
 }

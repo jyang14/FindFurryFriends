@@ -1,6 +1,7 @@
 package com.b5.findfurryfriends.firebase;
 
 import android.util.Log;
+
 import com.b5.findfurryfriends.firebase.data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -9,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+//TODO Pretty up code
 final class LoginListener implements ValueEventListener {
     private final DatabaseReference authRef;
     private final FirebaseDatabase database;
@@ -36,46 +39,13 @@ final class LoginListener implements ValueEventListener {
 
                 final DatabaseReference userRef = database.getReference("/users/users/" + String.valueOf(id));
 
-                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        firebaseInterface.setUser(dataSnapshot.getValue(User.class));
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.w(TAG, "Failed to get user.", error.toException());
-                    }
-                });
+                userRef.addListenerForSingleValueEvent(new GetUserHandler());
 
             } else {
 
                 final DatabaseReference myRef = database.getReference("users/last-id");
 
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // This method is called once with the initial value and again
-                        // whenever data at this location is updated.
-                        long value = dataSnapshot.getValue(Long.class);
-                        value++;
-                        Log.d(TAG, "Value is: " + value);
-                        firebaseInterface.setUser(new User(mAuth.getCurrentUser().getDisplayName(), value, mAuth.getCurrentUser().getEmail()));
-                        myRef.setValue(value);
-                        DatabaseReference newRef = database.getReference("users/users/");
-                        newRef.child(String.valueOf(value)).setValue(firebaseInterface.getUser());
-                        authRef.child(mAuth.getCurrentUser().getUid()).setValue(value);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.w(TAG, "Failed to create user.", error.toException());
-                    }
-                });
+                myRef.addListenerForSingleValueEvent(new CreateUserHandler(mAuth, myRef));
             }
         } else {
             Log.w(TAG, "USER ID IS NULL");
@@ -86,5 +56,50 @@ final class LoginListener implements ValueEventListener {
     public void onCancelled(DatabaseError error) {
         Log.w(TAG, "Failed to create get auth.", error.toException());
 
+    }
+
+    private class GetUserHandler implements ValueEventListener {
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            firebaseInterface.setUser(dataSnapshot.getValue(User.class));
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError error) {
+            Log.w(TAG, "Failed to get user.", error.toException());
+        }
+    }
+
+    private class CreateUserHandler implements ValueEventListener {
+
+        private final FirebaseAuth mAuth;
+        private final DatabaseReference myRef;
+
+        public CreateUserHandler(FirebaseAuth mAuth, DatabaseReference myRef) {
+            this.mAuth = mAuth;
+            this.myRef = myRef;
+        }
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            // This method is called once with the initial value and again
+            // whenever data at this location is updated.
+            long value = dataSnapshot.getValue(Long.class);
+            value++;
+            Log.d(TAG, "Value is: " + value);
+            firebaseInterface.setUser(new User(mAuth.getCurrentUser().getDisplayName(), value, mAuth.getCurrentUser().getEmail()));
+            myRef.setValue(value);
+            DatabaseReference newRef = database.getReference("users/users/");
+            newRef.child(String.valueOf(value)).setValue(firebaseInterface.getUser());
+            authRef.child(mAuth.getCurrentUser().getUid()).setValue(value);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError error) {
+            Log.w(TAG, "Failed to create user.", error.toException());
+        }
     }
 }
