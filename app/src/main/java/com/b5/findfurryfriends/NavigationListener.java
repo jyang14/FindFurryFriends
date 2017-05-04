@@ -25,6 +25,7 @@ class NavigationListener implements BottomNavigationView.OnNavigationItemSelecte
                     Intent toSearch = new Intent(activity, MainActivity.class);
                     activity.startActivity(toSearch);
                     activity.finish();
+                    activity.overridePendingTransition(0, 0);
                     return true;
                 }
                 break;
@@ -32,6 +33,8 @@ class NavigationListener implements BottomNavigationView.OnNavigationItemSelecte
                 if (!(activity instanceof Profile)) {
                     Intent toProfile = new Intent(activity, Profile.class);
                     activity.startActivity(toProfile);
+                    activity.finish();
+                    activity.overridePendingTransition(0, 0);
                     return true;
                 }
                 break;
@@ -39,6 +42,8 @@ class NavigationListener implements BottomNavigationView.OnNavigationItemSelecte
                 if (!(activity instanceof Favs)) {
                     Intent toFavs = new Intent(activity, Favs.class);
                     activity.startActivity(toFavs);
+                    activity.finish();
+                    activity.overridePendingTransition(0, 0);
                     return true;
                 }
                 break;
@@ -46,6 +51,8 @@ class NavigationListener implements BottomNavigationView.OnNavigationItemSelecte
                 if (!(activity instanceof Upload)) {
                     Intent toUpload = new Intent(activity, Upload.class);
                     activity.startActivity(toUpload);
+                    activity.finish();
+                    activity.overridePendingTransition(0, 0);
                     return true;
                 }
                 break;

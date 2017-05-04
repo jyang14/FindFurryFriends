@@ -2,23 +2,24 @@ package com.b5.findfurryfriends;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
-import android.view.View;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Favs extends AppCompatActivity {
 
     List<Animal> favs;
+
+    public static List<Animal> getFavs(RVAdapter adapter) {
+        List<Animal> favourites = adapter.favs;
+        return favourites;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +44,12 @@ public class Favs extends AppCompatActivity {
 
     }
 
-    public static List<Animal> getFavs(RVAdapter adapter){
-        List<Animal> favourites = adapter.favs;
-        return favourites;
+    @Override
+    public void onBackPressed() {
+        Intent toSearch = new Intent(this, MainActivity.class);
+        this.startActivity(toSearch);
+        this.finish();
+        this.overridePendingTransition(0, 0);
     }
 
 }

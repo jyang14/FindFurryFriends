@@ -42,4 +42,12 @@ public class Profile extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent toSearch = new Intent(this, MainActivity.class);
+        this.startActivity(toSearch);
+        this.finish();
+        this.overridePendingTransition(0, 0);
+    }
+
 }

@@ -47,11 +47,13 @@
                 android:id="@+id/breed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/delete"
-                android:layout_alignStart="@+id/delete"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_below="@+id/name"
                 android:layout_marginTop="17dp"
-                android:text="BREED" />
+                android:layout_toRightOf="@+id/more"
+                android:text="BREED"
+                android:textAlignment="textEnd" />
 
             <TextView
                 android:id="@+id/age"

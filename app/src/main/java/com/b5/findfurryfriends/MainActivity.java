@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle("Really Exit?")
+                .setTitle("Exit?")
                 .setMessage("Are you sure you want to exit?")
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new Dialog.OnClickListener() {
