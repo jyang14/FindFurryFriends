@@ -1,6 +1,7 @@
 package com.b5.findfurryfriends;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             public void onClick(View v) {
                 int i = animalViewHolder.getAdapterPosition();
                 favs.add(pets.get(i));
+            }
+        });
+
+        animalViewHolder.more.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent toViewInfo = new Intent(context, ViewInfo.class);
+                context.startActivity(toViewInfo);
             }
         });
     }

@@ -15,6 +15,7 @@ public class ViewInfo extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
+
         FloatingActionButton search = (FloatingActionButton) findViewById(com.b5.findfurryfriends.R.id.search);
         search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
