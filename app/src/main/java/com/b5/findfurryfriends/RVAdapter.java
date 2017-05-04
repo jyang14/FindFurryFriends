@@ -88,6 +88,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
         TextView age;
         ImageView image;
         TextView desc;
+        TextView breed;
         ImageButton more;
         ImageButton save;
         ImageButton remove;
@@ -101,6 +102,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             more = (ImageButton) itemView.findViewById(R.id.more);
             save = (ImageButton) itemView.findViewById(R.id.save);
             remove = (ImageButton) itemView.findViewById(R.id.delete);
+            breed = (TextView) itemView.findViewById(R.id.breed);
 
         }
 
