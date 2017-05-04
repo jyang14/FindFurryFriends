@@ -21,21 +21,34 @@ class NavigationListener implements BottomNavigationView.OnNavigationItemSelecte
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_search:
-                Intent toSearch = new Intent(activity, MainActivity.class);
-                activity.startActivity(toSearch);
-                return true;
+                if (!(activity instanceof MainActivity)) {
+                    Intent toSearch = new Intent(activity, MainActivity.class);
+                    activity.startActivity(toSearch);
+                    activity.finish();
+                    return true;
+                }
+                break;
             case R.id.navigation_profile:
-                Intent toProfile = new Intent(activity, Profile.class);
-                activity.startActivity(toProfile);
-                return true;
+                if (!(activity instanceof Profile)) {
+                    Intent toProfile = new Intent(activity, Profile.class);
+                    activity.startActivity(toProfile);
+                    return true;
+                }
+                break;
             case R.id.navigation_favs:
-                Intent toFavs = new Intent(activity, Favs.class);
-                activity.startActivity(toFavs);
-                return true;
+                if (!(activity instanceof Favs)) {
+                    Intent toFavs = new Intent(activity, Favs.class);
+                    activity.startActivity(toFavs);
+                    return true;
+                }
+                break;
             case R.id.navigation_upload:
-                Intent toUpload = new Intent(activity, Upload.class);
-                activity.startActivity(toUpload);
-                return true;
+                if (!(activity instanceof Upload)) {
+                    Intent toUpload = new Intent(activity, Upload.class);
+                    activity.startActivity(toUpload);
+                    return true;
+                }
+                break;
         }
         return false;
     }
