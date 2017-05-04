@@ -57,7 +57,7 @@ public class Upload extends AppCompatActivity {
                 }
                 String breed = ((TextView) findViewById(R.id.breedEntry)).getText().toString();
                 if (name.equals(""))
-                    name = "n/a";
+                    name = "No breed";
                 FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, null, age, description, null, breed));
 
             }
