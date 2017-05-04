@@ -25,7 +25,7 @@ public class Favs extends AppCompatActivity {
         setContentView(com.b5.findfurryfriends.R.layout.activity_favs);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_favs);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(new NavigationListener(this));
         setTitle("Favourites");
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
@@ -42,34 +42,7 @@ public class Favs extends AppCompatActivity {
 
 
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_favs:
-                    Intent toFavs = new Intent(Favs.this, Favs.class);
-                    startActivity(toFavs);
-                    return true;
-                case R.id.navigation_search:
-                    Intent toSearch = new Intent(Favs.this, MainActivity.class);
-                    startActivity(toSearch);
-                    return true;
-                case R.id.navigation_profile:
-                    Intent toProfile = new Intent(Favs.this, Profile.class);
-                    startActivity(toProfile);
-                    return true;
-
-                case R.id.navigation_upload:
-                    Intent toUpload = new Intent(Favs.this, Upload.class);
-                    startActivity(toUpload);
-                    return true;
-            }
-            return false;
-        }
-
-    };
     public static List<Animal> getFavs(RVAdapter adapter){
         List<Animal> favourites = adapter.favs;
         return favourites;
