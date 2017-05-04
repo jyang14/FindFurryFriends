@@ -1,20 +1,19 @@
 package com.b5.findfurryfriends;
 
-import android.content.Intent;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.b5.findfurryfriends.firebase.FetcherHandler;
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,34 +21,6 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
 
     static private String TAG = "SEARCH";
 
-    List<Animal> pets;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_search:
-                    Intent toSearch = new Intent(MainActivity.this, MainActivity.class);
-                    startActivity(toSearch);
-                    return true;
-                case R.id.navigation_profile:
-                    Intent toProfile = new Intent(MainActivity.this, Profile.class);
-                    startActivity(toProfile);
-                    return true;
-                case R.id.navigation_favs:
-                    Intent toFavs = new Intent(MainActivity.this, Favs.class);
-                    startActivity(toFavs);
-                    return true;
-                case R.id.navigation_upload:
-                    Intent toUpload = new Intent(MainActivity.this, Upload.class);
-                    startActivity(toUpload);
-                    return true;
-            }
-            return false;
-        }
-
-    };
     private RVAdapter adapter;
 
     @Override
@@ -59,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
 
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(new NavigationListener(this));
         setTitle("Search");
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
@@ -74,16 +45,23 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
 
     @Override
     public void handle(List<Animal> results) {
-//        Log.v(TAG, Arrays.deepToString(results.toArray()));
+        Log.v(TAG, Arrays.deepToString(results.toArray()));
         adapter.pets = results;
         adapter.notifyDataSetChanged();
     }
 
-//    private ArrayList<Animal> makeFakeData() {
-//        ArrayList<Animal> temp = new ArrayList<>();
-//        temp.add(new Animal("Bob", "image", 5, "fluffy cat", new ArrayList<String>()));
-//        temp.add(new Animal("Sam", "image", 7, "big dog", new ArrayList<String>()));
-//        temp.add(new Animal("Sandy", "image", 12, "cool lizard", new ArrayList<String>()));
-//        return temp;
-//    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new Dialog.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        MainActivity.super.onBackPressed();
+                    }
+                }).create().show();
+    }
+
 }

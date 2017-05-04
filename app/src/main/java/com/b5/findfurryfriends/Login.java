@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.google.android.gms.common.SignInButton;
 
@@ -29,6 +30,7 @@ public class Login extends AppCompatActivity {
         if (FirebaseWrapper.getFirebase(this).signInOnIntentResult(requestCode, data)) {
             Intent toSearch = new Intent(Login.this, MainActivity.class);
             startActivity(toSearch);
+            finish();
         }
     }
 }
