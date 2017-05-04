@@ -55,6 +55,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
         animalViewHolder.name.setText(pet.name);
         animalViewHolder.age.setText(String.valueOf(pet.age));
         animalViewHolder.desc.setText(String.valueOf(pet.description));
+        animalViewHolder.breed.setText(pet.breed);
 
         if (pet.image != null && pet.image.contains(".jpg")) {
             FirebaseWrapper.getFirebase(null).getImage(context, pet.image, animalViewHolder.image);

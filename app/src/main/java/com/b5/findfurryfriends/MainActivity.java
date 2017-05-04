@@ -79,11 +79,11 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
         adapter.notifyDataSetChanged();
     }
 
-    private ArrayList<Animal> makeFakeData() {
-        ArrayList<Animal> temp = new ArrayList<>();
-        temp.add(new Animal("Bob", "image", 5, "fluffy cat", new ArrayList<String>()));
-        temp.add(new Animal("Sam", "image", 7, "big dog", new ArrayList<String>()));
-        temp.add(new Animal("Sandy", "image", 12, "cool lizard", new ArrayList<String>()));
-        return temp;
-    }
+//    private ArrayList<Animal> makeFakeData() {
+//        ArrayList<Animal> temp = new ArrayList<>();
+//        temp.add(new Animal("Bob", "image", 5, "fluffy cat", new ArrayList<String>()));
+//        temp.add(new Animal("Sam", "image", 7, "big dog", new ArrayList<String>()));
+//        temp.add(new Animal("Sandy", "image", 12, "cool lizard", new ArrayList<String>()));
+//        return temp;
+//    }
 }

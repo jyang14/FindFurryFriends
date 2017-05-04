@@ -55,7 +55,10 @@ public class Upload extends AppCompatActivity {
                 } catch (NumberFormatException e) {
                     age = -1;
                 }
-                FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, null, age, description, null));
+                String breed = ((TextView) findViewById(R.id.breedEntry)).getText().toString();
+                if (name.equals(""))
+                    name = "n/a";
+                FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, null, age, description, null, breed));
 
             }
         });
