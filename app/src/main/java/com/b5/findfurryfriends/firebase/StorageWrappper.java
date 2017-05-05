@@ -29,9 +29,9 @@ class StorageWrappper implements StorageInterface {
 
     private static final String TAG = "STORAGE";
 
-    FirebaseStorage firebaseStorage;
-    AppCompatActivity activity;
-    Animal animal;
+    private FirebaseStorage firebaseStorage;
+    private AppCompatActivity activity;
+    private Animal animal;
 
 
     StorageWrappper(AppCompatActivity activity) {
@@ -44,12 +44,9 @@ class StorageWrappper implements StorageInterface {
     // Therefore I am using this algorithm to name my images because I'm lazy.
     private String conputerSHA(byte[] bytes) {
         String output;
-        int read;
-        byte[] buffer = new byte[8192];
 
-        MessageDigest digest = null;
         try {
-            digest = MessageDigest.getInstance("SHA-256");
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(bytes);
             BigInteger bigInt = new BigInteger(1, hash);
             output = bigInt.toString(16);
@@ -97,7 +94,8 @@ class StorageWrappper implements StorageInterface {
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+            bitmap.recycle();
             byte[] bytes = baos.toByteArray();
             String name = conputerSHA(bytes);
 

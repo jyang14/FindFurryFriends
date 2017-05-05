@@ -1,8 +1,23 @@
 package com.b5.findfurryfriends.firebase.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements Parcelable {
+    public static final Parcelable.Creator<Animal> CREATOR = new Parcelable.Creator<Animal>() {
+        @Override
+        public Animal createFromParcel(Parcel in) {
+            return new Animal(in);
+        }
+
+        @Override
+        public Animal[] newArray(int size) {
+            return new Animal[size];
+        }
+    };
     public String name;
     public String image;
     public String breed;
@@ -21,13 +36,50 @@ public class Animal {
         this.breed = breed;
     }
 
-    public Animal(){
+    public Animal() {
 
+    }
+
+    protected Animal(Parcel in) {
+        name = in.readString();
+        image = in.readString();
+        breed = in.readString();
+        userID = in.readLong();
+        animalID = in.readLong();
+        age = in.readInt();
+        description = in.readString();
+        if (in.readByte() == 0x01) {
+            tags = new ArrayList<>();
+            in.readStringList(tags);
+        } else {
+            tags = null;
+        }
     }
 
     @Override
-    public String toString(){
-        return String.format("Animal{ name: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}",name,userID,animalID, age, description);
+    public String toString() {
+        return String.format("Animal{ name: \"%s\", breed: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}", name, breed, userID, animalID, age, description);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(image);
+        dest.writeString(breed);
+        dest.writeLong(userID);
+        dest.writeLong(animalID);
+        dest.writeInt(age);
+        dest.writeString(description);
+        if (tags == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeStringList(tags);
+        }
+    }
 }
