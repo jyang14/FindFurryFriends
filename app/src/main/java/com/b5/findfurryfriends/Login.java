@@ -6,9 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
+import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 import com.google.android.gms.common.SignInButton;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity implements SignedInHandler {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +28,15 @@ public class Login extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if (FirebaseWrapper.getFirebase(this).signInOnIntentResult(requestCode, data)) {
-            Intent toSearch = new Intent(Login.this, MainActivity.class);
-            startActivity(toSearch);
-            finish();
-        }
+        FirebaseWrapper.getFirebase(this).signInOnIntentResult(requestCode, data, this);
+
+    }
+
+    @Override
+    public void onSignInSuccesss() {
+        assert (FirebaseWrapper.getFirebase(this).getUser() != null);
+        Intent toSearch = new Intent(Login.this, Search.class);
+        startActivity(toSearch);
+        finish();
     }
 }

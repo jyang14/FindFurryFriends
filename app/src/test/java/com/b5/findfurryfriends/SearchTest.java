@@ -4,12 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by sampendergast on 5/2/17.
  */
-public class MainActivityTest {
+public class SearchTest {
     @Before
     public void setUp() throws Exception {
 

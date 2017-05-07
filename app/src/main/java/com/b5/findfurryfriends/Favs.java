@@ -6,28 +6,38 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
+import com.b5.findfurryfriends.adapters.FavoriteAdapter;
+import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
+import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 
 import java.util.List;
 
-public class Favs extends AppCompatActivity {
+public class Favs extends AppCompatActivity implements FetcherHandler {
+    private FavoriteAdapter adapter;
 
-    List<Animal> favs;
-
-    public static List<Animal> getFavs(RVAdapter adapter) {
-        List<Animal> favourites = adapter.favs;
-        return favourites;
-    }
+//    List<Animal> favs;
+//
+//    public static List<Animal> getFavs(SearchAdapter adapter) {
+//        List<Animal> favourites = adapter.getFavs();
+//        return favourites;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.b5.findfurryfriends.R.layout.activity_favs);
+
+        Toolbar toolbar = (Toolbar) findViewById(com.b5.findfurryfriends.R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("Favorites");
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_favs);
         navigation.setOnNavigationItemSelectedListener(new NavigationListener(this));
-        setTitle("Favourites");
+
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
         rv.setHasFixedSize(true);
@@ -36,20 +46,24 @@ public class Favs extends AppCompatActivity {
         rv.setLayoutManager(llm);
 
 
-        RVAdapter adapter = new RVAdapter();
-        favs = getFavs(adapter);
-        adapter.pets = favs;
+        adapter = new FavoriteAdapter();
+//        favs = getFavs(adapter);
+//        adapter.setFavs(favs);
         rv.setAdapter(adapter);
-
+        FirebaseWrapper.getFirebase(this).getFavorites(this);
 
     }
 
     @Override
     public void onBackPressed() {
-        Intent toSearch = new Intent(this, MainActivity.class);
-        this.startActivity(toSearch);
-        this.finish();
-        this.overridePendingTransition(0, 0);
+        Intent toSearch = new Intent(this, Search.class);
+        startActivity(toSearch);
+        finish();
+        overridePendingTransition(0, 0);
     }
 
+    @Override
+    public void handle(List<Animal> results) {
+        adapter.setPets(results);
+    }
 }

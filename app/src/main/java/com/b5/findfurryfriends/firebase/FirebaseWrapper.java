@@ -3,12 +3,13 @@ package com.b5.findfurryfriends.firebase;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
+import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +29,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     private final DataWrapper dataWrapper;
     private final StorageWrappper storageWrappper;
 
-    private FirebaseWrapper(final AppCompatActivity activity) {
+    private FirebaseWrapper(final Context activity) {
         Log.v(TAG, "Constructor called");
         authWrapper = new AuthWrapper(activity);
         dataWrapper = new DataWrapper();
@@ -38,15 +39,14 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
+                if (user != null) { // User is signed in
+
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
-                    final DatabaseReference authRef = dataWrapper.database.getReference("/users/auth");
+                    DatabaseReference authRef = dataWrapper.database.getReference("/users/auth");
                     authRef.addListenerForSingleValueEvent(new LoginListener(FirebaseWrapper.this, authRef, dataWrapper.database));
 
-                } else {
-                    // User is signed out
+                } else {  // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
             }
@@ -54,9 +54,13 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
 
     }
 
-    public static FirebaseWrapper getFirebase(AppCompatActivity activity) {
+    /**
+     * @param activity AppCompactActivity instances preferred
+     */
+    public static FirebaseWrapper getFirebase(@NonNull Context activity) {
+        assert (activity != null);
         if (instance != null) {
-            instance.setActivity(activity);
+            instance.setContext(activity);
         } else {
             instance = new FirebaseWrapper(activity);
         }
@@ -65,10 +69,10 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     }
 
     @Override
-    public void setActivity(AppCompatActivity activity) {
+    public void setContext(Context activity) {
         if (activity != null) {
-            authWrapper.setActivity(activity);
-            storageWrappper.setActivity(activity);
+            authWrapper.setContext(activity);
+            storageWrappper.setContext(activity);
         }
     }
 
@@ -83,8 +87,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     }
 
     @Override
-    public boolean signInOnIntentResult(int requestCode, Intent data) {
-        return authWrapper.signInOnIntentResult(requestCode, data);
+    public void signInOnIntentResult(int requestCode, Intent data, SignedInHandler signedInHandler) {
+        authWrapper.signInOnIntentResult(requestCode, data, signedInHandler);
     }
 
     @Override
@@ -108,13 +112,28 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     }
 
     @Override
+    public void addFavorite(Animal animal) {
+        dataWrapper.addFavorite(animal);
+    }
+
+    @Override
+    public void getFavorites(FetcherHandler fetcherHandler) {
+        dataWrapper.getFavorites(fetcherHandler);
+    }
+
+    @Override
+    public void removeFavorite(Animal animal) {
+        dataWrapper.removeFavorite(animal);
+    }
+
+    @Override
     public void createCaptureIntent(Animal animal) {
         storageWrappper.createCaptureIntent(animal);
     }
 
     @Override
-    public void getImage(Context context, String name, ImageView imageView) {
-        storageWrappper.getImage(context, name, imageView);
+    public void getImage(String name, ImageView imageView) {
+        storageWrappper.getImage(name, imageView);
     }
 
     @Override

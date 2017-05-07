@@ -1,5 +1,6 @@
 package com.b5.findfurryfriends.firebase;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -28,31 +31,31 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
     private final GoogleApiClient mGoogleApiClient;
     private final FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
-    private AppCompatActivity activity;
+    private Context activity;
     private boolean hasAuthListener = true;
     private boolean signOut = false;
 
-    AuthWrapper(final AppCompatActivity activity) {
+    AuthWrapper(final Context activity) {
         this.activity = activity;
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1055526604988-3ag104h10gjtt0btuvl9nsjehqdfv3no.apps.googleusercontent.com").requestEmail().build();
-        mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(activity /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(com.google.android.gms.auth.api.Auth.GOOGLE_SIGN_IN_API, gso).build();
+        mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(((AppCompatActivity) activity) /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(com.google.android.gms.auth.api.Auth.GOOGLE_SIGN_IN_API, gso).build();
         mGoogleApiClient.connect();
 
     }
 
-    public void setActivity(AppCompatActivity activity) {
+    public void setContext(Context activity) {
         this.activity = activity;
     }
 
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct, final SignedInHandler signedInHandler) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener((AppCompatActivity) activity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
@@ -64,6 +67,8 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(activity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                        } else {
+                            signedInHandler.onSignInSuccesss();
                         }
                     }
                 });
@@ -76,7 +81,7 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
             hasAuthListener = false;
         }
         Intent signInIntent = com.google.android.gms.auth.api.Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        activity.startActivityForResult(signInIntent, RC_SIGN_IN);
+        ((AppCompatActivity) activity).startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
 
@@ -102,19 +107,17 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
     }
 
     @Override
-    public boolean signInOnIntentResult(int requestCode, Intent data) {
+    public void signInOnIntentResult(int requestCode, Intent data, SignedInHandler signedInHandler) {
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = com.google.android.gms.auth.api.Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             Log.w(TAG, String.valueOf(result.isSuccess()));
             Log.v(TAG, result.getStatus().toString());
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
-                firebaseAuthWithGoogle(result.getSignInAccount());
+                firebaseAuthWithGoogle(result.getSignInAccount(), signedInHandler);
 
-                return true;
             }
         }
-        return false;
     }
 
     @Override

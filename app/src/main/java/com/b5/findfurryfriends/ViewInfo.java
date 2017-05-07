@@ -22,11 +22,11 @@ public class ViewInfo extends AppCompatActivity {
         Animal animal = getIntent().getExtras().getParcelable("animal");
         setTitle(animal.name);
         ((TextView) findViewById(R.id.info)).setText(animal.description);
-        FirebaseWrapper.getFirebase(this).getImage(this, animal.image, (ImageView) findViewById(R.id.pic1));
+        FirebaseWrapper.getFirebase(this).getImage(animal.image, (ImageView) findViewById(R.id.pic1));
 //        FloatingActionButton search = (FloatingActionButton) findViewById(com.b5.findfurryfriends.R.id.search);
 //        search.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View v) {
-//                Intent toSearch = new Intent(ViewInfo.this, MainActivity.class);
+//                Intent toSearch = new Intent(ViewInfo.this, Search.class);
 //                startActivity(toSearch);
 //            }
 //        });

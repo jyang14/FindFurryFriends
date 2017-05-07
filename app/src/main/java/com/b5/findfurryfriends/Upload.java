@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +28,10 @@ public class Upload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.b5.findfurryfriends.R.layout.activity_upload);
+
+        Toolbar toolbar = (Toolbar) findViewById(com.b5.findfurryfriends.R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_upload);
         navigation.setOnNavigationItemSelectedListener(new NavigationListener(this));
@@ -51,7 +56,7 @@ public class Upload extends AppCompatActivity {
                 String breed = ((TextView) findViewById(R.id.breedEntry)).getText().toString();
                 if (name.equals(""))
                     name = "No breed";
-                FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, null, age, description, null, breed));
+                FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, null, breed));
 
             }
         });
@@ -59,7 +64,7 @@ public class Upload extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent toSearch = new Intent(this, MainActivity.class);
+        Intent toSearch = new Intent(this, Search.class);
         this.startActivity(toSearch);
         this.finish();
         this.overridePendingTransition(0, 0);

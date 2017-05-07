@@ -30,11 +30,11 @@ class StorageWrappper implements StorageInterface {
     private static final String TAG = "STORAGE";
 
     private FirebaseStorage firebaseStorage;
-    private AppCompatActivity activity;
+    private Context activity;
     private Animal animal;
 
 
-    StorageWrappper(AppCompatActivity activity) {
+    StorageWrappper(Context activity) {
         firebaseStorage = FirebaseStorage.getInstance();
         this.activity = activity;
     }
@@ -62,20 +62,23 @@ class StorageWrappper implements StorageInterface {
         }
     }
 
+    /**
+     * get
+     */
     @Override
     public void createCaptureIntent(Animal animal) {
         this.animal = animal;
         Log.v(TAG, this.animal.toString());
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null)
-            activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            ((AppCompatActivity) activity).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
 
     @Override
-    public void getImage(Context context, String name, ImageView imageView) {
+    public void getImage(String name, ImageView imageView) {
         StorageReference storageRef = firebaseStorage.getReference().child(name);
 
-        Glide.with(context)
+        Glide.with(activity)
                 .using(new FirebaseImageLoader())
                 .load(storageRef)
                 .into(imageView);
@@ -111,7 +114,7 @@ class StorageWrappper implements StorageInterface {
     }
 
     @Override
-    public void setActivity(AppCompatActivity activity) {
+    public void setContext(Context activity) {
         this.activity = activity;
     }
 

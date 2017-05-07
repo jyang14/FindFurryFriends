@@ -16,6 +16,7 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.b5.findfurryfriends.R.layout.activity_profile);
+
         Toolbar toolbar = (Toolbar) findViewById(com.b5.findfurryfriends.R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -29,6 +30,7 @@ public class Profile extends AppCompatActivity {
                 FirebaseWrapper.getFirebase(Profile.this).signOut();
                 Intent toLogin = new Intent(Profile.this, Login.class);
                 startActivity(toLogin);
+                finish();
             }
         });
 //        SeekBar minAge = (SeekBar) findViewById(R.id.minAgeSeek);
@@ -44,10 +46,10 @@ public class Profile extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent toSearch = new Intent(this, MainActivity.class);
-        this.startActivity(toSearch);
-        this.finish();
-        this.overridePendingTransition(0, 0);
+        Intent toSearch = new Intent(this, Search.class);
+        startActivity(toSearch);
+        finish();
+        overridePendingTransition(0, 0);
     }
 
 }

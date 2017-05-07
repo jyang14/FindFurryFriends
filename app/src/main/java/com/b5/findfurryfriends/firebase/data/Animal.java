@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Animal implements Parcelable {
+
     public static final Parcelable.Creator<Animal> CREATOR = new Parcelable.Creator<Animal>() {
         @Override
         public Animal createFromParcel(Parcel in) {
@@ -18,6 +19,7 @@ public class Animal implements Parcelable {
             return new Animal[size];
         }
     };
+
     public String name;
     public String image;
     public String breed;
@@ -27,9 +29,9 @@ public class Animal implements Parcelable {
     public String description;
     public List<String> tags;
 
-    public Animal(String name, String image, int age, String description, List<String> tags, String breed) {
+    public Animal(String name, int age, String description, List<String> tags, String breed) {
         this.name = name;
-        this.image = image;
+        this.image = null;
         this.age = age;
         this.description = description;
         this.tags = tags;
@@ -40,7 +42,7 @@ public class Animal implements Parcelable {
 
     }
 
-    protected Animal(Parcel in) {
+    private Animal(Parcel in) {
         name = in.readString();
         image = in.readString();
         breed = in.readString();

@@ -1,14 +1,16 @@
 package com.b5.findfurryfriends.firebase;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+
+import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 
 interface AuthInterface {
     void signIn();
 
     void signOut();
 
-    boolean signInOnIntentResult(int requestCode, Intent data);
+    void signInOnIntentResult(int requestCode, Intent data, SignedInHandler signedInHandler);
 
-    void setActivity(AppCompatActivity activity);
+    void setContext(Context activity);
 }

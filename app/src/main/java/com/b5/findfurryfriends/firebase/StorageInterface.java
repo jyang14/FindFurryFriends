@@ -2,7 +2,6 @@ package com.b5.findfurryfriends.firebase;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
@@ -17,11 +16,11 @@ interface StorageInterface {
 
     void createCaptureIntent(Animal animal);
 
-    void getImage(Context context, String name, ImageView imageView);
+    void getImage(String name, ImageView imageView);
 
     boolean uploadOnIntentResult(int requestCode, int resultCode, Intent data);
 
-    void setActivity(AppCompatActivity activity);
+    void setContext(Context activity);
 
 
 }

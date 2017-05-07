@@ -51,7 +51,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/name"
                 android:layout_marginTop="17dp"
+                android:layout_toEndOf="@+id/more"
                 android:layout_toRightOf="@+id/more"
+                android:gravity="end"
                 android:text="BREED"
                 android:textAlignment="textEnd" />
 

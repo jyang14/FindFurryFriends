@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,14 +13,19 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class DataWrapper implements DataInterface {
 
+    static private final String TAG = "DATAWRAPPER";
+
     final FirebaseDatabase database;
     private User user = null;
 
-    public DataWrapper() {
+    private List<Animal> temp;
+
+    DataWrapper() {
         database = FirebaseDatabase.getInstance();
     }
 
@@ -35,37 +41,17 @@ class DataWrapper implements DataInterface {
 
     @Override
     public void uploadAnimal(final Animal animal) {
+
         if (user == null || animal == null) {
-            Log.w(FirebaseWrapper.TAG, "ERROR USER NOT INITIALIZED.");
+            Log.w(TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
 
         animal.userID = user.userID;
 
-        final DatabaseReference myRef = database.getReference("animals/last-id");
+        final DatabaseReference idRef = database.getReference("animals/last-id");
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                long value = dataSnapshot.getValue(Long.class);
-                value++;
-                Log.d(FirebaseWrapper.TAG, "Value is: " + value);
-                myRef.setValue(value);
-                DatabaseReference newRef = database.getReference("animals/animals");
-                animal.animalID = value;
-                newRef.child(String.valueOf(value)).setValue(animal);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(FirebaseWrapper.TAG, "Failed to read value.", error.toException());
-            }
-        });
+        idRef.addListenerForSingleValueEvent(new AnimalUploadListener(idRef, animal));
     }
 
     @Override
@@ -82,9 +68,10 @@ class DataWrapper implements DataInterface {
                 GenericTypeIndicator<List<Animal>> genericTypeIndicator = new GenericTypeIndicator<List<Animal>>() {
                 };
                 List<Animal> results = dataSnapshot.getValue(genericTypeIndicator);
-                if(results  == null)
+                if (results == null)
                     results = new ArrayList<>();
 
+                results.removeAll(Collections.singleton(null));
                 handler.handle(results);
 
 
@@ -93,9 +80,121 @@ class DataWrapper implements DataInterface {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Log.w(FirebaseWrapper.TAG, "Failed to read value.", error.toException());
+                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
 
     }
+
+    @Override
+    public void addFavorite(Animal animal) {
+        if (user == null || animal == null) {
+            Log.w(TAG, "ERROR PARAMETERS NOT INITIALIZED.");
+            return;
+        }
+
+        // Checks if null
+        if (user.favorites == null)
+            user.favorites = new ArrayList<>();
+
+        // Adds to favorite
+        user.favorites.add(animal.animalID);
+
+        // Updates user on database
+        updateUser();
+    }
+
+    private void updateUser() {
+        if (user == null) {
+            Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
+            return;
+        }
+
+        database.getReference("users/users/" + user.userID).setValue(user);
+    }
+
+    @Override
+    public void getFavorites(final FetcherHandler fetcherHandler) {
+        if (user == null || fetcherHandler == null) {
+            Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
+            return;
+        }
+        temp = new ArrayList<>();
+
+        for (long id : user.favorites) {
+
+            database.getReference("animals/animals/" + id).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Animal animal = dataSnapshot.getValue(Animal.class);
+                    temp.add(animal);
+
+                    if (temp.size() == user.favorites.size()) {
+                        fetcherHandler.handle(temp);
+                        temp = null; // Why not?
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.v(TAG, "ERROR: Animal not retrieved");
+                }
+            });
+
+        }
+
+    }
+
+    @Override
+    public void removeFavorite(Animal animal) {
+
+        if (user == null || animal == null) {
+            Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
+            return;
+        }
+
+        user.favorites.remove(animal.animalID);
+        updateUser();
+
+    }
+
+    private class AnimalUploadListener implements ValueEventListener {
+
+        private final DatabaseReference myRef;
+        private final Animal animal;
+
+        public AnimalUploadListener(DatabaseReference myRef, Animal animal) {
+            this.myRef = myRef;
+            this.animal = animal;
+        }
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            long value = dataSnapshot.getValue(Long.class) + 1;
+            myRef.setValue(value);
+            animal.animalID = value;
+            Log.d(FirebaseWrapper.TAG, "Value is: " + value);
+
+            if (user.animalIDs == null)
+                user.animalIDs = new ArrayList<>();
+
+            user.animalIDs.add(value);
+            updateUser();
+
+            DatabaseReference animalRef = database.getReference("animals/animals");
+            animalRef.child(String.valueOf(value)).setValue(animal);
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError error) {
+            // Failed to read value
+            Log.w(FirebaseWrapper.TAG, "Failed to read value.", error.toException());
+        }
+
+    }
+
 }

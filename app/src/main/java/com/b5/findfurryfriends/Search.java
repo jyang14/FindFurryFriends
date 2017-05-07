@@ -10,18 +10,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.b5.findfurryfriends.firebase.FetcherHandler;
+import com.b5.findfurryfriends.adapters.SearchAdapter;
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
+import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements FetcherHandler {
+public class Search extends AppCompatActivity implements FetcherHandler {
 
-    static private String TAG = "SEARCH";
+    static private final String TAG = "SEARCH";
 
-    private RVAdapter adapter;
+    private SearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
-        adapter = new RVAdapter();
+        adapter = new SearchAdapter();
         rv.setAdapter(adapter);
         FirebaseWrapper.getFirebase(this).search(null, this);
     }
@@ -46,8 +47,7 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
     @Override
     public void handle(List<Animal> results) {
         Log.v(TAG, Arrays.deepToString(results.toArray()));
-        adapter.pets = results;
-        adapter.notifyDataSetChanged();
+        adapter.setPets(results);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements FetcherHandler {
                 .setPositiveButton(android.R.string.yes, new Dialog.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        MainActivity.super.onBackPressed();
+                        Search.super.onBackPressed();
                     }
                 }).create().show();
     }

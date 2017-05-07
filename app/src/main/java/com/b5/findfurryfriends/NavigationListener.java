@@ -21,8 +21,8 @@ class NavigationListener implements BottomNavigationView.OnNavigationItemSelecte
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_search:
-                if (!(activity instanceof MainActivity)) {
-                    Intent toSearch = new Intent(activity, MainActivity.class);
+                if (!(activity instanceof Search)) {
+                    Intent toSearch = new Intent(activity, Search.class);
                     activity.startActivity(toSearch);
                     activity.finish();
                     activity.overridePendingTransition(0, 0);
