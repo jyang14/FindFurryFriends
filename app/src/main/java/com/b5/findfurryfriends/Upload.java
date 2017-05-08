@@ -58,8 +58,8 @@ public class Upload extends AppCompatActivity {
                     name = "No breed";
                 FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, null, breed));
 
-                Intent backToSearch = new Intent(Upload.this, Search.class);
-                startActivity(backToSearch);
+//                Intent backToSearch = new Intent(Upload.this, Search.class);
+//                startActivity(backToSearch);
             }
         });
     }
