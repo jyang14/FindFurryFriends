@@ -25,6 +25,7 @@ public class ViewInfo extends AppCompatActivity implements FetchUserHandler {
         setTitle(animal.name);
         ((TextView) findViewById(R.id.info)).setText(animal.description);
         FirebaseWrapper.getFirebase(this).getImage(animal.image, (ImageView) findViewById(R.id.pic1));
+        FirebaseWrapper.getFirebase(this).getUserFromAnimal(animal, this);
 //        FloatingActionButton search = (FloatingActionButton) findViewById(com.b5.findfurryfriends.R.id.search);
 //        search.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View v) {
