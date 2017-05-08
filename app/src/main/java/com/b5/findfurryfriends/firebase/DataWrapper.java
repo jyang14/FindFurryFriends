@@ -120,6 +120,10 @@ class DataWrapper implements DataInterface {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
+
+        if (user.favorites == null)
+            user.favorites = new ArrayList<>();
+
         temp = new ArrayList<>();
 
         for (long id : user.favorites) {
