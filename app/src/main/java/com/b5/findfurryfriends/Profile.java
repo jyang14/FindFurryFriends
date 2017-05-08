@@ -33,14 +33,7 @@ public class Profile extends AppCompatActivity {
                 finish();
             }
         });
-//        SeekBar minAge = (SeekBar) findViewById(R.id.minAgeSeek);
-//        SeekBar maxAge = (SeekBar) findViewById(R.id.maxAgeSeek);
-//
-//        maxAge.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            public void onSeekBarChange(View v) {
-//
-//            }
-//        });
+
 
     }
 
