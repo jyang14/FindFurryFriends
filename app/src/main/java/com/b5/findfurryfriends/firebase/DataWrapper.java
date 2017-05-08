@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
 import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -158,6 +159,22 @@ class DataWrapper implements DataInterface {
         user.favorites.remove(animal.animalID);
         updateUser();
 
+    }
+
+    @Override
+    public void getUserFromAnimal(Animal animal, final FetchUserHandler userHandler) {
+        DatabaseReference userRef = database.getReference("users/users/" + animal.userID);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userHandler.handleUser(dataSnapshot.getValue(User.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v(TAG, "Cannot get user email");
+            }
+        });
     }
 
     private class AnimalUploadListener implements ValueEventListener {

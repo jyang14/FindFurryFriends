@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
+import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
 
-public class ViewInfo extends AppCompatActivity {
+public class ViewInfo extends AppCompatActivity implements FetchUserHandler {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,4 +34,8 @@ public class ViewInfo extends AppCompatActivity {
 //        });
     }
 
+    @Override
+    public void handleUser(User user) {
+        ((TextView) findViewById(R.id.user_email)).setText("Contact: " + user.contact);
+    }
 }

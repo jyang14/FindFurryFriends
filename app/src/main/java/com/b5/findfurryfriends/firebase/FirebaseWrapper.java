@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
 import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 import com.google.firebase.auth.FirebaseAuth;
@@ -124,6 +125,11 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     @Override
     public void removeFavorite(Animal animal) {
         dataWrapper.removeFavorite(animal);
+    }
+
+    @Override
+    public void getUserFromAnimal(Animal animal, FetchUserHandler userHandler) {
+        dataWrapper.getUserFromAnimal(animal, userHandler);
     }
 
     @Override

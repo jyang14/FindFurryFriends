@@ -2,6 +2,7 @@ package com.b5.findfurryfriends.firebase;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
 import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 
 import java.util.List;
@@ -20,5 +21,7 @@ interface DataInterface {
     void getFavorites(FetcherHandler fetcherHandler);
 
     void removeFavorite(Animal animal);
+
+    void getUserFromAnimal(Animal animal, FetchUserHandler userHandler);
 
 }
