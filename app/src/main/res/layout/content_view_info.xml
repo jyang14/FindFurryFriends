@@ -33,6 +33,12 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="user email" />
+
+        <TextView
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -40,4 +46,5 @@
             android:text="a paragraph about the animal" />
 
     </LinearLayout>
+
 </android.support.design.widget.CoordinatorLayout>
