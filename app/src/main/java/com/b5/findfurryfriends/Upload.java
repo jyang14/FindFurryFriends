@@ -3,6 +3,7 @@ package com.b5.findfurryfriends;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -39,24 +40,34 @@ public class Upload extends AppCompatActivity {
         Button submit = (Button) findViewById(com.b5.findfurryfriends.R.id.upload);
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                boolean valid = true;
                 String name = ((TextView) findViewById(R.id.nameEntry)).getText().toString();
                 if (name.equals(""))
-                    name = "No Name";
+                    valid = false;
 
                 String description = ((TextView) findViewById(R.id.infoEntry)).getText().toString();
                 if (description.equals(""))
-                    description = "No Description Submitted";
+                    valid = false;
 
-                int age;
+                int age = -1;
                 try {
                     age = Integer.parseInt(((TextView) (findViewById(R.id.ageEntry))).getText().toString());
                 } catch (NumberFormatException e) {
-                    age = -1;
+                    valid = false;
                 }
                 String breed = ((TextView) findViewById(R.id.breedEntry)).getText().toString();
-                if (name.equals(""))
-                    name = "No breed";
+                if (breed.equals(""))
+                    valid = false;
+
+                if(valid)
                 FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, null, breed));
+
+                else{
+                    new AlertDialog.Builder(Upload.this)
+                            .setTitle("Error")
+                            .setMessage("Mandatory fields are empty!")
+                            .setNeutralButton("OK",null).create().show();
+                }
 
 //                Intent backToSearch = new Intent(Upload.this, Search.class);
 //                startActivity(backToSearch);

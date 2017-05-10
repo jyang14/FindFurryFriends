@@ -39,6 +39,19 @@
                 android:layout_alignParentTop="true"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="not submitted"
+                    android:textSize="30sp"
+                    tools:layout_conversion_absoluteHeight="16dp"
+                    tools:layout_conversion_absoluteWidth="87dp"
+                    tools:layout_conversion_absoluteX="16dp"
+                    tools:layout_conversion_absoluteY="422dp"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="422dp" />
+
                 <EditText
                     android:id="@+id/nameEntry"
                     android:layout_width="match_parent"
@@ -122,19 +135,6 @@
                     tools:layout_conversion_absoluteY="378dp"
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="340dp" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="not submitted"
-                    android:textSize="30sp"
-                    tools:layout_conversion_absoluteHeight="16dp"
-                    tools:layout_conversion_absoluteWidth="87dp"
-                    tools:layout_conversion_absoluteX="16dp"
-                    tools:layout_conversion_absoluteY="422dp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="422dp" />
 
             </LinearLayout>
 
