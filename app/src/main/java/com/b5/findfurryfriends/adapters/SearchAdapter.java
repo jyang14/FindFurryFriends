@@ -2,11 +2,13 @@ package com.b5.findfurryfriends.adapters;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.b5.findfurryfriends.ViewInfo;
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
+import com.b5.findfurryfriends.firebase.data.User;
 
 import java.util.List;
 
@@ -16,12 +18,20 @@ import java.util.List;
 
 public class SearchAdapter extends RVAdapter {
 
+    static private final String TAG = "SEARCHADAPTER";
+
     public SearchAdapter() {
     }
 
     @Override
     public void setPets(List<Animal> pets) {
-        List<Long> favorites = FirebaseWrapper.getFirebase(context).getUser().favorites;
+
+        User user = FirebaseWrapper.getFirebase(context).getUser();
+        if(user==null){
+            Log.w(TAG, "ERROR USER IS NULL!");
+            return;
+        }
+        List<Long> favorites = user.favorites;
         if (favorites != null)
             for (int i = pets.size() - 1; i >= 0; i--)
                 if (favorites.contains(pets.get(i).animalID))
