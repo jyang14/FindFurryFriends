@@ -8,8 +8,8 @@ import android.widget.ImageView;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
 import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
-import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,6 +57,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
 
     /**
      * @param activity AppCompactActivity instances preferred
+     * @return FirebaseWrapper instance
      */
     public static FirebaseWrapper getFirebase(@NonNull Context activity) {
         assert (activity != null);
@@ -108,7 +109,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     }
 
     @Override
-    public void search(List<String> tags, FetcherHandler handler) {
+    public void search(List<String> tags, FetchAnimalHandler handler) {
         dataWrapper.search(tags, handler);
     }
 
@@ -118,8 +119,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     }
 
     @Override
-    public void getFavorites(FetcherHandler fetcherHandler) {
-        dataWrapper.getFavorites(fetcherHandler);
+    public void getFavorites(FetchAnimalHandler fetchAnimalHandler) {
+        dataWrapper.getFavorites(fetchAnimalHandler);
     }
 
     @Override

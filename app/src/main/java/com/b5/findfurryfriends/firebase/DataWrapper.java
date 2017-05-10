@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
 import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
-import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,9 +55,20 @@ class DataWrapper implements DataInterface {
         idRef.addListenerForSingleValueEvent(new AnimalUploadListener(idRef, animal));
     }
 
-    @Override
-    public void search(List<String> tags, final FetcherHandler handler) {
 
+    /**
+     * @param tags    Set as null
+     * @param handler The handler of the results
+     * @// TODO: 5/10/2017 Implement tags
+     */
+    @Override
+    public void search(List<String> tags, final FetchAnimalHandler handler) {
+
+        if (handler == null) {
+            Log.w(TAG, "ERROR, SEARCH CALLED WITHOUT HANDLER");
+            return;
+        }
+        
         final DatabaseReference myRef = database.getReference("animals/animals");
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -81,7 +92,7 @@ class DataWrapper implements DataInterface {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+                Log.w(TAG, "Failed to read values.", error.toException());
             }
         });
 
@@ -115,8 +126,8 @@ class DataWrapper implements DataInterface {
     }
 
     @Override
-    public void getFavorites(final FetcherHandler fetcherHandler) {
-        if (user == null || fetcherHandler == null) {
+    public void getFavorites(final FetchAnimalHandler fetchAnimalHandler) {
+        if (user == null || fetchAnimalHandler == null) {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
@@ -136,7 +147,7 @@ class DataWrapper implements DataInterface {
                     temp.add(animal);
 
                     if (temp.size() == user.favorites.size()) {
-                        fetcherHandler.handle(temp);
+                        fetchAnimalHandler.handle(temp);
                         temp = null; // Why not?
                     }
 

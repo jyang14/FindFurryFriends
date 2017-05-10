@@ -2,8 +2,8 @@ package com.b5.findfurryfriends.firebase;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
 import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
-import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ interface DataInterface {
 
     void uploadAnimal(Animal animal);
 
-    void search(List<String> tags, FetcherHandler handler);
+    void search(List<String> tags, FetchAnimalHandler handler);
 
     void addFavorite(Animal animal);
 
-    void getFavorites(FetcherHandler fetcherHandler);
+    void getFavorites(FetchAnimalHandler fetchAnimalHandler);
 
     void removeFavorite(Animal animal);
 

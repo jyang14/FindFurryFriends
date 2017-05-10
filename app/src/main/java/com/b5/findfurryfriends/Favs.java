@@ -11,11 +11,11 @@ import android.support.v7.widget.Toolbar;
 import com.b5.findfurryfriends.adapters.FavoriteAdapter;
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
-import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
+import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
 
 import java.util.List;
 
-public class Favs extends AppCompatActivity implements FetcherHandler {
+public class Favs extends AppCompatActivity implements FetchAnimalHandler {
     private FavoriteAdapter adapter;
 
 //    List<Animal> favs;

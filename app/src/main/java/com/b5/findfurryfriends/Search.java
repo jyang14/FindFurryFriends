@@ -13,12 +13,12 @@ import android.util.Log;
 import com.b5.findfurryfriends.adapters.SearchAdapter;
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
-import com.b5.findfurryfriends.firebase.handlers.FetcherHandler;
+import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Search extends AppCompatActivity implements FetcherHandler {
+public class Search extends AppCompatActivity implements FetchAnimalHandler {
 
     static private final String TAG = "SEARCH";
 
@@ -47,6 +47,7 @@ public class Search extends AppCompatActivity implements FetcherHandler {
     @Override
     public void handle(List<Animal> results) {
         Log.v(TAG, Arrays.deepToString(results.toArray()));
+
         adapter.setPets(results);
     }
 
