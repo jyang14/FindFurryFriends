@@ -24,8 +24,6 @@ class DataWrapper implements DataInterface {
     final FirebaseDatabase database;
     private User user = null;
 
-    private List<Animal> temp;
-
     DataWrapper() {
         database = FirebaseDatabase.getInstance();
     }
@@ -55,7 +53,6 @@ class DataWrapper implements DataInterface {
         idRef.addListenerForSingleValueEvent(new AnimalUploadListener(idRef, animal));
     }
 
-
     /**
      * @param tags    Set as null
      * @param handler The handler of the results
@@ -68,7 +65,7 @@ class DataWrapper implements DataInterface {
             Log.w(TAG, "ERROR, SEARCH CALLED WITHOUT HANDLER");
             return;
         }
-        
+
         final DatabaseReference myRef = database.getReference("animals/animals");
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -135,7 +132,7 @@ class DataWrapper implements DataInterface {
         if (user.favorites == null)
             user.favorites = new ArrayList<>();
 
-        temp = new ArrayList<>();
+        final List<Animal> temp = new ArrayList<>();
 
         for (long id : user.favorites) {
 
@@ -147,15 +144,15 @@ class DataWrapper implements DataInterface {
                     temp.add(animal);
 
                     if (temp.size() == user.favorites.size()) {
+                        temp.removeAll(Collections.singleton(null));
                         fetchAnimalHandler.handle(temp);
-                        temp = null; // Why not?
                     }
 
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Log.v(TAG, "ERROR: Animal not retrieved");
+                    Log.w(TAG, "ERROR: Animal not retrieved");
                 }
             });
 
@@ -166,7 +163,7 @@ class DataWrapper implements DataInterface {
     @Override
     public void removeFavorite(Animal animal) {
 
-        if (user == null || animal == null) {
+        if (user == null || animal == null || user.favorites == null || !user.favorites.contains(animal.animalID)) {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
@@ -178,6 +175,10 @@ class DataWrapper implements DataInterface {
 
     @Override
     public void getUserFromAnimal(Animal animal, final FetchUserHandler userHandler) {
+        if (animal == null || userHandler == null) {
+            Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
+            return;
+        }
         DatabaseReference userRef = database.getReference("users/users/" + animal.userID);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -187,7 +188,7 @@ class DataWrapper implements DataInterface {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.v(TAG, "Cannot get user email");
+                Log.v(TAG, "Cannot get user");
             }
         });
     }
