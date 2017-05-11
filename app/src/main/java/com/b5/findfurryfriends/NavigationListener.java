@@ -6,8 +6,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-/**
- * Created by jinch on 5/4/2017.
+/** NavigationListener.java
+ *  Mass Academy Apps for Good - B5
+ *  May 2017
  */
 class NavigationListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 

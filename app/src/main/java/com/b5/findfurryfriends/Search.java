@@ -18,6 +18,10 @@ import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
 import java.util.Arrays;
 import java.util.List;
 
+/** Search.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 public class Search extends AppCompatActivity implements FetchAnimalHandler {
 
     static private final String TAG = "SEARCH";

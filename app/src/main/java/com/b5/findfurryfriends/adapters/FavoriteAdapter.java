@@ -8,10 +8,10 @@ import com.b5.findfurryfriends.ViewInfo;
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 
-/**
- * Created by jinch on 5/6/2017.
+/** FavoriteAdapter.java
+ *  Mass Academy Apps for Good - B5
+ *  May 2017
  */
-
 public class FavoriteAdapter extends RVAdapter {
 
     public FavoriteAdapter() {

@@ -24,6 +24,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+/** AuthWrapper.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, AuthInterface {
 
     private final String TAG = "FirebaseAuth";
@@ -68,7 +72,7 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
                             Toast.makeText(activity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            signedInHandler.onSignInSuccesss();
+                            signedInHandler.onSignInSuccess();
                         }
                     }
                 });

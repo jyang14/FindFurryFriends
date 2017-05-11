@@ -8,8 +8,9 @@ import android.widget.TextView;
 
 import com.b5.findfurryfriends.R;
 
-/**
- * Created by jinch on 5/6/2017.
+/** AnimalViewHolder.java
+ *  Mass Academy Apps for Good - B5
+ *  May 2017
  */
 class AnimalViewHolder extends RecyclerView.ViewHolder {
     TextView name;

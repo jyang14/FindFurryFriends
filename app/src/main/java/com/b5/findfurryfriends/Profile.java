@@ -10,6 +10,10 @@ import android.widget.Button;
 
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 
+/** Profile.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 public class Profile extends AppCompatActivity {
 
     @Override

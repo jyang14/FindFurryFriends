@@ -5,6 +5,10 @@ import android.content.Intent;
 
 import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 
+/** AuthInterface.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 interface AuthInterface {
     void signIn();
 

@@ -25,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by jinch on 5/3/2017.
  */
 
-class StorageWrappper implements StorageInterface {
+class StorageWrapper implements StorageInterface {
 
     private static final String TAG = "STORAGE";
 
@@ -34,7 +34,7 @@ class StorageWrappper implements StorageInterface {
     private Animal animal;
 
 
-    StorageWrappper(Context activity) {
+    StorageWrapper(Context activity) {
         firebaseStorage = FirebaseStorage.getInstance();
         this.activity = activity;
     }

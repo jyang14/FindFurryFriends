@@ -6,8 +6,9 @@ import android.widget.ImageView;
 
 import com.b5.findfurryfriends.firebase.data.Animal;
 
-/**
- * Created by jinch on 5/3/2017.
+/** StorageInterface.java
+ *  Mass Academy Apps for Good - B5
+ *  May 2017
  */
 
 interface StorageInterface {
