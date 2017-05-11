@@ -6,6 +6,10 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Animal.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 public class Animal implements Parcelable {
 
     public static final Parcelable.Creator<Animal> CREATOR = new Parcelable.Creator<Animal>() {

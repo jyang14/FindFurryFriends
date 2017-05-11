@@ -9,8 +9,17 @@ import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 import com.google.android.gms.common.SignInButton;
 
+/** Login.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 public class Login extends AppCompatActivity implements SignedInHandler {
 
+    /** method: onCreate
+     * Initializes the login activity with the sign in button
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +34,13 @@ public class Login extends AppCompatActivity implements SignedInHandler {
         });
     }
 
+    /** method: onActivityResult
+     *
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -32,8 +48,12 @@ public class Login extends AppCompatActivity implements SignedInHandler {
 
     }
 
+    /** method: onSignInSuccess
+     *
+     *
+     */
     @Override
-    public void onSignInSuccesss() {
+    public void onSignInSuccess() {
         assert (FirebaseWrapper.getFirebase(this).getUser() != null);
         Intent toSearch = new Intent(Login.this, Search.class);
         startActivity(toSearch);

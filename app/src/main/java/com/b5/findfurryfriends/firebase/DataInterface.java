@@ -7,6 +7,10 @@ import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
 
 import java.util.List;
 
+/** DataInterface.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 interface DataInterface {
     User getUser();
 

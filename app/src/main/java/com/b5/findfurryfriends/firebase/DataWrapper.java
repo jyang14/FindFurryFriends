@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/** DataWrapper.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 class DataWrapper implements DataInterface {
 
     static private final String TAG = "DATAWRAPPER";
@@ -56,8 +60,8 @@ class DataWrapper implements DataInterface {
     /**
      * @param tags    Set as null
      * @param handler The handler of the results
-     * @// TODO: 5/10/2017 Implement tags
      */
+    // TODO: 5/10/2017 Implement tags
     @Override
     public void search(List<String> tags, final FetchAnimalHandler handler) {
 

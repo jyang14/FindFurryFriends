@@ -13,6 +13,10 @@ import android.widget.TextView;
 import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 
+/** Upload.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 public class Upload extends AppCompatActivity {
 
     @Override

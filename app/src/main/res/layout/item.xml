@@ -44,24 +44,14 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView2"
-                    android:layout_alignBottom="@+id/textView2"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="Breed: " />
-
-                <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:text="NAME"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
                 <TextView
                     android:id="@+id/breed"
@@ -133,11 +123,11 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView5"
-                    android:layout_alignBottom="@+id/textView5"
-                    android:layout_toEndOf="@+id/save"
-                    android:layout_toRightOf="@+id/save"
-                    android:text="Type:" />
+                    android:layout_alignBaseline="@+id/textView2"
+                    android:layout_alignBottom="@+id/textView2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Breed: " />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -147,15 +137,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:text="Age: " />
-
-                <TextView
-                    android:id="@+id/type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TYPE"
-                    android:layout_below="@+id/textView3"
-                    android:layout_alignRight="@+id/textView3"
-                    android:layout_alignEnd="@+id/textView3" />
 
             </RelativeLayout>
 

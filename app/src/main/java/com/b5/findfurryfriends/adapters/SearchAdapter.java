@@ -12,10 +12,10 @@ import com.b5.findfurryfriends.firebase.data.User;
 
 import java.util.List;
 
-/**
- * Created by grayb on 4/26/2017.
+/** SearchAdapter.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
  */
-
 public class SearchAdapter extends RVAdapter {
 
     static private final String TAG = "SEARCHADAPTER";

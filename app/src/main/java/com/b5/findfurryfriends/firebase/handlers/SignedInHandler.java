@@ -5,5 +5,5 @@ package com.b5.findfurryfriends.firebase.handlers;
  */
 
 public interface SignedInHandler {
-    void onSignInSuccesss();
+    void onSignInSuccess();
 }

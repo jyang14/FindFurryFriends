@@ -11,7 +11,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
+/** LoginListener.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 //TODO Pretty up code
 final class LoginListener implements ValueEventListener {
 

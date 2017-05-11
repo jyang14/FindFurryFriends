@@ -11,6 +11,10 @@ import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
 import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
 
+/** ViewInfo.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 public class ViewInfo extends AppCompatActivity implements FetchUserHandler {
 
     @Override

@@ -14,6 +14,10 @@ import com.b5.findfurryfriends.firebase.data.Animal;
 import java.util.ArrayList;
 import java.util.List;
 
+/** RVAdapter.java
+ *  Mass Academy Apps for Good - B5
+ *  May 2017
+ */
 abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
 
     private final static String TAG = "RVADAPTER";

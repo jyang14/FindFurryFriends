@@ -3,6 +3,10 @@ package com.b5.findfurryfriends.firebase.data;
 import java.util.ArrayList;
 import java.util.List;
 
+/** User.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 public class User {
     public String username;
     public long userID;

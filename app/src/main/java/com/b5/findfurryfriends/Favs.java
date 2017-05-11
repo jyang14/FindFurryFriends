@@ -15,6 +15,10 @@ import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
 
 import java.util.List;
 
+/** Favs.java
+ *  Mass Academy Apps for Good - B5
+ *  April 2017
+ */
 public class Favs extends AppCompatActivity implements FetchAnimalHandler {
     private FavoriteAdapter adapter;
 
@@ -25,6 +29,10 @@ public class Favs extends AppCompatActivity implements FetchAnimalHandler {
 //        return favourites;
 //    }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +62,9 @@ public class Favs extends AppCompatActivity implements FetchAnimalHandler {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onBackPressed() {
         Intent toSearch = new Intent(this, Search.class);
@@ -62,6 +73,10 @@ public class Favs extends AppCompatActivity implements FetchAnimalHandler {
         overridePendingTransition(0, 0);
     }
 
+    /**
+     *
+     * @param results
+     */
     @Override
     public void handle(List<Animal> results) {
         adapter.setPets(results);
