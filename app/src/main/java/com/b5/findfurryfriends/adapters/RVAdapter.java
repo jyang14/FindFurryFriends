@@ -65,7 +65,7 @@ abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
         Animal pet = pets.get(i);
         Log.v(TAG, String.format("%d : %s", i, pet == null ? "Null" : pet.toString()));
 
-
+        animalViewHolder.type.setText(String.valueOf(pet.type));
         animalViewHolder.name.setText(pet.name);
         animalViewHolder.age.setText(String.valueOf(pet.age));
         animalViewHolder.desc.setText(String.valueOf(pet.description));
