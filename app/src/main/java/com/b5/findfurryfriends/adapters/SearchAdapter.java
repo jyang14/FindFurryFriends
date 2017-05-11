@@ -20,9 +20,17 @@ public class SearchAdapter extends RVAdapter {
 
     static private final String TAG = "SEARCHADAPTER";
 
+    /** constructor: SearchAdapter
+     *
+     * default constructor
+     */
     public SearchAdapter() {
     }
 
+    /** method: setPets
+     *
+     * @param pets the list of pets to be displayed
+     */
     @Override
     public void setPets(List<Animal> pets) {
 

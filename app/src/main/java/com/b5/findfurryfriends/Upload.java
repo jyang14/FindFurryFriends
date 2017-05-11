@@ -72,9 +72,6 @@ public class Upload extends AppCompatActivity {
                             .setMessage("Mandatory fields are empty!")
                             .setNeutralButton("OK",null).create().show();
                 }
-
-//                Intent backToSearch = new Intent(Upload.this, Search.class);
-//                startActivity(backToSearch);
             }
         });
     }

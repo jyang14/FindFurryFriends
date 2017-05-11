@@ -14,6 +14,10 @@ import com.b5.findfurryfriends.firebase.data.Animal;
  */
 public class FavoriteAdapter extends RVAdapter {
 
+    /** constructor: FavoriteAdapter
+     *
+     * default constructor
+     */
     public FavoriteAdapter() {
 
     }

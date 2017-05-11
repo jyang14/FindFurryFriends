@@ -14,6 +14,12 @@ public class User {
     public List<Long> animalIDs;
     public List<Long> favorites;
 
+    /** constructor: User
+     *
+     * @param username user's name
+     * @param userID generated from firebase
+     * @param contact user's email
+     */
     public User(String username, long userID, String contact) {
         this.username = username;
         this.userID = userID;
@@ -23,6 +29,6 @@ public class User {
     }
 
     public User(){
-        // Cringe
+
     }
 }

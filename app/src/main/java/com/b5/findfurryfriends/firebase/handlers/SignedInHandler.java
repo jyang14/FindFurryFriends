@@ -1,7 +1,8 @@
 package com.b5.findfurryfriends.firebase.handlers;
 
-/**
- * Created by jinch on 5/6/2017.
+/** SignedInHandler.java
+ *  Mass Academy Apps for Good - B5
+ *  May 2017
  */
 
 public interface SignedInHandler {

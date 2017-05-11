@@ -30,15 +30,12 @@ public class ViewInfo extends AppCompatActivity implements FetchUserHandler {
         ((TextView) findViewById(R.id.info)).setText(animal.description);
         FirebaseWrapper.getFirebase(this).getImage(animal.image, (ImageView) findViewById(R.id.pic1));
         FirebaseWrapper.getFirebase(this).getUserFromAnimal(animal, this);
-//        FloatingActionButton search = (FloatingActionButton) findViewById(com.b5.findfurryfriends.R.id.search);
-//        search.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent toSearch = new Intent(ViewInfo.this, Search.class);
-//                startActivity(toSearch);
-//            }
-//        });
     }
 
+    /** method: handlerUser
+     *
+     * @param user the uploader of the pet
+     */
     @Override
     public void handleUser(User user) {
         ((TextView) findViewById(R.id.user_email)).setText("Contact: " + user.contact);

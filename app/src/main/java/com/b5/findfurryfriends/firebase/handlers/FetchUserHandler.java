@@ -6,7 +6,6 @@ import com.b5.findfurryfriends.firebase.data.User;
  *  Mass Academy Apps for Good - B5
  *  May 2017
  */
-
 public interface FetchUserHandler {
 
     void handleUser(User user);

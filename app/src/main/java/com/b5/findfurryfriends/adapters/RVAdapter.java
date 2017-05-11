@@ -25,11 +25,19 @@ abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
     List<Animal> pets;
     Context context;
 
+    /** constructor: RVAdapter
+     *
+     * default constructor. creates empty list of pets.
+     */
     RVAdapter() {
         pets = new ArrayList<>();
     }
 
 
+    /** method: setPets
+     *
+     * @param pets the list of pets to be displayed
+     */
     public void setPets(List<Animal> pets) {
         this.pets = pets;
         notifyDataSetChanged();

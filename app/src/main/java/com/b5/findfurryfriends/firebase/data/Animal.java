@@ -33,6 +33,14 @@ public class Animal implements Parcelable {
     public String description;
     public List<String> tags;
 
+    /**
+     *
+     * @param name the pet's name
+     * @param age the pet's age
+     * @param description a brief description of the pet
+     * @param tags
+     * @param breed the pet's breed
+     */
     public Animal(String name, int age, String description, List<String> tags, String breed) {
         this.name = name;
         this.image = null;
