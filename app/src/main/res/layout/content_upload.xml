@@ -109,11 +109,11 @@
                     tools:layout_editor_absoluteY="55dp" />
 
                 <EditText
-                    android:id="@+id/tagEntry"
+                    android:id="@+id/animalType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Enter your pet's tags (separated by commas)"
+                    android:hint="What kind of animal is your pet..."
                     android:inputType="textMultiLine"
                     tools:layout_conversion_absoluteHeight="42dp"
                     tools:layout_conversion_absoluteWidth="368dp"

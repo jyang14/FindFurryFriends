@@ -17,6 +17,7 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
     ImageView image;
     TextView desc;
     TextView breed;
+    TextView type;
     ImageButton more;
     ImageButton save;
     ImageButton remove;
@@ -31,6 +32,7 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
         save = (ImageButton) itemView.findViewById(R.id.save);
         remove = (ImageButton) itemView.findViewById(R.id.delete);
         breed = (TextView) itemView.findViewById(R.id.breed);
+        type = (TextView) itemView.findViewById(R.id.type);
 
     }
 

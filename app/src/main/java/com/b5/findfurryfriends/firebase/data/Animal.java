@@ -27,15 +27,17 @@ public class Animal implements Parcelable {
     public long animalID;
     public int age;
     public String description;
+    public String type;
     public List<String> tags;
 
-    public Animal(String name, int age, String description, List<String> tags, String breed) {
+    public Animal(String name, int age, String description, List<String> tags, String breed, String type) {
         this.name = name;
         this.image = null;
         this.age = age;
         this.description = description;
         this.tags = tags;
         this.breed = breed;
+        this.type = type;
     }
 
     public Animal() {
@@ -50,6 +52,7 @@ public class Animal implements Parcelable {
         animalID = in.readLong();
         age = in.readInt();
         description = in.readString();
+        type = in.readString();
         if (in.readByte() == 0x01) {
             tags = new ArrayList<>();
             in.readStringList(tags);
@@ -60,7 +63,7 @@ public class Animal implements Parcelable {
 
     @Override
     public String toString() {
-        return String.format("Animal{ name: \"%s\", breed: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}", name, breed, userID, animalID, age, description);
+        return String.format("Animal{ name: \"%s\", breed: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}", name, breed, userID, animalID, age, description,type);
     }
 
     @Override
@@ -77,6 +80,7 @@ public class Animal implements Parcelable {
         dest.writeLong(animalID);
         dest.writeInt(age);
         dest.writeString(description);
+        dest.writeString(type);
         if (tags == null) {
             dest.writeByte((byte) (0x00));
         } else {

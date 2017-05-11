@@ -59,8 +59,12 @@ public class Upload extends AppCompatActivity {
                 if (breed.equals(""))
                     valid = false;
 
+                String type = ((TextView) findViewById(R.id.animalType)).getText().toString();
+                if (type.equals(""))
+                    valid = false;
+
                 if(valid)
-                FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, null, breed));
+                FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, null, breed, type));
 
                 else{
                     new AlertDialog.Builder(Upload.this)
