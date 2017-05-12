@@ -13,7 +13,7 @@ public class FavoriteAdapter extends RVAdapter {
 
     /** constructor: FavoriteAdapter
      *
-     * default constructor
+     * default constructor. empty.
      */
     public FavoriteAdapter() {
 

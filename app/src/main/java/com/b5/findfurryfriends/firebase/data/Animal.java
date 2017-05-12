@@ -35,12 +35,12 @@ public class Animal implements Parcelable {
     public List<String> tags;
 
 
-    /**
+    /** constructor: Animal
      *
      * @param name the pet's name
      * @param age the pet's age
      * @param description a brief description of the pet
-     * @param tags
+     * @param tags tags to search for the pet
      * @param breed the pet's breed
      * @param type the type of animal
      */
@@ -54,6 +54,10 @@ public class Animal implements Parcelable {
         this.type = type;
     }
 
+    /** constructor: Animal
+     *
+     * default constructor. empty.
+     */
     public Animal() {
 
     }

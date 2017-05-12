@@ -28,6 +28,10 @@ public class User {
         favorites = new ArrayList<>();
     }
 
+    /** constructor: User
+     *
+     * default constructor. empty.
+     */
     public User(){
 
     }
