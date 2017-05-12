@@ -32,7 +32,7 @@ public class ViewInfo extends AppCompatActivity implements FetchUserHandler {
         FirebaseWrapper.getFirebase(this).getUserFromAnimal(animal, this);
     }
 
-    /** method: handlerUser
+    /** method: handleUser
      *
      * @param user the uploader of the pet
      */
