@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.b5.findfurryfriends.adapters.FavoriteAdapter;
-import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
+import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
 import java.util.List;
 

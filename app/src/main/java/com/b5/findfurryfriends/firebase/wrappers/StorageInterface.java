@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends.firebase;
+package com.b5.findfurryfriends.firebase.wrappers;
 
 import android.content.Context;
 import android.content.Intent;

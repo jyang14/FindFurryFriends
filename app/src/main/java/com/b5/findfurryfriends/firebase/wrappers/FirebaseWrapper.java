@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends.firebase;
+package com.b5.findfurryfriends.firebase.wrappers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,7 @@ import com.b5.findfurryfriends.firebase.data.User;
 import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;
 import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
 import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
+import com.b5.findfurryfriends.firebase.handlers.SignedOutHandler;
 
 import java.util.List;
 
@@ -43,22 +41,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         dataWrapper = new DataWrapper();
         storageWrapper = new StorageWrapper(activity);
 
-        authWrapper.mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) { // User is signed in
-
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-
-                    DatabaseReference authRef = dataWrapper.database.getReference("/users/auth");
-                    authRef.addListenerForSingleValueEvent(new LoginListener(FirebaseWrapper.this, authRef, dataWrapper.database));
-
-                } else {  // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
+        authWrapper.mAuthListener = new AuthListener(this, dataWrapper);
 
     }
 
@@ -102,8 +85,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
      *
      */
     @Override
-    public void signOut() {
-        authWrapper.signOut();
+    public void signOut(SignedOutHandler signedOutHandler) {
+        authWrapper.signOut(signedOutHandler);
     }
 
     /** method: signInOnIntentResult
@@ -221,4 +204,5 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     public boolean uploadOnIntentResult(int requestCode, int resultCode, Intent data) {
         return storageWrapper.uploadOnIntentResult(requestCode, resultCode, data);
     }
+
 }

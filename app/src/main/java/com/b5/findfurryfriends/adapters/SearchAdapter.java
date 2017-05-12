@@ -1,14 +1,11 @@
 package com.b5.findfurryfriends.adapters;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.b5.findfurryfriends.ViewInfo;
-import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
+import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
 import java.util.List;
 
@@ -70,16 +67,6 @@ public class SearchAdapter extends RVAdapter {
             }
         });
 
-        animalViewHolder.more.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent toViewInfo = new Intent(context, ViewInfo.class);
-                Bundle bundle = new Bundle();
-                Animal animal = pets.get(animalViewHolder.getAdapterPosition());
-                bundle.putParcelable("animal", animal);
-                toViewInfo.putExtras(bundle);
-                context.startActivity(toViewInfo);
-            }
-        });
 
     }
 

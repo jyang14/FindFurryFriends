@@ -6,10 +6,10 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.data.User;
 import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
+import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
 /** ViewInfo.java
  *  Mass Academy Apps for Good - B5

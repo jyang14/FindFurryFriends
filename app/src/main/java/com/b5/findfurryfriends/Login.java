@@ -3,10 +3,11 @@ package com.b5.findfurryfriends;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
-import com.b5.findfurryfriends.firebase.FirebaseWrapper;
 import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
+import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 import com.google.android.gms.common.SignInButton;
 
 /** Login.java
@@ -38,9 +39,12 @@ public class Login extends AppCompatActivity implements SignedInHandler {
 
     @Override
     public void onSignInSuccess() {
-        assert (FirebaseWrapper.getFirebase(this).getUser() != null);
-        Intent toSearch = new Intent(Login.this, Search.class);
-        startActivity(toSearch);
-        finish();
+        if (FirebaseWrapper.getFirebase(this).getUser() != null) {
+            Intent toSearch = new Intent(Login.this, Search.class);
+            startActivity(toSearch);
+            finish();
+        } else {
+            Log.w("LOGIN", "USER IS NULL");
+        }
     }
 }

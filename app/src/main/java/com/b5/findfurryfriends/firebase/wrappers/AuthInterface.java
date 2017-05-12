@@ -1,9 +1,10 @@
-package com.b5.findfurryfriends.firebase;
+package com.b5.findfurryfriends.firebase.wrappers;
 
 import android.content.Context;
 import android.content.Intent;
 
 import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
+import com.b5.findfurryfriends.firebase.handlers.SignedOutHandler;
 
 /** AuthInterface.java
  *  Mass Academy Apps for Good - B5
@@ -12,7 +13,7 @@ import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 interface AuthInterface {
     void signIn();
 
-    void signOut();
+    void signOut(SignedOutHandler signedOutHandler);
 
     void signInOnIntentResult(int requestCode, Intent data, SignedInHandler signedInHandler);
 

@@ -1,6 +1,8 @@
 package com.b5.findfurryfriends.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,8 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.b5.findfurryfriends.R;
-import com.b5.findfurryfriends.firebase.FirebaseWrapper;
+import com.b5.findfurryfriends.ViewInfo;
 import com.b5.findfurryfriends.firebase.data.Animal;
+import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +77,17 @@ abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
         if (pet.image != null && pet.image.contains(".jpg")) {
             FirebaseWrapper.getFirebase(context).getImage(pet.image, animalViewHolder.image);
         }
+
+        animalViewHolder.more.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent toViewInfo = new Intent(context, ViewInfo.class);
+                Bundle bundle = new Bundle();
+                Animal animal = pets.get(animalViewHolder.getAdapterPosition());
+                bundle.putParcelable("animal", animal);
+                toViewInfo.putExtras(bundle);
+                context.startActivity(toViewInfo);
+            }
+        });
 
     }
 }

@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends.firebase;
+package com.b5.findfurryfriends.firebase.wrappers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
+import com.b5.findfurryfriends.firebase.handlers.SignedOutHandler;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -34,10 +35,11 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
     private final int RC_SIGN_IN = 9001;
     private final GoogleApiClient mGoogleApiClient;
     private final FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
+    AuthListener mAuthListener;
     private Context activity;
     private boolean hasAuthListener = true;
     private boolean signOut = false;
+    private SignedOutHandler signedOutHandler;
 
     AuthWrapper(final Context activity) {
         this.activity = activity;
@@ -54,7 +56,7 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
     }
 
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct, final SignedInHandler signedInHandler) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -71,8 +73,6 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(activity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        } else {
-                            signedInHandler.onSignInSuccess();
                         }
                     }
                 });
@@ -90,7 +90,7 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
     }
 
     @Override
-    public void signOut() {
+    public void signOut(final SignedOutHandler signedOutHandler) {
         if (mGoogleApiClient.isConnected()) {
             com.google.android.gms.auth.api.Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                     new ResultCallback<Status>() {
@@ -99,11 +99,19 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
                             if (mAuth != null) {
                                 // Firebase sign out
                                 mAuth.signOut();
+                                mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                                    @Override
+                                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                                        if (firebaseAuth.getCurrentUser() == null)
+                                            signedOutHandler.onSignOut();
+                                    }
+                                });
 
                             }
                         }
                     });
         } else {
+            this.signedOutHandler = signedOutHandler;
             mGoogleApiClient.connect();
             signOut = true;
         }
@@ -118,8 +126,8 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
             Log.v(TAG, result.getStatus().toString());
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
-                firebaseAuthWithGoogle(result.getSignInAccount(), signedInHandler);
-
+                firebaseAuthWithGoogle(result.getSignInAccount());
+                mAuthListener.setSignedInHandler(signedInHandler);
             }
         }
     }
@@ -127,17 +135,28 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (signOut) {
-            com.google.android.gms.auth.api.Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                    new ResultCallback<Status>() {
-                        @Override
-                        public void onResult(@NonNull Status status) {
-                            if (mAuth != null) {
-                                // Firebase sign out
-                                mAuth.signOut();
+            if (mAuth != null) {
+                // Firebase sign out
+                com.google.android.gms.auth.api.Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(@NonNull Status status) {
+                                if (mAuth != null) {
+                                    // Firebase sign out
+                                    mAuth.signOut();
+                                    mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                                        @Override
+                                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                                            if (firebaseAuth.getCurrentUser() == null)
+                                                signedOutHandler.onSignOut();
+                                        }
+                                    });
 
+                                }
                             }
-                        }
-                    });
+                        });
+
+            }
             signOut = false;
         }
     }
