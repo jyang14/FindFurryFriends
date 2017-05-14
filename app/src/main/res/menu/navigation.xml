@@ -12,7 +12,7 @@
     <item
         android:id="@+id/navigation_favs"
         android:icon="@drawable/ic_info_black_24dp"
-        android:title="Favourites" />
+        android:title="Favorites" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_menu_manage"
