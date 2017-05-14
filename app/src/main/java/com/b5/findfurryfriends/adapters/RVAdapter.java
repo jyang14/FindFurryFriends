@@ -26,7 +26,13 @@ abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
 
     private final static String TAG = "RV_ADAPTER";
 
+    /**
+     * The Pets.
+     */
     List<Animal> pets;
+    /**
+     * The Context.
+     */
     Context context;
 
     /**

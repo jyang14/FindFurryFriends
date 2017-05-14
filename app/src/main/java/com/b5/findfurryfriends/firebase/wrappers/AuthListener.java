@@ -12,17 +12,34 @@ import com.google.firebase.database.DatabaseReference;
  * AuthListener.java
  * Mass Academy Apps for Good - B5
  * April 2017
+ * <p>
+ * Listener of Firebase Authentication status
  */
 class AuthListener implements FirebaseAuth.AuthStateListener {
     private final FirebaseWrapper firebaseWrapper;
     private final DataWrapper dataWrapper;
     private SignedInHandler signedInHandler;
 
-    public AuthListener(FirebaseWrapper firebaseWrapper, DataWrapper dataWrapper) {
+    /**
+     * constructor: AuthListener
+     * <p>
+     * Instantiates a new Auth listener.
+     *
+     * @param firebaseWrapper the firebase wrapper
+     * @param dataWrapper     the data wrapper
+     */
+    AuthListener(FirebaseWrapper firebaseWrapper, DataWrapper dataWrapper) {
         this.firebaseWrapper = firebaseWrapper;
         this.dataWrapper = dataWrapper;
     }
 
+    /**
+     * method: setSignedInHandler
+     * <p>
+     * Sets signed in handler.
+     *
+     * @param signedInHandler the signed in handler
+     */
     void setSignedInHandler(SignedInHandler signedInHandler) {
         this.signedInHandler = signedInHandler;
     }

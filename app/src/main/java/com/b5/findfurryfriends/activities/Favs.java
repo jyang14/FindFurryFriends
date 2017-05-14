@@ -61,12 +61,12 @@ public class Favs extends AppCompatActivity implements FetchAnimalHandler {
     }
 
     /**
-     * method: handle
+     * method: handleAnimals
      *
      * @param results list of pets returned
      */
     @Override
-    public void handle(List<Animal> results) {
+    public void handleAnimals(List<Animal> results) {
         adapter.setPets(results);
     }
 }

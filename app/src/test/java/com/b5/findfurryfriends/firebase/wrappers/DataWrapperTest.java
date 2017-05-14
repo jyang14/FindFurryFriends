@@ -492,7 +492,7 @@ public class DataWrapperTest {
     class FetchAnimalHandlerTest implements FetchAnimalHandler {
 
         @Override
-        public void handle(List<Animal> results) {
+        public void handleAnimals(List<Animal> results) {
             assertTrue(results != null);
             assertFalse(results.contains(null));
         }

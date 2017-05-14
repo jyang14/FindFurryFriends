@@ -17,6 +17,11 @@ class NavigationListener implements BottomNavigationView.OnNavigationItemSelecte
 
     private final AppCompatActivity activity;
 
+    /**
+     * Instantiates a new Navigation listener.
+     *
+     * @param activity the activity
+     */
     public NavigationListener(AppCompatActivity activity) {
         this.activity = activity;
     }

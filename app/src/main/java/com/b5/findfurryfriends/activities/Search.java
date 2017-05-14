@@ -51,7 +51,7 @@ public class Search extends AppCompatActivity implements FetchAnimalHandler {
     }
 
     @Override
-    public void handle(List<Animal> results) {
+    public void handleAnimals(List<Animal> results) {
         Log.v(TAG, Arrays.deepToString(results.toArray()));
 
         adapter.setPets(results);

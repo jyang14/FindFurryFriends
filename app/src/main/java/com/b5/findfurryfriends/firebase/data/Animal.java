@@ -11,9 +11,14 @@ import java.util.Locale;
  * Animal.java
  * Mass Academy Apps for Good - B5
  * April 2017
+ * <p>
+ * Animal data struct
  */
 public class Animal implements Parcelable {
 
+    /**
+     * The constant Parcelable.Creator.
+     */
     public static final Parcelable.Creator<Animal> CREATOR = new Parcelable.Creator<Animal>() {
         @Override
         public Animal createFromParcel(Parcel in) {
@@ -26,20 +31,50 @@ public class Animal implements Parcelable {
         }
     };
 
+    /**
+     * The name.
+     */
     public String name;
+    /**
+     * The image name stored on Firebase Storage.
+     */
     public String image;
+    /**
+     * The breed of Animal.
+     */
     public String breed;
+    /**
+     * The user id of uploader.
+     */
     public long userID;
+    /**
+     * The animal id.
+     */
     public long animalID;
+    /**
+     * The age of animal.
+     */
     public int age;
+    /**
+     * The description of animal.
+     */
     public String description;
+    /**
+     * The Type.
+     */
     public String type;
+    /**
+     * The animal description tags.
+     *
+     * @deprecated
+     */
     public List<String> tags;
 
 
     /**
      * constructor: Animal
-     *  @param name        the pet's name
+     *
+     * @param name        the pet's name
      * @param age         the pet's age
      * @param description a brief description of the pet
      * @param breed       the pet's breed
@@ -58,7 +93,7 @@ public class Animal implements Parcelable {
     /**
      * constructor: Animal
      * <p>
-     * default constructor for Firebase. empty.
+     * default constructor for Firebase
      */
     public Animal() {
 

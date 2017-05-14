@@ -14,16 +14,48 @@ import com.b5.findfurryfriends.R;
  * May 2017
  */
 class AnimalViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * The Name.
+     */
     final TextView name;
+    /**
+     * The Age.
+     */
     final TextView age;
+    /**
+     * The Image.
+     */
     final ImageView image;
+    /**
+     * The Desc.
+     */
     final TextView desc;
+    /**
+     * The Breed.
+     */
     final TextView breed;
+    /**
+     * The Type.
+     */
     final TextView type;
+    /**
+     * The More.
+     */
     final ImageButton more;
+    /**
+     * The Save.
+     */
     final ImageButton save;
+    /**
+     * The Remove.
+     */
     final ImageButton remove;
 
+    /**
+     * Instantiates a new Animal view holder.
+     *
+     * @param itemView the item view
+     */
     AnimalViewHolder(View itemView) {
         super(itemView);
         age = (TextView) itemView.findViewById(R.id.age);

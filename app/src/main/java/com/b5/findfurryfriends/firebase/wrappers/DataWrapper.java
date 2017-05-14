@@ -21,29 +21,58 @@ import java.util.List;
  * DataWrapper.java
  * Mass Academy Apps for Good - B5
  * April 2017
+ * <p>
+ * Implementation of Firebase Database functions
  */
 @SuppressWarnings("ALL")
 class DataWrapper implements DataInterface {
 
     static private final String TAG = "DATAWRAPPER";
 
+    /**
+     * The Database.
+     */
     final FirebaseDatabase database;
     private User user = null;
 
+    /**
+     * Instantiates a new Data wrapper.
+     */
     DataWrapper() {
         database = FirebaseDatabase.getInstance();
     }
 
+    /**
+     * method: getUser
+     * <p>
+     * Gets user.
+     *
+     * @return User user to be gotten
+     */
     @Override
     public User getUser() {
         return user;
     }
 
+    /**
+     * method: setUser
+     * <p>
+     * Sets user.
+     *
+     * @param user the user
+     */
     @Override
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * method: uploadAnimal
+     * <p>
+     * Upload animal.
+     *
+     * @param animal animal to be uploaded
+     */
     @Override
     public void uploadAnimal(final Animal animal) {
 
@@ -60,10 +89,13 @@ class DataWrapper implements DataInterface {
     }
 
     /**
-     * @param tags    Set as null
-     * @param handler The handler of the results
+     * method: search
+     * <p>
+     * Gets the list of all animals in the database
+     *
+     * @param tags    TODO
+     * @param handler handler of the resultant list of animals
      */
-    // TODO: 5/10/2017 Implement tags
     @Override
     public void search(List<String> tags, final FetchAnimalHandler handler) {
 
@@ -87,7 +119,7 @@ class DataWrapper implements DataInterface {
                     results = new ArrayList<>();
 
                 results.removeAll(Collections.singleton(null));
-                handler.handle(results);
+                handler.handleAnimals(results);
 
 
             }
@@ -101,6 +133,13 @@ class DataWrapper implements DataInterface {
 
     }
 
+    /**
+     * method: addFavorite
+     * <p>
+     * Add animal to favorites
+     *
+     * @param animal animal to be added to favorites
+     */
     @Override
     public void addFavorite(Animal animal) {
         if (user == null || animal == null) {
@@ -119,6 +158,11 @@ class DataWrapper implements DataInterface {
         updateUser();
     }
 
+    /**
+     * method: updateUser
+     * <p>
+     * Updates the user on Firebase with the local cached user
+     */
     private void updateUser() {
         if (user == null) {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
@@ -128,6 +172,13 @@ class DataWrapper implements DataInterface {
         database.getReference("users/users/" + user.userID).setValue(user);
     }
 
+    /**
+     * method: removeFavorite
+     * <p>
+     * Remove animal from favorites.
+     *
+     * @param animal animal to remove from favorites
+     */
     @Override
     public void getFavorites(final FetchAnimalHandler fetchAnimalHandler) {
         if (user == null || fetchAnimalHandler == null) {
@@ -151,7 +202,7 @@ class DataWrapper implements DataInterface {
 
                     if (temp.size() == user.favorites.size()) {
                         temp.removeAll(Collections.singleton(null));
-                        fetchAnimalHandler.handle(temp);
+                        fetchAnimalHandler.handleAnimals(temp);
                     }
 
                 }
@@ -166,6 +217,13 @@ class DataWrapper implements DataInterface {
 
     }
 
+    /**
+     * method: removeFavorite
+     * <p>
+     * Remove animal from favorites.
+     *
+     * @param animal animal to remove from favorites
+     */
     @Override
     public void removeFavorite(Animal animal) {
 
@@ -179,6 +237,14 @@ class DataWrapper implements DataInterface {
 
     }
 
+    /**
+     * method: getUserFromAnimal
+     * <p>
+     * Gets the user that uploaded the animal.
+     *
+     * @param animal      animal of the user to be fetched
+     * @param userHandler handler of the fetched user data
+     */
     @Override
     public void getUserFromAnimal(Animal animal, final FetchUserHandler userHandler) {
         if (animal == null || userHandler == null) {
@@ -199,11 +265,20 @@ class DataWrapper implements DataInterface {
         });
     }
 
+    /**
+     * Class for uploading animals
+     */
     private class AnimalUploadListener implements ValueEventListener {
 
         private final DatabaseReference myRef;
         private final Animal animal;
 
+        /**
+         * Instantiates a new Animal upload listener.
+         *
+         * @param myRef  the my ref
+         * @param animal the animal
+         */
         public AnimalUploadListener(DatabaseReference myRef, Animal animal) {
             this.myRef = myRef;
             this.animal = animal;

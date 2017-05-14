@@ -16,8 +16,9 @@ import com.google.firebase.database.ValueEventListener;
  * LoginListener.java
  * Mass Academy Apps for Good - B5
  * April 2017
+ * <p>
+ * Class for logging in
  */
-//TODO Pretty up code
 final class LoginListener implements ValueEventListener {
 
     private final DatabaseReference authRef;
@@ -26,6 +27,14 @@ final class LoginListener implements ValueEventListener {
     private final SignedInHandler signedInHandler;
     private final String TAG = "LOGIN";
 
+    /**
+     * Instantiates a new Login listener.
+     *
+     * @param firebaseInterface the firebase interface
+     * @param authRef           the auth ref
+     * @param database          the database
+     * @param signedInHandler   the signed in handler
+     */
     public LoginListener(FirebaseWrapper firebaseInterface, DatabaseReference authRef, FirebaseDatabase database, SignedInHandler signedInHandler) {
         this.firebaseInterface = firebaseInterface;
         this.authRef = authRef;
@@ -87,6 +96,12 @@ final class LoginListener implements ValueEventListener {
         private final FirebaseAuth mAuth;
         private final DatabaseReference idRef;
 
+        /**
+         * Instantiates a new Create user handler.
+         *
+         * @param mAuth the m auth
+         * @param idRef the id ref
+         */
         public CreateUserHandler(FirebaseAuth mAuth, DatabaseReference idRef) {
             this.mAuth = mAuth;
             this.idRef = idRef;

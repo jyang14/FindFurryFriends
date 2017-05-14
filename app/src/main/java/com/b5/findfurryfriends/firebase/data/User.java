@@ -7,12 +7,29 @@ import java.util.List;
  * User.java
  * Mass Academy Apps for Good - B5
  * April 2017
+ * <p>
+ * User data struct
  */
 public class User {
+    /**
+     * The username.
+     */
     public String username;
+    /**
+     * The user id.
+     */
     public long userID;
+    /**
+     * The contact info.
+     */
     public String contact;
+    /**
+     * The the list of ids of uploaded animals.
+     */
     public List<Long> animalIDs;
+    /**
+     * The list of ids of the favorites animals.
+     */
     public List<Long> favorites;
 
     /**

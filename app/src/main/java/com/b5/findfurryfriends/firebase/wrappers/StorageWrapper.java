@@ -25,6 +25,8 @@ import java.security.NoSuchAlgorithmException;
  * StorageWrapper.java
  * Mass Academy Apps for Good - B5
  * April 2017
+ * <p>
+ * Implementation of Firebase Database functions
  */
 class StorageWrapper implements StorageInterface {
 
@@ -35,14 +37,26 @@ class StorageWrapper implements StorageInterface {
     private Animal animal;
 
 
+    /**
+     * Instantiates a new Storage wrapper.
+     *
+     * @param activity the activity
+     */
     StorageWrapper(Context activity) {
         firebaseStorage = FirebaseStorage.getInstance();
         this.activity = activity;
     }
 
-    // StackOverflow tells me that SHA-256 collisions are pretty rare.
-    // http://stackoverflow.com/questions/4014090/is-it-safe-to-ignore-the-possibility-of-sha-collisions-in-practice
-    // Therefore I am using this algorithm to name my images because I'm lazy.
+    /**
+     * method: computeSHA256
+     * <p>
+     * StackOverflow tells me that SHA-256 collisions are pretty rare.
+     * http://stackoverflow.com/questions/4014090/is-it-safe-to-ignore-the-possibility-of-sha-collisions-in-practice
+     * Therefore I am using this algorithm to name my images because I'm lazy.
+     *
+     * @param bytes the bytes of image to computer SHA256 of
+     * @return the hash of the image
+     */
     private String computeSHA256(byte[] bytes) {
         String output;
 
@@ -64,7 +78,11 @@ class StorageWrapper implements StorageInterface {
     }
 
     /**
-     * get
+     * method: createCaptureIntent
+     * <p>
+     * Create image capture intent that will eventually upload {@code animal}.
+     *
+     * @param animal animal data to be uploaded
      */
     @Override
     public void createCaptureIntent(Animal animal) {
@@ -75,6 +93,14 @@ class StorageWrapper implements StorageInterface {
             ((AppCompatActivity) activity).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
 
+    /**
+     * method: getImage
+     * <p>
+     * Gets the bitmap image by and puts it in the ImageView
+     *
+     * @param name      Name/hash of image
+     * @param imageView ImageView to display the image in
+     */
     @Override
     public void getImage(String name, ImageView imageView) {
         StorageReference storageRef = firebaseStorage.getReference().child(name);
@@ -85,6 +111,14 @@ class StorageWrapper implements StorageInterface {
                 .into(imageView);
     }
 
+    /**
+     * method: uploadOnIntentResult
+     *
+     * @param requestCode the request code in onIntentResult
+     * @param resultCode  the result code in onIntentResult
+     * @param data        intent data in onIntentResult
+     * @return true if upload is successful
+     */
     @Override
     public boolean uploadOnIntentResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
@@ -116,6 +150,13 @@ class StorageWrapper implements StorageInterface {
         return false;
     }
 
+    /**
+     * method: setContext.
+     * <p>
+     * Sets context.
+     *
+     * @param activity the activity
+     */
     @Override
     public void setContext(Context activity) {
         this.activity = activity;

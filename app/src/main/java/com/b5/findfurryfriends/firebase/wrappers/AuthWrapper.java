@@ -29,6 +29,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
  * AuthWrapper.java
  * Mass Academy Apps for Good - B5
  * April 2017
+ * <p>
+ * Implementation of Firebase Authentication functions
  */
 class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, AuthInterface {
 
@@ -36,12 +38,22 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
     private final int RC_SIGN_IN = 9001;
     private final GoogleApiClient mGoogleApiClient;
     private final FirebaseAuth mAuth;
+    /**
+     * The Authentication State Listener .
+     */
     AuthListener mAuthListener;
     private Context activity;
     private boolean hasAuthListener = true;
     private boolean signOut = false;
     private SignedOutHandler signedOutHandler;
 
+    /**
+     * constructor: AuthWrapper
+     * <p>
+     * Instantiates a new AuthWrapper.
+     *
+     * @param activity the activity
+     */
     AuthWrapper(final Context activity) {
         this.activity = activity;
         mAuth = FirebaseAuth.getInstance();
@@ -52,11 +64,25 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
 
     }
 
+    /**
+     * method: setContext
+     * <p>
+     * Do not call
+     *
+     * @param activity Context calling Firebase
+     * @deprecated
+     */
     public void setContext(Context activity) {
         this.activity = activity;
     }
 
-
+    /**
+     * method: firebaseAuthWithGoogle
+     * <p>
+     * Authenticates Firebase with google account
+     *
+     * @param acct authenticated google account
+     */
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -68,7 +94,7 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
                         // If sign in fails, display a message to the test2. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
+                        // the auth state listener will be notified and logic to handleAnimals the
                         // signed in test2 can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
@@ -79,6 +105,11 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
                 });
     }
 
+    /**
+     * method: signIn
+     * <p>
+     * Creates intent for sign in.
+     */
     @Override
     public void signIn() {
         if (hasAuthListener) {
@@ -90,6 +121,13 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
 
     }
 
+    /**
+     * method: signOut
+     * <p>
+     * Sign out.
+     *
+     * @param signedOutHandler the signed out handler
+     */
     @Override
     public void signOut(final SignedOutHandler signedOutHandler) {
         if (mGoogleApiClient.isConnected()) {
@@ -119,6 +157,15 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
 
     }
 
+    /**
+     * method: signInOnIntentResult
+     * <p>
+     * Tries to sign in based on intent result
+     *
+     * @param requestCode     the request code in onIntentResult
+     * @param data            intent data in onIntentResult
+     * @param signedInHandler handler for signing in
+     */
     @Override
     public void signInOnIntentResult(int requestCode, Intent data, SignedInHandler signedInHandler) {
         if (requestCode == RC_SIGN_IN) {
