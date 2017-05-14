@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.b5.findfurryfriends.Search">
+    tools:context="com.b5.findfurryfriends.activities.Search">
 
 
     <android.support.v7.widget.RecyclerView

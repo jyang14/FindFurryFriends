@@ -9,7 +9,7 @@
     android:layout_marginRight="8dp"
     android:layout_marginTop="8dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.b5.findfurryfriends.ViewInfo"
+    tools:context="com.b5.findfurryfriends.activities.ViewInfo"
     tools:showIn="@layout/activity_view_info">
 
     <LinearLayout
@@ -28,6 +28,7 @@
                 android:id="@+id/pic1"
                 android:layout_width="fill_parent"
                 android:layout_height="351dp"
+                android:contentDescription="@string/picture"
                 app:srcCompat="@drawable/ic_menu_camera" />
 
         </LinearLayout>
@@ -36,14 +37,14 @@
             android:id="@+id/user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="user email" />
+            android:text="@string/user_email" />
 
         <TextView
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="a paragraph about the animal" />
+            android:text="@string/a_paragraph_about_the_animal" />
 
     </LinearLayout>
 

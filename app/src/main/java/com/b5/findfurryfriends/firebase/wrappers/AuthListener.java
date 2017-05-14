@@ -14,8 +14,8 @@ import com.google.firebase.database.DatabaseReference;
  * April 2017
  */
 class AuthListener implements FirebaseAuth.AuthStateListener {
-    private FirebaseWrapper firebaseWrapper;
-    private DataWrapper dataWrapper;
+    private final FirebaseWrapper firebaseWrapper;
+    private final DataWrapper dataWrapper;
     private SignedInHandler signedInHandler;
 
     public AuthListener(FirebaseWrapper firebaseWrapper, DataWrapper dataWrapper) {

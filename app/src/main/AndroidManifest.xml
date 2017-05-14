@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.b5.findfurryfriends">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -9,27 +10,29 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Favs"
+            android:name=".activities.Favs"
             android:label="@string/title_activity_favs"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ViewInfo"
+            android:name=".activities.ViewInfo"
             android:label="@string/title_activity_view_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Upload"
+            android:name=".activities.Upload"
             android:label="@string/title_activity_upload"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Profile"
+            android:name=".activities.Profile"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Login">
+        <activity android:name=".activities.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Search"
+            android:name=".activities.Search"
             android:label="@string/title_activity_main" />
     </application>
 

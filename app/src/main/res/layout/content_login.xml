@@ -19,7 +19,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="22dp"
-        android:text="Welcome to Find Furry Friends!"
+        android:text="@string/welcome_to_find_furry_friends"
         android:textAlignment="center"
         android:textSize="30sp" />
 
@@ -30,7 +30,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:text="Please login below using your Google account to get started! Find Furry Friends wants to help you find  a new friend and provide homes to countless homeless animals! We thank you for your support! Please be patient as our login may take a few seconds."
+        android:text="@string/please_login_below_using_your_google_account_to_get_started_find_furry_friends_wants_to_help_you_find_a_new_friend_and_provide_homes_to_countless_homeless_animals_we_thank_you_for_your_support_please_be_patient_as_our_login_may_take_a_few_seconds"
         android:textAlignment="center"
         android:textSize="24sp" />
 

@@ -35,13 +35,13 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * constructor: FirebaseWrapper
      *
-     * @param activity
+     * @param context Context calling Firebase
      */
-    private FirebaseWrapper(final Context activity) {
+    private FirebaseWrapper(final Context context) {
         Log.v(TAG, "Constructor called");
-        authWrapper = new AuthWrapper(activity);
+        authWrapper = new AuthWrapper(context);
         dataWrapper = new DataWrapper();
-        storageWrapper = new StorageWrapper(activity);
+        storageWrapper = new StorageWrapper(context);
 
         authWrapper.mAuthListener = new AuthListener(this, dataWrapper);
 
@@ -54,7 +54,6 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
      * @return FirebaseWrapper instance
      */
     public static FirebaseWrapper getFirebase(@NonNull Context activity) {
-        assert (activity != null);
         if (instance != null) {
             instance.setContext(activity);
         } else {
@@ -66,8 +65,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
 
     /**
      * method: setContext
-     *
-     * @param activity
+     * Do not call from FirebaseWrapper
+     * @param activity Context calling Firebase
      */
     @Override
     public void setContext(Context activity) {
@@ -96,9 +95,9 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: signInOnIntentResult
      *
-     * @param requestCode
-     * @param data
-     * @param signedInHandler
+     * @param requestCode the request code in onIntentResult
+     * @param data intent data in onIntentResult
+     * @param signedInHandler handler for signing in
      */
     @Override
     public void signInOnIntentResult(int requestCode, Intent data, SignedInHandler signedInHandler) {
@@ -108,7 +107,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: getUser
      *
-     * @return User
+     * @return User user to be gotten
      */
     @Override
     public User getUser() {
@@ -118,7 +117,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: setUser
      *
-     * @param user
+     * @param user user to be set
      */
     @Override
     public void setUser(User user) {
@@ -128,7 +127,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: uploadAnimal
      *
-     * @param animal
+     * @param animal animal to be uploaded
      */
     @Override
     public void uploadAnimal(Animal animal) {
@@ -138,8 +137,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: search
      *
-     * @param tags
-     * @param handler
+     * @param tags not used, please input null
+     * @param handler handler of the resultant list of animals
      */
     @Override
     public void search(List<String> tags, FetchAnimalHandler handler) {
@@ -149,7 +148,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: addFavorite
      *
-     * @param animal
+     * @param animal animal to be added to favorites
      */
     @Override
     public void addFavorite(Animal animal) {
@@ -159,7 +158,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: getFavorites
      *
-     * @param fetchAnimalHandler
+     * @param fetchAnimalHandler handler of the list of favorite animals
      */
     @Override
     public void getFavorites(FetchAnimalHandler fetchAnimalHandler) {
@@ -169,7 +168,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: removeFavorite
      *
-     * @param animal
+     * @param animal animal to remove from favorites
      */
     @Override
     public void removeFavorite(Animal animal) {
@@ -179,8 +178,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: getUserFromAnimal
      *
-     * @param animal
-     * @param userHandler
+     * @param animal animal of the user to be fetched
+     * @param userHandler handler of the fetched user data
      */
     @Override
     public void getUserFromAnimal(Animal animal, FetchUserHandler userHandler) {
@@ -190,7 +189,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: createCaptureIntent
      *
-     * @param animal
+     * @param animal creates an intent for capturing a photo for the upload
      */
     @Override
     public void createCaptureIntent(Animal animal) {
@@ -200,8 +199,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: getImage
      *
-     * @param name
-     * @param imageView
+     * @param name Name/hash of image
+     * @param imageView ImageView to display the image in
      */
     @Override
     public void getImage(String name, ImageView imageView) {
@@ -211,10 +210,10 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     /**
      * method: uploadOnIntentResult
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     * @return
+     * @param requestCode the request code in onIntentResult
+     * @param resultCode the result code in onIntentResult
+     * @param data intent data in onIntentResult
+     * @return true if upload is successful
      */
     @Override
     public boolean uploadOnIntentResult(int requestCode, int resultCode, Intent data) {

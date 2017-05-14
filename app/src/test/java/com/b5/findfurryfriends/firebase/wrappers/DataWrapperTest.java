@@ -43,7 +43,9 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
 
 /**
- * Created by jinch on 5/9/2017.
+ * DataWrapperTest.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Log.class, FirebaseDatabase.class})
@@ -442,14 +444,14 @@ public class DataWrapperTest {
         verifyStatic(times(4));
         Log.w(anyString(), anyString());
 
-        user.favorites.add(100l); // Random irrelevant number
+        user.favorites.add(100L); // Random irrelevant number
 
         dataWrapper.removeFavorite(new Animal());
         verifyStatic(times(5));
         Log.w(anyString(), anyString());
 
 
-        user.favorites.add(0l); // Actual id of a new animal
+        user.favorites.add(0L); // Actual id of a new animal
 
         dataWrapper.removeFavorite(new Animal());
         verifyStatic(times(5));

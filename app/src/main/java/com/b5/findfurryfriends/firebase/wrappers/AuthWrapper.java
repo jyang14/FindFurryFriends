@@ -142,18 +142,17 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
                         new ResultCallback<Status>() {
                             @Override
                             public void onResult(@NonNull Status status) {
-                                if (mAuth != null) {
-                                    // Firebase sign out
-                                    mAuth.signOut();
-                                    mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-                                        @Override
-                                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                                            if (firebaseAuth.getCurrentUser() == null)
-                                                signedOutHandler.onSignOut();
-                                        }
-                                    });
+                                // Just in case because I am paranoid
+                                // Firebase sign out
+                                mAuth.signOut();
+                                mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                                    @Override
+                                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                                        if (firebaseAuth.getCurrentUser() == null)
+                                            signedOutHandler.onSignOut();
+                                    }
+                                });
 
-                                }
                             }
                         });
 

@@ -1,10 +1,12 @@
-package com.b5.findfurryfriends;
+package com.b5.findfurryfriends.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.b5.findfurryfriends.R;
 
 /**
  * NavigationListener.java
@@ -13,7 +15,7 @@ import android.view.MenuItem;
  */
 class NavigationListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private AppCompatActivity activity;
+    private final AppCompatActivity activity;
 
     public NavigationListener(AppCompatActivity activity) {
         this.activity = activity;

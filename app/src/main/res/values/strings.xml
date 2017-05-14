@@ -18,4 +18,32 @@
 
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="submit_your_pet">submit your pet</string>
+    <string name="what_kind_of_animal_is_your_pet">What kind of animal is your pet…</string>
+    <string name="describe_your_pet">Describe your pet…</string>
+    <string name="enter_your_pet_s_breed">Enter your pet\'s breed…</string>
+    <string name="enter_your_pet_s_age">Enter your pet\'s age…</string>
+    <string name="enter_your_pet_s_name">Enter your pet\'s name…</string>
+    <string name="not_submitted">not submitted</string>
+    <string name="picture">Picture</string>
+    <string name="name">NAME</string>
+    <string name="breed">BREED</string>
+    <string name="age">AGE</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="remove">Remove</string>
+    <string name="info">Info</string>
+    <string name="breed_colon">Breed:</string>
+    <string name="type">Type:</string>
+    <string name="age_colon">Age:</string>
+    <string name="type_colon">TYPE</string>
+    <string name="user_email">user email</string>
+    <string name="a_paragraph_about_the_animal">a paragraph about the animal</string>
+    <string name="welcome_to_find_furry_friends">Welcome to Find Furry Friends!</string>
+    <string name="please_login_below_using_your_google_account_to_get_started_find_furry_friends_wants_to_help_you_find_a_new_friend_and_provide_homes_to_countless_homeless_animals_we_thank_you_for_your_support_please_be_patient_as_our_login_may_take_a_few_seconds">Please login below using your Google account to get started! Find Furry Friends wants to help you find a new friend and provide homes to countless homeless animals! We thank you for your support! Please be patient as our login may take a few seconds.</string>
+    <string name="change_account">Change Account</string>
+    <string name="search">Search</string>
+    <string name="upload">Upload</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
 </resources>

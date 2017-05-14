@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends;
+package com.b5.findfurryfriends.activities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.b5.findfurryfriends.R;
 import com.b5.findfurryfriends.adapters.SearchAdapter;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.handlers.FetchAnimalHandler;

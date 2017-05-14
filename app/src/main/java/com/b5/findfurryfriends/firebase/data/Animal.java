@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Animal.java
@@ -38,20 +39,18 @@ public class Animal implements Parcelable {
 
     /**
      * constructor: Animal
-     *
-     * @param name        the pet's name
+     *  @param name        the pet's name
      * @param age         the pet's age
      * @param description a brief description of the pet
-     * @param tags        tags to search for the pet
      * @param breed       the pet's breed
      * @param type        the type of animal
      */
-    public Animal(String name, int age, String description, List<String> tags, String breed, String type) {
+    public Animal(String name, int age, String description, String breed, String type) {
         this.name = name;
         this.image = null;
         this.age = age;
         this.description = description;
-        this.tags = tags;
+        this.tags = null;
         this.breed = breed;
         this.type = type;
     }
@@ -84,7 +83,9 @@ public class Animal implements Parcelable {
 
     @Override
     public String toString() {
-        return String.format("Animal{ name: \"%s\", breed: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}", name, breed, userID, animalID, age, description, type);
+        return String.format(Locale.US,
+                "Animal{ name: \"%s\", breed: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\", type: \"%s\"}",
+                name, breed, userID, animalID, age, description, type);
     }
 
     @Override

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.b5.findfurryfriends.R;
-import com.b5.findfurryfriends.ViewInfo;
+import com.b5.findfurryfriends.activities.ViewInfo;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
@@ -24,7 +24,7 @@ import java.util.List;
  */
 abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
 
-    private final static String TAG = "RVADAPTER";
+    private final static String TAG = "RV_ADAPTER";
 
     List<Animal> pets;
     Context context;
@@ -62,35 +62,33 @@ abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    @Override
     public void onBindViewHolder(final AnimalViewHolder animalViewHolder, int i) {
         Animal pet = pets.get(i);
         Log.v(TAG, String.format("%d : %s", i, pet == null ? "Null" : pet.toString()));
 
-        animalViewHolder.type.setText(String.valueOf(pet.type));
-        animalViewHolder.name.setText(pet.name);
-        animalViewHolder.age.setText(String.valueOf(pet.age));
-        animalViewHolder.desc.setText(String.valueOf(pet.description));
-        animalViewHolder.breed.setText(pet.breed);
+        // I am paranoid
+        if (pet != null) {
+            animalViewHolder.type.setText(String.valueOf(pet.type));
+            animalViewHolder.name.setText(pet.name);
+            animalViewHolder.age.setText(String.valueOf(pet.age));
+            animalViewHolder.desc.setText(String.valueOf(pet.description));
+            animalViewHolder.breed.setText(pet.breed);
 
-        if (pet.image != null && pet.image.contains(".jpg")) {
-            FirebaseWrapper.getFirebase(context).getImage(pet.image, animalViewHolder.image);
-        }
-
-        animalViewHolder.more.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent toViewInfo = new Intent(context, ViewInfo.class);
-                Bundle bundle = new Bundle();
-                Animal animal = pets.get(animalViewHolder.getAdapterPosition());
-                bundle.putParcelable("animal", animal);
-                toViewInfo.putExtras(bundle);
-                context.startActivity(toViewInfo);
+            if (pet.image != null && pet.image.contains(".jpg")) {
+                FirebaseWrapper.getFirebase(context).getImage(pet.image, animalViewHolder.image);
             }
-        });
 
+            animalViewHolder.more.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent toViewInfo = new Intent(context, ViewInfo.class);
+                    Bundle bundle = new Bundle();
+                    Animal animal = pets.get(animalViewHolder.getAdapterPosition());
+                    bundle.putParcelable("animal", animal);
+                    toViewInfo.putExtras(bundle);
+                    context.startActivity(toViewInfo);
+                }
+            });
+
+        }
     }
 }

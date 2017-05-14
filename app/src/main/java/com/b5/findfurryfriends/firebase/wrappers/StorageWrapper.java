@@ -22,14 +22,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by jinch on 5/3/2017.
+ * StorageWrapper.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
-
 class StorageWrapper implements StorageInterface {
 
     private static final String TAG = "STORAGE";
 
-    private FirebaseStorage firebaseStorage;
+    private final FirebaseStorage firebaseStorage;
     private Context activity;
     private Animal animal;
 
@@ -42,7 +43,7 @@ class StorageWrapper implements StorageInterface {
     // StackOverflow tells me that SHA-256 collisions are pretty rare.
     // http://stackoverflow.com/questions/4014090/is-it-safe-to-ignore-the-possibility-of-sha-collisions-in-practice
     // Therefore I am using this algorithm to name my images because I'm lazy.
-    private String conputerSHA(byte[] bytes) {
+    private String computeSHA256(byte[] bytes) {
         String output;
 
         try {
@@ -58,7 +59,7 @@ class StorageWrapper implements StorageInterface {
             return (output + ".jpg");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            return null;
+            return String.valueOf(System.nanoTime());
         }
     }
 
@@ -96,19 +97,21 @@ class StorageWrapper implements StorageInterface {
 
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
-            bitmap.recycle();
-            byte[] bytes = baos.toByteArray();
-            String name = conputerSHA(bytes);
+            // Android studio is paranoid
+            if (bitmap != null) {
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+                bitmap.recycle();
+                byte[] bytes = byteArrayOutputStream.toByteArray();
+                String name = computeSHA256(bytes);
 
-            StorageReference storageRef = firebaseStorage.getReference();
+                StorageReference storageRef = firebaseStorage.getReference();
 
-            storageRef.child(name).putBytes(bytes);
-            animal.image = name;
-            FirebaseWrapper.getFirebase(activity).uploadAnimal(animal);
-            return true;
-
+                storageRef.child(name).putBytes(bytes);
+                animal.image = name;
+                FirebaseWrapper.getFirebase(activity).uploadAnimal(animal);
+                return true;
+            }
         }
         return false;
     }

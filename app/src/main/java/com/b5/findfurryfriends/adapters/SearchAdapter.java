@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class SearchAdapter extends RVAdapter {
 
-    static private final String TAG = "SEARCHADAPTER";
+    static private final String TAG = "SEARCH_ADAPTER";
 
     /**
      * constructor: SearchAdapter

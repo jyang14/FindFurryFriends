@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends;
+package com.b5.findfurryfriends.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.b5.findfurryfriends.R;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
@@ -69,7 +70,7 @@ public class Upload extends AppCompatActivity {
                     valid = false;
 
                 if (valid)
-                    FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, null, breed, type));
+                    FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, breed, type));
 
                 else {
                     new AlertDialog.Builder(Upload.this)

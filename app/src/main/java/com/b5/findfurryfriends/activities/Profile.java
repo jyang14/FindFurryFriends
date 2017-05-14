@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends;
+package com.b5.findfurryfriends.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.b5.findfurryfriends.R;
 import com.b5.findfurryfriends.firebase.handlers.SignedOutHandler;
 import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 

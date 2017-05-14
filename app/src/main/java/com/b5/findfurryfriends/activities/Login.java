@@ -1,4 +1,4 @@
-package com.b5.findfurryfriends;
+package com.b5.findfurryfriends.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -101,13 +101,15 @@ final class LoginListener implements ValueEventListener {
 
             FirebaseUser currentUser = mAuth.getCurrentUser();
 
-            authRef.child(currentUser.getUid()).setValue(value);
+            if (currentUser != null) {
+                authRef.child(currentUser.getUid()).setValue(value);
 
-            firebaseInterface.setUser(new User(currentUser.getDisplayName(), value, currentUser.getEmail()));
-            DatabaseReference userRef = database.getReference("users/users/");
-            userRef.child(String.valueOf(value)).setValue(firebaseInterface.getUser());
-            if (signedInHandler != null)
-                signedInHandler.onSignInSuccess();
+                firebaseInterface.setUser(new User(currentUser.getDisplayName(), value, currentUser.getEmail()));
+                DatabaseReference userRef = database.getReference("users/users/");
+                userRef.child(String.valueOf(value)).setValue(firebaseInterface.getUser());
+                if (signedInHandler != null)
+                    signedInHandler.onSignInSuccess();
+            }
         }
 
         @Override

@@ -22,6 +22,7 @@ import java.util.List;
  * Mass Academy Apps for Good - B5
  * April 2017
  */
+@SuppressWarnings("ALL")
 class DataWrapper implements DataInterface {
 
     static private final String TAG = "DATAWRAPPER";
