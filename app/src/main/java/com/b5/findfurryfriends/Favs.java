@@ -15,9 +15,10 @@ import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
 import java.util.List;
 
-/** Favs.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * Favs.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 public class Favs extends AppCompatActivity implements FetchAnimalHandler {
 
@@ -58,7 +59,8 @@ public class Favs extends AppCompatActivity implements FetchAnimalHandler {
         overridePendingTransition(0, 0);
     }
 
-    /** method: handle
+    /**
+     * method: handle
      *
      * @param results list of pets returned
      */

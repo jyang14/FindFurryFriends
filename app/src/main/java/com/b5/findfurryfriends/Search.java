@@ -18,9 +18,10 @@ import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 import java.util.Arrays;
 import java.util.List;
 
-/** Search.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * Search.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 public class Search extends AppCompatActivity implements FetchAnimalHandler {
 

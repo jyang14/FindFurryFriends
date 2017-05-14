@@ -1,9 +1,10 @@
 package com.b5.findfurryfriends.firebase.handlers;
 
 /**
- * Created by jinch on 5/10/2017.
+ * SignedOutHandler.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
-
 public interface SignedOutHandler {
 
     void onSignOut();

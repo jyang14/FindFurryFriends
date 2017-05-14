@@ -11,9 +11,10 @@ import com.b5.findfurryfriends.firebase.data.User;
 import com.b5.findfurryfriends.firebase.handlers.FetchUserHandler;
 import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
-/** ViewInfo.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * ViewInfo.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 public class ViewInfo extends AppCompatActivity implements FetchUserHandler {
 
@@ -32,7 +33,8 @@ public class ViewInfo extends AppCompatActivity implements FetchUserHandler {
         FirebaseWrapper.getFirebase(this).getUserFromAnimal(animal, this);
     }
 
-    /** method: handleUser
+    /**
+     * method: handleUser
      *
      * @param user the uploader of the pet
      */

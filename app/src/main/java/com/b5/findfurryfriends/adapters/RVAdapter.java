@@ -17,9 +17,10 @@ import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-/** RVAdapter.java
- *  Mass Academy Apps for Good - B5
- *  May 2017
+/**
+ * RVAdapter.java
+ * Mass Academy Apps for Good - B5
+ * May 2017
  */
 abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
 
@@ -28,8 +29,9 @@ abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
     List<Animal> pets;
     Context context;
 
-    /** constructor: RVAdapter
-     *
+    /**
+     * constructor: RVAdapter
+     * <p>
      * default constructor. creates empty list of pets.
      */
     RVAdapter() {
@@ -37,7 +39,8 @@ abstract class RVAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
     }
 
 
-    /** method: setPets
+    /**
+     * method: setPets
      *
      * @param pets the list of pets to be displayed
      */

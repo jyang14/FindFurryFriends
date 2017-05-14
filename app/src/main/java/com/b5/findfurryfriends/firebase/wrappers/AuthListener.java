@@ -9,7 +9,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 /**
- * Created by jinch on 5/11/2017.
+ * AuthListener.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 class AuthListener implements FirebaseAuth.AuthStateListener {
     private FirebaseWrapper firebaseWrapper;

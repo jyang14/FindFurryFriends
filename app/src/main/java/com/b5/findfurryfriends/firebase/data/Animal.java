@@ -6,9 +6,10 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Animal.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * Animal.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 public class Animal implements Parcelable {
 
@@ -35,14 +36,15 @@ public class Animal implements Parcelable {
     public List<String> tags;
 
 
-    /** constructor: Animal
+    /**
+     * constructor: Animal
      *
-     * @param name the pet's name
-     * @param age the pet's age
+     * @param name        the pet's name
+     * @param age         the pet's age
      * @param description a brief description of the pet
-     * @param tags tags to search for the pet
-     * @param breed the pet's breed
-     * @param type the type of animal
+     * @param tags        tags to search for the pet
+     * @param breed       the pet's breed
+     * @param type        the type of animal
      */
     public Animal(String name, int age, String description, List<String> tags, String breed, String type) {
         this.name = name;
@@ -54,9 +56,10 @@ public class Animal implements Parcelable {
         this.type = type;
     }
 
-    /** constructor: Animal
-     *
-     * default constructor. empty.
+    /**
+     * constructor: Animal
+     * <p>
+     * default constructor for Firebase. empty.
      */
     public Animal() {
 
@@ -81,7 +84,7 @@ public class Animal implements Parcelable {
 
     @Override
     public String toString() {
-        return String.format("Animal{ name: \"%s\", breed: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}", name, breed, userID, animalID, age, description,type);
+        return String.format("Animal{ name: \"%s\", breed: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\"}", name, breed, userID, animalID, age, description, type);
     }
 
     @Override

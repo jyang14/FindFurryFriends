@@ -3,9 +3,10 @@ package com.b5.findfurryfriends.firebase.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/** User.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * User.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 public class User {
     public String username;
@@ -14,11 +15,12 @@ public class User {
     public List<Long> animalIDs;
     public List<Long> favorites;
 
-    /** constructor: User
+    /**
+     * constructor: User
      *
      * @param username user's name
-     * @param userID generated from firebase
-     * @param contact user's email
+     * @param userID   generated from firebase
+     * @param contact  user's email
      */
     public User(String username, long userID, String contact) {
         this.username = username;
@@ -28,11 +30,12 @@ public class User {
         favorites = new ArrayList<>();
     }
 
-    /** constructor: User
-     *
-     * default constructor. empty.
+    /**
+     * constructor: User
+     * <p>
+     * default constructor for Firebase. empty.
      */
-    public User(){
+    public User() {
 
     }
 }

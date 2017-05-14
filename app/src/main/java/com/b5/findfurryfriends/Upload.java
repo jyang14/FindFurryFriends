@@ -13,9 +13,10 @@ import android.widget.TextView;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
-/** Upload.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * Upload.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 public class Upload extends AppCompatActivity {
 
@@ -67,14 +68,14 @@ public class Upload extends AppCompatActivity {
                 if (type.equals(""))
                     valid = false;
 
-                if(valid)
-                FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, null, breed, type));
+                if (valid)
+                    FirebaseWrapper.getFirebase(Upload.this).createCaptureIntent(new Animal(name, age, description, null, breed, type));
 
-                else{
+                else {
                     new AlertDialog.Builder(Upload.this)
                             .setTitle("Error")
                             .setMessage("Mandatory fields are empty!")
-                            .setNeutralButton("OK",null).create().show();
+                            .setNeutralButton("OK", null).create().show();
                 }
             }
         });

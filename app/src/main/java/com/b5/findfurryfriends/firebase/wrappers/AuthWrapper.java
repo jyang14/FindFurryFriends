@@ -25,9 +25,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-/** AuthWrapper.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * AuthWrapper.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, AuthInterface {
 

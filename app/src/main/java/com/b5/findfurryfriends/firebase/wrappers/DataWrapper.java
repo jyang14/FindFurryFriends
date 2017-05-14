@@ -17,9 +17,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** DataWrapper.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * DataWrapper.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 class DataWrapper implements DataInterface {
 

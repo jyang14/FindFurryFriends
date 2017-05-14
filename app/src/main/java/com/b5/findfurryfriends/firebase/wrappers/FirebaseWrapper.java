@@ -15,9 +15,10 @@ import com.b5.findfurryfriends.firebase.handlers.SignedOutHandler;
 
 import java.util.List;
 
-/** FirebaseWrapper.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * FirebaseWrapper.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 //TODO Refactor code move stuff to DataWrapper and AuthWrapper (make concrete)
 public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInterface // Multiple inheritance hack
@@ -31,7 +32,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     private final DataWrapper dataWrapper;
     private final StorageWrapper storageWrapper;
 
-    /** constructor: FirebaseWrapper
+    /**
+     * constructor: FirebaseWrapper
      *
      * @param activity
      */
@@ -45,7 +47,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
 
     }
 
-    /** method: getFirebase
+    /**
+     * method: getFirebase
      *
      * @param activity AppCompactActivity instances preferred
      * @return FirebaseWrapper instance
@@ -61,7 +64,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
 
     }
 
-    /** method: setContext
+    /**
+     * method: setContext
      *
      * @param activity
      */
@@ -73,23 +77,24 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         }
     }
 
-    /** method: signIn
-     *
+    /**
+     * method: signIn
      */
     @Override
     public void signIn() {
         authWrapper.signIn();
     }
 
-    /** method: signOut
-     *
+    /**
+     * method: signOut
      */
     @Override
     public void signOut(SignedOutHandler signedOutHandler) {
         authWrapper.signOut(signedOutHandler);
     }
 
-    /** method: signInOnIntentResult
+    /**
+     * method: signInOnIntentResult
      *
      * @param requestCode
      * @param data
@@ -100,7 +105,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         authWrapper.signInOnIntentResult(requestCode, data, signedInHandler);
     }
 
-    /** method: getUser
+    /**
+     * method: getUser
      *
      * @return User
      */
@@ -109,7 +115,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         return dataWrapper.getUser();
     }
 
-    /** method: setUser
+    /**
+     * method: setUser
      *
      * @param user
      */
@@ -118,7 +125,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         dataWrapper.setUser(user);
     }
 
-    /** method: uploadAnimal
+    /**
+     * method: uploadAnimal
      *
      * @param animal
      */
@@ -127,7 +135,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         dataWrapper.uploadAnimal(animal);
     }
 
-    /** method: search
+    /**
+     * method: search
      *
      * @param tags
      * @param handler
@@ -137,7 +146,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         dataWrapper.search(tags, handler);
     }
 
-    /** method: addFavorite
+    /**
+     * method: addFavorite
      *
      * @param animal
      */
@@ -146,7 +156,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         dataWrapper.addFavorite(animal);
     }
 
-    /** method: getFavorites
+    /**
+     * method: getFavorites
      *
      * @param fetchAnimalHandler
      */
@@ -155,7 +166,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         dataWrapper.getFavorites(fetchAnimalHandler);
     }
 
-    /** method: removeFavorite
+    /**
+     * method: removeFavorite
      *
      * @param animal
      */
@@ -164,7 +176,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         dataWrapper.removeFavorite(animal);
     }
 
-    /** method: getUserFromAnimal
+    /**
+     * method: getUserFromAnimal
      *
      * @param animal
      * @param userHandler
@@ -174,7 +187,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         dataWrapper.getUserFromAnimal(animal, userHandler);
     }
 
-    /** method: createCaptureIntent
+    /**
+     * method: createCaptureIntent
      *
      * @param animal
      */
@@ -183,7 +197,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         storageWrapper.createCaptureIntent(animal);
     }
 
-    /** method: getImage
+    /**
+     * method: getImage
      *
      * @param name
      * @param imageView
@@ -193,7 +208,8 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
         storageWrapper.getImage(name, imageView);
     }
 
-    /** method: uploadOnIntentResult
+    /**
+     * method: uploadOnIntentResult
      *
      * @param requestCode
      * @param resultCode

@@ -9,22 +9,25 @@ import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
 import java.util.List;
 
-/** SearchAdapter.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * SearchAdapter.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 public class SearchAdapter extends RVAdapter {
 
     static private final String TAG = "SEARCHADAPTER";
 
-    /** constructor: SearchAdapter
-     *
+    /**
+     * constructor: SearchAdapter
+     * <p>
      * default constructor
      */
     public SearchAdapter() {
     }
 
-    /** method: setPets
+    /**
+     * method: setPets
      *
      * @param pets the list of pets to be displayed
      */
@@ -32,7 +35,7 @@ public class SearchAdapter extends RVAdapter {
     public void setPets(List<Animal> pets) {
 
         User user = FirebaseWrapper.getFirebase(context).getUser();
-        if(user==null){
+        if (user == null) {
             Log.w(TAG, "ERROR USER IS NULL!");
             return;
         }

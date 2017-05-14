@@ -10,9 +10,10 @@ import com.b5.findfurryfriends.firebase.handlers.SignedInHandler;
 import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 import com.google.android.gms.common.SignInButton;
 
-/** Login.java
- *  Mass Academy Apps for Good - B5
- *  April 2017
+/**
+ * Login.java
+ * Mass Academy Apps for Good - B5
+ * April 2017
  */
 public class Login extends AppCompatActivity implements SignedInHandler {
 
@@ -31,8 +32,8 @@ public class Login extends AppCompatActivity implements SignedInHandler {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         FirebaseWrapper.getFirebase(this).signInOnIntentResult(requestCode, data, this);
 
     }

@@ -5,14 +5,16 @@ import android.view.View;
 import com.b5.findfurryfriends.firebase.data.Animal;
 import com.b5.findfurryfriends.firebase.wrappers.FirebaseWrapper;
 
-/** FavoriteAdapter.java
- *  Mass Academy Apps for Good - B5
- *  May 2017
+/**
+ * FavoriteAdapter.java
+ * Mass Academy Apps for Good - B5
+ * May 2017
  */
 public class FavoriteAdapter extends RVAdapter {
 
-    /** constructor: FavoriteAdapter
-     *
+    /**
+     * constructor: FavoriteAdapter
+     * <p>
      * default constructor. empty.
      */
     public FavoriteAdapter() {
