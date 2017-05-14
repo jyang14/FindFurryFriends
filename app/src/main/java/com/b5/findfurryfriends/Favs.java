@@ -20,19 +20,9 @@ import java.util.List;
  *  April 2017
  */
 public class Favs extends AppCompatActivity implements FetchAnimalHandler {
+
     private FavoriteAdapter adapter;
 
-//    List<Animal> favs;
-//
-//    public static List<Animal> getFavs(SearchAdapter adapter) {
-//        List<Animal> favourites = adapter.getFavs();
-//        return favourites;
-//    }
-
-    /**
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,16 +45,11 @@ public class Favs extends AppCompatActivity implements FetchAnimalHandler {
 
 
         adapter = new FavoriteAdapter();
-//        favs = getFavs(adapter);
-//        adapter.setFavs(favs);
         rv.setAdapter(adapter);
         FirebaseWrapper.getFirebase(this).getFavorites(this);
 
     }
 
-    /**
-     *
-     */
     @Override
     public void onBackPressed() {
         Intent toSearch = new Intent(this, Search.class);
@@ -73,9 +58,9 @@ public class Favs extends AppCompatActivity implements FetchAnimalHandler {
         overridePendingTransition(0, 0);
     }
 
-    /**
+    /** method: handle
      *
-     * @param results
+     * @param results list of pets returned
      */
     @Override
     public void handle(List<Animal> results) {
