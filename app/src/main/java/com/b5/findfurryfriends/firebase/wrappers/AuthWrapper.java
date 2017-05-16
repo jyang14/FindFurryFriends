@@ -38,12 +38,12 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
     private final int RC_SIGN_IN = 9001;
     private final GoogleApiClient mGoogleApiClient;
     private final FirebaseAuth mAuth;
+    private final AuthListener mAuthListener;
+
     /**
      * The Authentication State Listener .
      */
-    AuthListener mAuthListener;
     private Context activity;
-    private boolean hasAuthListener = true;
     private boolean signOut = false;
     private SignedOutHandler signedOutHandler;
 
@@ -52,11 +52,15 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
      * <p>
      * Instantiates a new AuthWrapper.
      *
-     * @param activity the activity
+     * @param activity     the activity
+     * @param authListener the authentication state listener
      */
-    AuthWrapper(final Context activity) {
+    AuthWrapper(final Context activity, AuthListener authListener) {
         this.activity = activity;
         mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = authListener;
+        mAuth.addAuthStateListener(authListener);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1055526604988-3ag104h10gjtt0btuvl9nsjehqdfv3no.apps.googleusercontent.com").requestEmail().build();
         mGoogleApiClient = new GoogleApiClient.Builder(activity).enableAutoManage(((AppCompatActivity) activity) /* FragmentActivity */, this /* OnConnectionFailedListener */).addApi(com.google.android.gms.auth.api.Auth.GOOGLE_SIGN_IN_API, gso).build();
@@ -112,10 +116,6 @@ class AuthWrapper implements GoogleApiClient.ConnectionCallbacks, GoogleApiClien
      */
     @Override
     public void signIn() {
-        if (hasAuthListener) {
-            mAuth.addAuthStateListener(mAuthListener);
-            hasAuthListener = false;
-        }
         Intent signInIntent = com.google.android.gms.auth.api.Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         ((AppCompatActivity) activity).startActivityForResult(signInIntent, RC_SIGN_IN);
 

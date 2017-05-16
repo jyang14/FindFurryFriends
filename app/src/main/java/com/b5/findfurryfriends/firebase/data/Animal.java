@@ -3,6 +3,9 @@ package com.b5.findfurryfriends.firebase.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -46,11 +49,11 @@ public class Animal implements Parcelable {
     /**
      * The user id of uploader.
      */
-    public long userID;
+    public String userID;
     /**
      * The animal id.
      */
-    public long animalID;
+    public String animalID;
     /**
      * The age of animal.
      */
@@ -60,7 +63,7 @@ public class Animal implements Parcelable {
      */
     public String description;
     /**
-     * The Type.
+     * The type of animal
      */
     public String type;
     /**
@@ -103,8 +106,8 @@ public class Animal implements Parcelable {
         name = in.readString();
         image = in.readString();
         breed = in.readString();
-        userID = in.readLong();
-        animalID = in.readLong();
+        userID = in.readString();
+        animalID = in.readString();
         age = in.readInt();
         description = in.readString();
         type = in.readString();
@@ -116,10 +119,45 @@ public class Animal implements Parcelable {
         }
     }
 
+    /**
+     * Hashing function that returns string instead of int.
+     * According to the birthday paradox I am safe as long there will be less than 2^64 entries
+     *
+     * @return Returns the SHA-256 of the class
+     */
+    public String hash() {
+
+        String output;
+
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.update(name.getBytes());
+            digest.update((byte) 0);
+            digest.update(userID.getBytes());
+            digest.update((byte) 0);
+            digest.update(image.getBytes());
+            digest.update((byte) 0);
+            digest.update(breed.getBytes());
+            digest.update((byte) 0);
+            digest.update(type.getBytes());
+            digest.update((byte) 0);
+            byte[] hash = digest.digest(description.getBytes());
+            BigInteger bigInt = new BigInteger(1, hash);
+            output = bigInt.toString(16);
+
+            return output;
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return "N" + String.format("%X", System.nanoTime());
+        }
+
+    }
+
     @Override
     public String toString() {
         return String.format(Locale.US,
-                "Animal{ name: \"%s\", breed: \"%s\", userID: %d, animalID: %d, age: %d, description: \"%s\", type: \"%s\"}",
+                "Animal{ name: \"%s\", breed: \"%s\", userID: %s, animalID: %s, age: %d, description: \"%s\", type: \"%s\"}",
                 name, breed, userID, animalID, age, description, type);
     }
 
@@ -133,8 +171,8 @@ public class Animal implements Parcelable {
         dest.writeString(name);
         dest.writeString(image);
         dest.writeString(breed);
-        dest.writeLong(userID);
-        dest.writeLong(animalID);
+        dest.writeString(userID);
+        dest.writeString(animalID);
         dest.writeInt(age);
         dest.writeString(description);
         dest.writeString(type);

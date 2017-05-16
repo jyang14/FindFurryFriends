@@ -8,6 +8,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * AuthListener.java
  * Mass Academy Apps for Good - B5
@@ -20,6 +24,7 @@ class AuthListener implements FirebaseAuth.AuthStateListener {
     private final DataWrapper dataWrapper;
     private SignedInHandler signedInHandler;
 
+
     /**
      * constructor: AuthListener
      * <p>
@@ -31,6 +36,27 @@ class AuthListener implements FirebaseAuth.AuthStateListener {
     AuthListener(FirebaseWrapper firebaseWrapper, DataWrapper dataWrapper) {
         this.firebaseWrapper = firebaseWrapper;
         this.dataWrapper = dataWrapper;
+    }
+
+    /**
+     * Gets the MD5 hash of the email for indexing
+     * Assumes that one has an email and cannot change their email address for a given account
+     *
+     * @param email email address of the user
+     * @return hash of the email
+     */
+    private String hashEmail(String email) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+
+            byte[] hash = digest.digest(email.getBytes());
+            BigInteger bigInt = new BigInteger(1, hash);
+            return bigInt.toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return "X" + System.nanoTime();
+        }
+
     }
 
     /**
@@ -51,8 +77,8 @@ class AuthListener implements FirebaseAuth.AuthStateListener {
 
             Log.d(FirebaseWrapper.TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
-            DatabaseReference authRef = dataWrapper.database.getReference("/users/auth");
-            authRef.addListenerForSingleValueEvent(new LoginListener(firebaseWrapper, authRef, dataWrapper.database, signedInHandler));
+            DatabaseReference userRef = dataWrapper.usersRef.child(hashEmail(user.getEmail()));
+            userRef.addListenerForSingleValueEvent(new LoginListener(dataWrapper, signedInHandler));
 
         } else {  // User is signed out
             Log.d(FirebaseWrapper.TAG, "onAuthStateChanged:signed_out");

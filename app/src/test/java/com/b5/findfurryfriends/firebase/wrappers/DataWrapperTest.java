@@ -97,6 +97,11 @@ public class DataWrapperTest {
         verifyStatic(times(3));
         Log.w(anyString(), anyString());
 
+        dataWrapper.setUser(user);
+        dataWrapper.uploadAnimal(animal);
+        verifyStatic(times(4));
+        Log.w(anyString(), anyString());
+
     }
 
     @Test
@@ -111,6 +116,7 @@ public class DataWrapperTest {
 
 
         Animal animal = new Animal();
+        animal.image = "";
         User user = new User();
         dataWrapper.setUser(user);
         dataWrapper.uploadAnimal(animal);
@@ -334,7 +340,7 @@ public class DataWrapperTest {
         final User user = new User();
         user.favorites = new ArrayList<>();
         for (int x = 0; x < 323; x++) { // Size chosen arbitrarily
-            user.favorites.add((long) x * 3);
+            user.favorites.add(String.valueOf(x * 3));
         }
 
         dataWrapper.setUser(user);
@@ -349,11 +355,11 @@ public class DataWrapperTest {
                 DataSnapshot snapshot = mock(DataSnapshot.class);
 
 
-                when(snapshot.getValue(any(Class.class))).thenReturn(user.userID == 1 ? null : new Animal());
-                if (user.userID == 1)
-                    user.userID = 0;
+                when(snapshot.getValue(any(Class.class))).thenReturn(user.username.equals("") ? null : new Animal());
+                if (user.username.equals(""))
+                    user.username = "1";
                 else
-                    user.userID = 1;
+                    user.username.equals("");
 
                 listener.onDataChange(snapshot);
 
@@ -384,7 +390,7 @@ public class DataWrapperTest {
         user.favorites = new ArrayList<>();
 
         for (int x = 0; x < 1; x++) { // Size chosen arbitrarily
-            user.favorites.add((long) x * 3);
+            user.favorites.add(String.valueOf(x * 3));
         }
 
         dataWrapper.setUser(user);
@@ -444,14 +450,14 @@ public class DataWrapperTest {
         verifyStatic(times(4));
         Log.w(anyString(), anyString());
 
-        user.favorites.add(100L); // Random irrelevant number
+        user.favorites.add("100"); // Random irrelevant number
 
         dataWrapper.removeFavorite(new Animal());
         verifyStatic(times(5));
         Log.w(anyString(), anyString());
 
 
-        user.favorites.add(0L); // Actual id of a new animal
+        user.favorites.add(null); // Actual id of a new animal
 
         dataWrapper.removeFavorite(new Animal());
         verifyStatic(times(5));

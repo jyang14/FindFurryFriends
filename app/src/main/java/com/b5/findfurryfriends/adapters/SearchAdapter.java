@@ -39,7 +39,7 @@ public class SearchAdapter extends RVAdapter {
             Log.w(TAG, "ERROR USER IS NULL!");
             return;
         }
-        List<Long> favorites = user.favorites;
+        List<String> favorites = user.favorites;
         if (favorites != null)
             for (int i = pets.size() - 1; i >= 0; i--)
                 if (favorites.contains(pets.get(i).animalID))
