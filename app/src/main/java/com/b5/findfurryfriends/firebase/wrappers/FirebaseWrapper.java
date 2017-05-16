@@ -47,7 +47,7 @@ public class FirebaseWrapper implements AuthInterface, DataInterface, StorageInt
     private FirebaseWrapper(final Context context) {
         Log.v(TAG, "Constructor called");
         dataWrapper = new DataWrapper();
-        authWrapper = new AuthWrapper(context, new AuthListener(this, dataWrapper));
+        authWrapper = new AuthWrapper(context, new AuthListener(dataWrapper));
         storageWrapper = new StorageWrapper(context);
 
     }

@@ -20,7 +20,6 @@ import java.security.NoSuchAlgorithmException;
  * Listener of Firebase Authentication status
  */
 class AuthListener implements FirebaseAuth.AuthStateListener {
-    private final FirebaseWrapper firebaseWrapper;
     private final DataWrapper dataWrapper;
     private SignedInHandler signedInHandler;
 
@@ -30,11 +29,9 @@ class AuthListener implements FirebaseAuth.AuthStateListener {
      * <p>
      * Instantiates a new Auth listener.
      *
-     * @param firebaseWrapper the firebase wrapper
      * @param dataWrapper     the data wrapper
      */
-    AuthListener(FirebaseWrapper firebaseWrapper, DataWrapper dataWrapper) {
-        this.firebaseWrapper = firebaseWrapper;
+    AuthListener(DataWrapper dataWrapper) {
         this.dataWrapper = dataWrapper;
     }
 

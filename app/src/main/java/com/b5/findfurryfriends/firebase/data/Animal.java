@@ -121,7 +121,7 @@ public class Animal implements Parcelable {
 
     /**
      * Hashing function that returns string instead of int.
-     * According to the birthday paradox I am safe as long there will be less than 2^64 entries
+     * According to the birthday paradox I am safe as long there will be less than 2^120 entries
      *
      * @return Returns the SHA-256 of the class
      */
