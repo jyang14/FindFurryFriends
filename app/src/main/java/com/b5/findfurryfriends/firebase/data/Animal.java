@@ -157,8 +157,8 @@ public class Animal implements Parcelable {
     @Override
     public String toString() {
         return String.format(Locale.US,
-                "Animal{ name: \"%s\", breed: \"%s\", userID: %s, animalID: %s, age: %d, description: \"%s\", type: \"%s\"}",
-                name, breed, userID, animalID, age, description, type);
+                "Animal{ name: \"%s\", breed: \"%s\", userID: %s, age: %d, description: \"%s\", type: \"%s\", hash: \"%s\" }\n",
+                name, breed, userID, age, description, type, hash());
     }
 
     @Override
@@ -172,7 +172,6 @@ public class Animal implements Parcelable {
         dest.writeString(image);
         dest.writeString(breed);
         dest.writeString(userID);
-        dest.writeString(animalID);
         dest.writeInt(age);
         dest.writeString(description);
         dest.writeString(type);

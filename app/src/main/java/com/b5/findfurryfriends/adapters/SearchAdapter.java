@@ -42,7 +42,7 @@ public class SearchAdapter extends RVAdapter {
         List<String> favorites = user.favorites;
         if (favorites != null)
             for (int i = pets.size() - 1; i >= 0; i--)
-                if (favorites.contains(pets.get(i).animalID))
+                if (favorites.contains(pets.get(i).hash()))
                     pets.remove(i);
 
         super.setPets(pets);
