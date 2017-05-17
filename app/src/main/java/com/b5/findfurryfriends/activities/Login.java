@@ -22,9 +22,6 @@ public class Login extends AppCompatActivity implements SignedInHandler {
         super.onCreate(savedInstanceState);
         setContentView(com.b5.findfurryfriends.R.layout.activity_login);
 
-        FirebaseWrapper.getFirebase(this); // Constructs Firebase instance for latter
-
-
         final SignInButton signIn = (SignInButton) findViewById(com.b5.findfurryfriends.R.id.sign_in_button);
         signIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

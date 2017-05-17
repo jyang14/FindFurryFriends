@@ -164,7 +164,7 @@ class DataWrapper implements DataInterface {
             user.favorites = new ArrayList<>();
 
         // Adds to favorite
-        user.favorites.add(animal.animalID);
+        user.favorites.add(animal.hash());
 
         // Updates user on database
         updateUser();
@@ -239,12 +239,12 @@ class DataWrapper implements DataInterface {
     @Override
     public void removeFavorite(Animal animal) {
 
-        if (user == null || animal == null || user.favorites == null || !user.favorites.contains(animal.animalID)) {
+        if (user == null || animal == null || user.favorites == null || !user.favorites.contains(animal.hash())) {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
 
-        user.favorites.remove(animal.animalID);
+        user.favorites.remove(animal.hash());
         updateUser();
 
     }
