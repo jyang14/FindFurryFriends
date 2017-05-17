@@ -87,9 +87,9 @@ class DataWrapper implements DataInterface {
      * @param animal animal to be uploaded
      */
     @Override
-    public void uploadAnimal(final Animal animal) {
+    public void uploadAnimal(Animal animal) {
 
-        if (user == null || animal == null || animal.image == null) {
+        if (user == null || animal == null || animal.image == null || animal.hash() == null) {
             Log.w(TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
@@ -154,7 +154,7 @@ class DataWrapper implements DataInterface {
      */
     @Override
     public void addFavorite(Animal animal) {
-        if (user == null || animal == null) {
+        if (user == null || animal == null || animal.hash() == null) {
             Log.w(TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
@@ -176,7 +176,7 @@ class DataWrapper implements DataInterface {
      * Updates the user on Firebase with the local cached user
      */
     void updateUser() {
-        if (user == null) {
+        if (user == null || user.hashEmail() == null) {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
@@ -239,7 +239,7 @@ class DataWrapper implements DataInterface {
     @Override
     public void removeFavorite(Animal animal) {
 
-        if (user == null || animal == null || user.favorites == null || animal.hash() == null || !user.favorites.contains(animal.hash())) {
+        if (user == null || user.hashEmail() == null || animal == null || user.favorites == null || animal.hash() == null || !user.favorites.contains(animal.hash())) {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
@@ -259,7 +259,7 @@ class DataWrapper implements DataInterface {
      */
     @Override
     public void getUserFromAnimal(Animal animal, final FetchUserHandler userHandler) {
-        if (animal == null || userHandler == null) {
+        if (animal == null || animal.hash() == null || userHandler == null) {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }
