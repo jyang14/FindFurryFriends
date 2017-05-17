@@ -11,7 +11,7 @@
         android:title="@string/upload" />
     <item
         android:id="@+id/navigation_favs"
-        android:icon="@drawable/ic_info_black_24dp"
+        android:icon="@android:drawable/btn_star"
         android:title="@string/favorites" />
     <item
         android:id="@+id/navigation_profile"
