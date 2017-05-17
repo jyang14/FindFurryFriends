@@ -17,6 +17,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -24,15 +25,16 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.validateMockitoUsage;
@@ -53,6 +55,8 @@ public class DataWrapperTest {
 
     private DataWrapper dataWrapper;
     private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userRef;
+    private DatabaseReference animalRef;
 
 
     @Before
@@ -60,7 +64,17 @@ public class DataWrapperTest {
         mockStatic(FirebaseDatabase.class);
         firebaseDatabase = mock(FirebaseDatabase.class);
         when(FirebaseDatabase.getInstance()).thenReturn(firebaseDatabase);
+        userRef = mock(DatabaseReference.class);
+        animalRef = mock(DatabaseReference.class);
+
+        when(firebaseDatabase.getReference("users")).thenReturn(userRef);
+        when(userRef.child(anyString())).thenReturn(userRef);
+        when(firebaseDatabase.getReference("animals")).thenReturn(animalRef);
+        when(animalRef.child(anyString())).thenReturn(animalRef);
+
         dataWrapper = new DataWrapper();
+
+
     }
 
     /**
@@ -110,18 +124,15 @@ public class DataWrapperTest {
         when(Log.v(anyString(), anyString())).thenReturn(0);
         assertEquals(null, dataWrapper.getUser());
 
-        DatabaseReference ref = mock(DatabaseReference.class);
-        when(firebaseDatabase.getReference(anyString())).thenReturn(ref);
-        doNothing().when(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
-
-
-        Animal animal = new Animal();
+        User user = mock(User.class);
+        when(user.hashEmail()).thenReturn("sdsdffsdf");
+        Animal animal = mock(Animal.class);
         animal.image = "";
-        User user = new User();
+        when(animal.hash()).thenReturn("sdfsdf");
         dataWrapper.setUser(user);
         dataWrapper.uploadAnimal(animal);
-        verify(firebaseDatabase).getReference(anyString());
-        verify(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        verify(animalRef).child(anyString());
+        verify(animalRef).setValue(Matchers.anyObject());
     }
 
     @Test
@@ -140,10 +151,6 @@ public class DataWrapperTest {
 
         final FetchAnimalHandler fetchAnimalHandler = new FetchAnimalHandlerTest();
 
-        DatabaseReference ref = mock(DatabaseReference.class);
-
-        when(firebaseDatabase.getReference(anyString())).thenReturn(ref);
-
         doAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -161,12 +168,11 @@ public class DataWrapperTest {
 
                 return null;
             }
-        }).when(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        }).when(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
 
         dataWrapper.search(null, fetchAnimalHandler);
-        verify(firebaseDatabase).getReference(anyString());
-        verify(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        verify(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
     }
 
@@ -175,10 +181,6 @@ public class DataWrapperTest {
         assertEquals(null, dataWrapper.getUser());
 
         final FetchAnimalHandler fetchAnimalHandler = new FetchAnimalHandlerTest();
-
-        DatabaseReference ref = mock(DatabaseReference.class);
-
-        when(firebaseDatabase.getReference(anyString())).thenReturn(ref);
 
         doAnswer(new Answer<Object>() {
             @Override
@@ -189,13 +191,16 @@ public class DataWrapperTest {
 
                 DataSnapshot snapshot = mock(DataSnapshot.class);
 
-                List<Animal> animals = new ArrayList<>();
+                HashMap<String, Animal> animals = new HashMap<>();
+
+                Animal animal = mock(Animal.class);
+                when(animal.hash()).thenReturn("");
 
                 for (int x = 0; x < 323; x++) {
-                    animals.add(x % 3 == 0 ? null : new Animal());
+                    animals.put(String.valueOf(x), x % 3 == 0 ? null : animal);
                 }
 
-                assertTrue(animals.contains(null));
+                assertTrue(animals.values().contains(null));
 
                 when(snapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(animals);
 
@@ -205,12 +210,11 @@ public class DataWrapperTest {
 
                 return null;
             }
-        }).when(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        }).when(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
 
         dataWrapper.search(null, fetchAnimalHandler);
-        verify(firebaseDatabase).getReference(anyString());
-        verify(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        verify(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
     }
 
@@ -221,9 +225,6 @@ public class DataWrapperTest {
 
         final FetchAnimalHandler fetchAnimalHandler = new FetchAnimalHandlerTest();
 
-        DatabaseReference ref = mock(DatabaseReference.class);
-
-        when(firebaseDatabase.getReference(anyString())).thenReturn(ref);
 
         doAnswer(new Answer<Object>() {
             @Override
@@ -240,12 +241,11 @@ public class DataWrapperTest {
 
                 return null;
             }
-        }).when(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        }).when(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
 
         dataWrapper.search(null, fetchAnimalHandler);
-        verify(firebaseDatabase).getReference(anyString());
-        verify(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        verify(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
     }
 
@@ -261,21 +261,24 @@ public class DataWrapperTest {
         verifyStatic();
         Log.w(anyString(), anyString());
 
-        Animal animal = new Animal();
+        Animal animal = mock(Animal.class);
         dataWrapper.addFavorite(animal);
         verifyStatic(times(2)); // Previous calls are counted
         Log.w(anyString(), anyString());
 
-        User user = new User();
+        User user = mock(User.class);
+        when(user.hashEmail()).thenReturn("sdfsdf");
         dataWrapper.setUser(user);
         dataWrapper.addFavorite(null);
         verifyStatic(times(3));
         Log.w(anyString(), anyString());
 
+        when(animal.hash()).thenReturn("sdfsdf");
+
         dataWrapper.addFavorite(animal);
         verifyStatic(times(3));
         Log.w(anyString(), anyString());
-        verify(firebaseDatabase).getReference(anyString());
+        verify(userRef).setValue(anyObject());
     }
 
     @Test
@@ -283,22 +286,21 @@ public class DataWrapperTest {
         mockStatic(Log.class);
         assertEquals(null, dataWrapper.getUser()); // Sanity Check
 
-        DatabaseReference ref = mock(DatabaseReference.class);
-        when(firebaseDatabase.getReference(anyString())).thenReturn(ref);
-
         Method method = dataWrapper.getClass().getDeclaredMethod("updateUser", null);
         method.setAccessible(true);
         method.invoke(dataWrapper, null);
         verifyStatic(times(1));
         Log.w(anyString(), anyString());
 
-        User user = new User();
+        User user = mock(User.class);
+        when(user.hashEmail()).thenReturn("sdfsdf");
         dataWrapper.setUser(user);
         method.invoke(dataWrapper, null);
         verifyStatic(times(1));
         Log.w(anyString(), anyString());
 
-        verify(firebaseDatabase).getReference(anyString());
+        verify(userRef).child(anyString());
+        verify(userRef).setValue(anyString());
 
 
     }
@@ -334,10 +336,8 @@ public class DataWrapperTest {
 
         final FetchAnimalHandler fetchAnimalHandler = new FetchAnimalHandlerTest();
 
-        DatabaseReference ref = mock(DatabaseReference.class);
-        when(firebaseDatabase.getReference(anyString())).thenReturn(ref);
-
         final User user = new User();
+        user.username = "";
         user.favorites = new ArrayList<>();
         for (int x = 0; x < 323; x++) { // Size chosen arbitrarily
             user.favorites.add(String.valueOf(x * 3));
@@ -367,12 +367,12 @@ public class DataWrapperTest {
 
                 return null;
             }
-        }).when(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        }).when(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
 
         dataWrapper.getFavorites(fetchAnimalHandler);
-        verify(firebaseDatabase, times(323)).getReference(anyString());
-        verify(ref, times(323)).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        verify(animalRef, times(323)).child(anyString());
+        verify(animalRef, times(323)).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
     }
 
@@ -383,8 +383,6 @@ public class DataWrapperTest {
 
         final FetchAnimalHandler fetchAnimalHandler = new FetchAnimalHandlerTest();
 
-        DatabaseReference ref = mock(DatabaseReference.class);
-
         User user = new User();
 
         user.favorites = new ArrayList<>();
@@ -394,8 +392,6 @@ public class DataWrapperTest {
         }
 
         dataWrapper.setUser(user);
-
-        when(firebaseDatabase.getReference(anyString())).thenReturn(ref);
 
         doAnswer(new Answer<Object>() {
             @Override
@@ -412,12 +408,11 @@ public class DataWrapperTest {
 
                 return null;
             }
-        }).when(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        }).when(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
 
         dataWrapper.getFavorites(fetchAnimalHandler);
-        verify(firebaseDatabase).getReference(anyString());
-        verify(ref).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        verify(animalRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
     }
 
@@ -429,37 +424,41 @@ public class DataWrapperTest {
         DatabaseReference ref = mock(DatabaseReference.class);
         when(firebaseDatabase.getReference(anyString())).thenReturn(ref);
 
+        Animal animal = mock(Animal.class);
+        when(animal.hash()).thenReturn("0");
+
         dataWrapper.removeFavorite(null);
         verifyStatic(times(1));
         Log.w(anyString(), anyString());
 
-        dataWrapper.removeFavorite(new Animal());
+        dataWrapper.removeFavorite(animal);
         verifyStatic(times(2));
         Log.w(anyString(), anyString());
 
-        User user = new User();
+        User user = mock(User.class);
+        when(user.hashEmail()).thenReturn("test");
 
         dataWrapper.setUser(user);
-        dataWrapper.removeFavorite(new Animal());
+        dataWrapper.removeFavorite(animal);
         verifyStatic(times(3));
         Log.w(anyString(), anyString());
 
         user.favorites = new ArrayList<>();
 
-        dataWrapper.removeFavorite(new Animal());
+        dataWrapper.removeFavorite(animal);
         verifyStatic(times(4));
         Log.w(anyString(), anyString());
 
         user.favorites.add("100"); // Random irrelevant number
 
-        dataWrapper.removeFavorite(new Animal());
+        dataWrapper.removeFavorite(animal);
         verifyStatic(times(5));
         Log.w(anyString(), anyString());
 
 
-        user.favorites.add(null); // Actual id of a new animal
+        user.favorites.add("0"); // Actual id of a new animal
 
-        dataWrapper.removeFavorite(new Animal());
+        dataWrapper.removeFavorite(animal);
         verifyStatic(times(5));
         Log.w(anyString(), anyString());
 
