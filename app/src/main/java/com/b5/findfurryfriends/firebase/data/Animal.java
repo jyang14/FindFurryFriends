@@ -150,6 +150,8 @@ public class Animal implements Parcelable {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return "N" + String.format("%X", System.nanoTime());
+        } catch (NullPointerException e) {
+            return null;
         }
 
     }

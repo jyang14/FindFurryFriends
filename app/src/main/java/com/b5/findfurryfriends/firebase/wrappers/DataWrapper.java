@@ -259,7 +259,7 @@ class DataWrapper implements DataInterface {
      */
     @Override
     public void getUserFromAnimal(Animal animal, final FetchUserHandler userHandler) {
-        if (animal == null || animal.hash() == null || userHandler == null) {
+        if (animal == null || userHandler == null) {
             Log.w(FirebaseWrapper.TAG, "ERROR PARAMETERS NOT INITIALIZED.");
             return;
         }

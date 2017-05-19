@@ -124,7 +124,7 @@ class StorageWrapper implements StorageInterface {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
 
             if (animal != null) {
-                Log.v(TAG, this.animal.toString());
+                Log.v(TAG, animal.toString());
             } else {
                 Log.v(TAG, "Animal is null");
             }
